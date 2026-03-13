@@ -1,0 +1,1666 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x17 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7176
+load:0x40078000,len:15564
+ho 0 tail 12 room 4
+load:0x40080400,len:4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.3.1-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Mar 10 2026 16:13:34[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (85) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=22ab4h (142004) map[0m
+[0;32mI (153) esp_image: segment 1: paddr=00032adc vaddr=3ff80000 size=00004h (     4) load[0m
+[0;32mI (154) esp_image: segment 2: paddr=00032ae8 vaddr=3ffbdb60 size=04bb4h ( 19380) load[0m
+[0;32mI (166) esp_image: segment 3: paddr=000376a4 vaddr=40080000 size=08974h ( 35188) load[0m
+[0;32mI (182) esp_image: segment 4: paddr=00040020 vaddr=400d0020 size=7f8f0h (522480) map[0m
+[0;32mI (361) esp_image: segment 5: paddr=000bf918 vaddr=40088974 size=0fd74h ( 64884) load[0m
+[0;32mI (399) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (399) boot: Disabling RNG early entropy source...[0m
+[0;32mI (411) cpu_start: Multicore app[0m
+[0;32mI (419) cpu_start: Pro cpu start user code[0m
+[0;32mI (419) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (420) app_init: Application information:[0m
+[0;32mI (422) app_init: Project name:     gatt_server_demos[0m
+[0;32mI (428) app_init: App version:      1[0m
+[0;32mI (432) app_init: Compile time:     Mar 10 2026 16:13:18[0m
+[0;32mI (438) app_init: ELF file SHA256:  d2bb07296...[0m
+[0;32mI (444) app_init: ESP-IDF:          v5.3.1-dirty[0m
+[0;32mI (449) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (454) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (459) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (464) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (471) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (477) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (483) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (489) heap_init: At 3FFC7280 len 00018D80 (99 KiB): DRAM[0m
+[0;32mI (495) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (502) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (508) heap_init: At 400986E8 len 00007918 (30 KiB): IRAM[0m
+[0;32mI (516) spi_flash: detected chip: generic[0m
+[0;32mI (519) spi_flash: flash io: dio[0m
+[0;33mW (523) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (537) coexist: coex firmware version: 4482466[0m
+[0;32mI (542) main_task: Started on CPU0[0m
+[0;32mI (552) main_task: Calling app_main()[0m
+[0;32mI (552) MAIN: === Soil Testing Kit (BLE GATT binary) booting ===[0m
+[0;32mI (562) GPS: UART2 RX=GPIO16 TX=GPIO17 @9600[0m
+[0;32mI (562) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (572) SOIL: UART1/RS485 TX=GPIO18 RX=GPIO19 DE/RE=GPIO4[0m
+[0;32mI (572) BTDM_INIT: BT controller compile version [b022216][0m
+[0;32mI (582) BTDM_INIT: Bluetooth MAC: 68:25:dd:32:fd:ba[0m
+[0;32mI (592) phy_init: phy_version 4830,54550f7,Jun 20 2024,14:22:08[0m
+[0;32mI (982) BLE: GATTS registered if=3[0m
+[0;32mI (982) MAIN: BLE ready name="SoilTestKit" SVC=0x00FF DATA=0xFF01 CMD=0xFF02 pkt=31B[0m
+[0;32mI (992) BLE: Service started SVC=40 DATA=42 CCCD=43 CMD=45[0m
+[0;32mI (992) BLE: START EVT status=0 handle=40[0m
+[0;32mI (992) LDR: ADC1 CH6 (GPIO34) ready[0m
+[0;32mI (1002) SOIL: Sensor task started – retries=3 recovery=2000ms[0m
+[0;32mI (1002) GPS: GPS task started[0m
+[0;32mI (1012) BLE: BLE advertising started  name="SoilTestKit"[0m
+[0;32mI (1012) MAIN: All tasks running - waiting for Flutter BLE connection...[0m
+[0;32mI (1012) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1022) main_task: Returned from app_main()[0m
+[0;32mI (1032) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1042) gpio: GPIO[14]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (2052) BLE: Power-on blink done[0m
+[0;32mI (2052) gpio: GPIO[35]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (3032) GPS: FIX lat=6.884374 lon=79.858757 alt=0.0m sats=0[0m
+[0;32mI (3032) GPS: FIX lat=6.884374 lon=79.858757 alt=23.9m sats=10[0m
+[0;32mI (3032) GPS: FIX lat=6.884374 lon=79.858757 alt=23.9m sats=10[0m
+[0;32mI (3042) GPS: FIX lat=6.884374 lon=79.858757 alt=24.3m sats=10[0m
+[0;33mW (3062) SOIL: TEMP attempt 1/3 failed[0m
+[0;32mI (3382) GPS: FIX lat=6.884370 lon=79.858765 alt=24.3m sats=10[0m
+[0;32mI (3502) GPS: FIX lat=6.884370 lon=79.858765 alt=25.0m sats=10[0m
+[0;32mI (5592) GPS: FIX lat=6.884369 lon=79.858765 alt=25.0m sats=10[0m
+[0;32mI (5592) GPS: FIX lat=6.884369 lon=79.858765 alt=25.1m sats=12[0m
+[0;32mI (5592) GPS: FIX lat=6.884367 lon=79.858757 alt=25.1m sats=12[0m
+[0;33mW (5622) SOIL: TEMP attempt 2/3 failed[0m
+[0;32mI (5832) GPS: FIX lat=6.884367 lon=79.858757 alt=25.2m sats=11[0m
+[0;32mI (8152) GPS: FIX lat=6.884367 lon=79.858757 alt=25.2m sats=11[0m
+[0;32mI (8152) GPS: FIX lat=6.884367 lon=79.858757 alt=25.3m sats=12[0m
+[0;32mI (8152) GPS: FIX lat=6.884368 lon=79.858757 alt=25.3m sats=12[0m
+[0;32mI (8152) GPS: FIX lat=6.884368 lon=79.858757 alt=25.2m sats=12[0m
+[0;33mW (8182) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (8182) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (8382) GPS: FIX lat=6.884365 lon=79.858757 alt=25.2m sats=12[0m
+[0;32mI (8512) GPS: FIX lat=6.884365 lon=79.858757 alt=25.7m sats=11[0m
+[0;32mI (9382) GPS: FIX lat=6.884361 lon=79.858765 alt=25.7m sats=11[0m
+[0;32mI (9502) GPS: FIX lat=6.884361 lon=79.858765 alt=26.2m sats=11[0m
+[0;32mI (10382) GPS: FIX lat=6.884360 lon=79.858765 alt=26.2m sats=11[0m
+[0;32mI (10502) GPS: FIX lat=6.884360 lon=79.858765 alt=26.4m sats=10[0m
+[0;32mI (12772) GPS: FIX lat=6.884359 lon=79.858765 alt=26.4m sats=10[0m
+[0;32mI (12772) GPS: FIX lat=6.884359 lon=79.858765 alt=26.3m sats=10[0m
+[0;32mI (12772) GPS: FIX lat=6.884360 lon=79.858757 alt=26.3m sats=10[0m
+[0;32mI (12782) GPS: FIX lat=6.884360 lon=79.858757 alt=26.0m sats=11[0m
+[0;33mW (12802) SOIL: MOIST attempt 1/3 failed[0m
+[0;32mI (15332) GPS: FIX lat=6.884360 lon=79.858757 alt=26.0m sats=11[0m
+[0;32mI (15332) GPS: FIX lat=6.884360 lon=79.858757 alt=26.0m sats=11[0m
+[0;32mI (15332) GPS: FIX lat=6.884361 lon=79.858757 alt=26.0m sats=11[0m
+[0;32mI (15342) GPS: FIX lat=6.884361 lon=79.858757 alt=26.0m sats=11[0m
+[0;33mW (15362) SOIL: MOIST attempt 2/3 failed[0m
+[0;32mI (15502) GPS: FIX lat=6.884364 lon=79.858757 alt=26.0m sats=11[0m
+[0;32mI (15502) GPS: FIX lat=6.884364 lon=79.858757 alt=25.6m sats=11[0m
+[0;32mI (17892) GPS: FIX lat=6.884366 lon=79.858757 alt=25.6m sats=11[0m
+[0;32mI (17892) GPS: FIX lat=6.884366 lon=79.858757 alt=25.4m sats=11[0m
+[0;32mI (17892) GPS: FIX lat=6.884366 lon=79.858757 alt=25.4m sats=11[0m
+[0;32mI (17902) GPS: FIX lat=6.884366 lon=79.858757 alt=25.3m sats=11[0m
+[0;33mW (17922) SOIL: MOIST attempt 3/3 failed[0m
+[0;31mE (17922) SOIL: MOIST: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (18382) GPS: FIX lat=6.884367 lon=79.858757 alt=25.3m sats=11[0m
+[0;32mI (18502) GPS: FIX lat=6.884367 lon=79.858757 alt=24.9m sats=11[0m
+[0;32mI (19382) GPS: FIX lat=6.884369 lon=79.858757 alt=24.9m sats=11[0m
+[0;32mI (19502) GPS: FIX lat=6.884369 lon=79.858757 alt=24.7m sats=12[0m
+[0;32mI (20382) GPS: FIX lat=6.884371 lon=79.858757 alt=24.7m sats=12[0m
+[0;32mI (20502) GPS: FIX lat=6.884371 lon=79.858757 alt=24.4m sats=11[0m
+[0;32mI (22512) GPS: FIX lat=6.884371 lon=79.858757 alt=24.4m sats=11[0m
+[0;32mI (22512) GPS: FIX lat=6.884371 lon=79.858757 alt=24.4m sats=11[0m
+[0;32mI (22512) GPS: FIX lat=6.884373 lon=79.858757 alt=24.4m sats=11[0m
+[0;33mW (22542) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (22632) GPS: FIX lat=6.884373 lon=79.858757 alt=24.0m sats=10[0m
+[0;32mI (25072) GPS: FIX lat=6.884375 lon=79.858757 alt=24.0m sats=10[0m
+[0;32mI (25072) GPS: FIX lat=6.884375 lon=79.858757 alt=23.9m sats=10[0m
+[0;32mI (25072) GPS: FIX lat=6.884376 lon=79.858757 alt=23.9m sats=10[0m
+[0;32mI (25082) GPS: FIX lat=6.884376 lon=79.858757 alt=23.8m sats=11[0m
+[0;33mW (25102) SOIL: EC attempt 2/3 failed[0m
+[0;32mI (25382) GPS: FIX lat=6.884377 lon=79.858757 alt=23.8m sats=11[0m
+[0;32mI (25502) GPS: FIX lat=6.884377 lon=79.858757 alt=23.8m sats=11[0m
+[0;32mI (25662) SOIL: EC OK on attempt 3[0m
+[0;32mI (26382) GPS: FIX lat=6.884379 lon=79.858757 alt=23.8m sats=11[0m
+[0;32mI (26502) GPS: FIX lat=6.884379 lon=79.858757 alt=23.8m sats=11[0m
+[0;32mI (28752) GPS: FIX lat=6.884381 lon=79.858757 alt=23.8m sats=11[0m
+[0;32mI (28752) GPS: FIX lat=6.884381 lon=79.858757 alt=23.5m sats=11[0m
+[0;32mI (28752) GPS: FIX lat=6.884379 lon=79.858765 alt=23.5m sats=11[0m
+[0;32mI (28762) GPS: FIX lat=6.884379 lon=79.858765 alt=23.5m sats=11[0m
+[0;33mW (28782) SOIL: N attempt 1/3 failed[0m
+����������������������������������������������������������������0;32mI (31312) GPS: FIX lat=6.884377 lon=79.858765 alt=23.5m sats=11[0m
+[0;32mI (31312) GPS: FIX lat=6.884377 lon=79.858765 alt=23.8m sats=11[0m
+[0;32mI (31312) GPS: FIX lat=6.884376 lon=79.858765 alt=23.8m sats=11[0m
+[0;32mI (31322) GPS: FIX lat=6.884376 lon=79.858765 alt=23.7m sats=11[0m
+[0;33mW (31342) SOIL: N attempt 2/3 failed[0m
+[0;32mI (31502) GPS: FIX lat=6.884375 lon=79.858765 alt=23.7m sats=11[0m
+[0;32mI (31502) GPS: FIX lat=6.884375 lon=79.858765 alt=23.5m sats=11[0m
+[0;32mI (33872) GPS: FIX lat=6.884375 lon=79.858765 alt=23.5m sats=11[0m
+[0;32mI (33872) GPS: FIX lat=6.884375 lon=79.858765 alt=23.3m sats=11[0m
+[0;32mI (33872) GPS: FIX lat=6.884374 lon=79.858765 alt=23.3m sats=11[0m
+[0;32mI (33882) GPS: FIX lat=6.884374 lon=79.858765 alt=23.3m sats=11[0m
+[0;33mW (33902) SOIL: N attempt 3/3 failed[0m
+[0;31mE (33902) SOIL: N: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (34382) GPS: FIX lat=6.884371 lon=79.858765 alt=23.3m sats=11[0m
+[0;32mI (34502) GPS: FIX lat=6.884371 lon=79.858765 alt=23.4m sats=11[0m
+[0;32mI (35382) GPS: FIX lat=6.884371 lon=79.858765 alt=23.4m sats=11[0m
+[0;32mI (35502) GPS: FIX lat=6.884371 lon=79.858765 alt=23.4m sats=11[0m
+[0;32mI (36382) GPS: FIX lat=6.884370 lon=79.858765 alt=23.4m sats=11[0m
+[0;32mI (38492) GPS: FIX lat=6.884370 lon=79.858765 alt=23.2m sats=11[0m
+[0;32mI (38492) GPS: FIX lat=6.884369 lon=79.858765 alt=23.2m sats=11[0m
+[0;32mI (38492) GPS: FIX lat=6.884369 lon=79.858765 alt=23.3m sats=11[0m
+[0;33mW (38522) SOIL: P attempt 1/3 failed[0m
+[0;32mI (38632) GPS: FIX lat=6.884371 lon=79.858765 alt=23.3m sats=11[0m
+[0;32mI (38632) GPS: FIX lat=6.884371 lon=79.858765 alt=23.2m sats=11[0m
+[0;32mI (41052) GPS: FIX lat=6.884373 lon=79.858765 alt=23.2m sats=11[0m
+[0;32mI (41052) GPS: FIX lat=6.884373 lon=79.858765 alt=23.3m sats=11[0m
+[0;32mI (41052) GPS: FIX lat=6.884374 lon=79.858765 alt=23.3m sats=11[0m
+[0;32mI (41062) GPS: FIX lat=6.884374 lon=79.858765 alt=23.2m sats=11[0m
+[0;33mW (41082) SOIL: P attempt 2/3 failed[0m
+[0;32mI (41382) GPS: FIX lat=6.884374 lon=79.858765 alt=23.2m sats=11[0m
+[0;32mI (41502) GPS: FIX lat=6.884374 lon=79.858765 alt=23.3m sats=11[0m
+[0;32mI (43612) GPS: FIX lat=6.884377 lon=79.858765 alt=23.3m sats=11[0m
+[0;32mI (43612) GPS: FIX lat=6.884377 lon=79.858765 alt=22.9m sats=11[0m
+[0;32mI (43612) GPS: FIX lat=6.884378 lon=79.858765 alt=22.9m sats=11[0m
+[0;33mW (43642) SOIL: P attempt 3/3 failed[0m
+[0;31mE (43642) SOIL: P: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (43832) GPS: FIX lat=6.884378 lon=79.858765 alt=22.8m sats=11[0m
+����������������������������������������������������������������[0;32mI (44382) GPS: FIX lat=6.884378 lon=79.858765 alt=22.8m sats=11[0m
+[0;32mI (44512) GPS: FIX lat=6.884378 lon=79.858765 alt=22.5m sats=11[0m
+[0;32mI (45382) GPS: FIX lat=6.884378 lon=79.858765 alt=22.5m sats=11[0m
+[0;32mI (45502) GPS: FIX lat=6.884378 lon=79.858765 alt=22.5m sats=11[0m
+[0;32mI (48232) GPS: FIX lat=6.884377 lon=79.858765 alt=22.5m sats=11[0m
+[0;32mI (48232) GPS: FIX lat=6.884377 lon=79.858765 alt=22.5m sats=10[0m
+[0;32mI (48232) GPS: FIX lat=6.884376 lon=79.858765 alt=22.5m sats=10[0m
+[0;32mI (48242) GPS: FIX lat=6.884376 lon=79.858765 alt=22.7m sats=10[0m
+[0;33mW (48262) SOIL: K attempt 1/3 failed[0m
+[0;32mI (48382) GPS: FIX lat=6.884373 lon=79.858765 alt=22.7m sats=10[0m
+[0;32mI (48502) GPS: FIX lat=6.884373 lon=79.858765 alt=22.9m sats=10[0m
+[0;32mI (50792) GPS: FIX lat=6.884372 lon=79.858765 alt=22.9m sats=10[0m
+[0;32mI (50792) GPS: FIX lat=6.884372 lon=79.858765 alt=22.9m sats=11[0m
+[0;32mI (50792) GPS: FIX lat=6.884370 lon=79.858765 alt=22.9m sats=11[0m
+[0;32mI (50802) GPS: FIX lat=6.884370 lon=79.858765 alt=23.2m sats=12[0m
+[0;33mW (50822) SOIL: K attempt 2/3 failed[0m
+[0;32mI (53352) GPS: FIX lat=6.884369 lon=79.858765 alt=23.2m sats=12[0m
+[0;32mI (53352) GPS: FIX lat=6.884369 lon=79.858765 alt=23.3m sats=12[0m
+[0;32mI (53352) GPS: FIX lat=6.884367 lon=79.858765 alt=23.3m sats=12[0m
+[0;32mI (53362) GPS: FIX lat=6.884367 lon=79.858765 alt=23.4m sats=12[0m
+[0;33mW (53382) SOIL: K attempt 3/3 failed[0m
+[0;31mE (53382) SOIL: K: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (53512) GPS: FIX lat=6.884363 lon=79.858765 alt=23.4m sats=12[0m
+[0;32mI (53512) GPS: FIX lat=6.884363 lon=79.858765 alt=23.7m sats=11[0m
+[0;32mI (54382) GPS: FIX lat=6.884358 lon=79.858765 alt=23.7m sats=11[0m
+[0;32mI (54512) GPS: FIX lat=6.884358 lon=79.858765 alt=23.9m sats=11[0m
+[0;32mI (55382) GPS: FIX lat=6.884356 lon=79.858765 alt=23.9m sats=11[0m
+[0;32mI (55502) GPS: FIX lat=6.884356 lon=79.858765 alt=23.9m sats=11[0m
+[0;32mI (55942) LDR: ADC=1101  Light=26.9%[0m
+[0;33mW (55942) SOIL: Cycle partial: Temp=0.0C Moist=0.0% pH=6.48 EC=15 N=0 P=0 K=0  (stale fields retained)[0m
+[0;32mI (56382) GPS: FIX lat=6.884355 lon=79.858765 alt=23.9m sats=11[0m
+[0;32mI (56512) GPS: FIX lat=6.884355 lon=79.858765 alt=24.0m sats=11[0m
+[0;32mI (57382) GPS: FIX lat=6.884351 lon=79.858765 alt=24.0m sats=11[0m
+[0;32mI (57502) GPS: FIX lat=6.884351 lon=79.858765 alt=24.1m sats=11[0m
+[0;32mI (59972) GPS: FIX lat=6.884348 lon=79.858765 alt=24.1m sats=11[0m
+[0;32mI (59972) GPS: FIX lat=6.884348 lon=79.858765 alt=24.5m sats=11[0m
+[0;32mI (59972) GPS: FIX lat=6.884348 lon=79.858765 alt=24.5m sats=11[0m
+[0;32mI (59982) GPS: FIX lat=6.884348 lon=79.858765 alt=24.4m sats=11[0m
+[0;33mW (60002) SOIL: TEMP attempt 1/3 failed[0m
+[0;32mI (60382) GPS: FIX lat=6.884349 lon=79.858765 alt=24.4m sats=11[0m
+[0;32mI (60512) GPS: FIX lat=6.884349 lon=79.858765 alt=24.3m sats=12[0m
+[0;32mI (60602) BLE: Connected conn_id=0 MAC=43:1e:43:80:40:df[0m
+[0;32mI (60932) BLE: Conn params: interval=24 latency=0 timeout=400[0m
+[0;32mI (61092) BLE: MTU=500[0m
+[0;32mI (61842) BLE: WRITE handle=43 len=2[0m
+[0;32mI (61842) BLE: Notifications ENABLED[0m
+[0;32mI (61852) BLE: Pkt#0 sent: ldr=26.9% temp=0.00C pH=6.48 moist=0.0% EC=15 N=0 P=0 K=0 gps=FIX[0m
+[0;32mI (61932) BLE: READ handle=42[0m
+[0;32mI (62532) GPS: FIX lat=6.884349 lon=79.858765 alt=24.3m sats=12[0m
+[0;32mI (62532) GPS: FIX lat=6.884349 lon=79.858765 alt=24.1m sats=12[0m
+[0;32mI (62532) GPS: FIX lat=6.884347 lon=79.858765 alt=24.1m sats=12[0m
+[0;33mW (62562) SOIL: TEMP attempt 2/3 failed[0m
+[0;32mI (62642) GPS: FIX lat=6.884347 lon=79.858765 alt=24.2m sats=12[0m
+[0;32mI (65092) GPS: FIX lat=6.884348 lon=79.858765 alt=24.2m sats=12[0m
+[0;32mI (65092) GPS: FIX lat=6.884348 lon=79.858765 alt=24.0m sats=12[0m
+[0;32mI (65092) GPS: FIX lat=6.884346 lon=79.858765 alt=24.0m sats=12[0m
+[0;32mI (65102) GPS: FIX lat=6.884346 lon=79.858765 alt=24.3m sats=12[0m
+[0;33mW (65122) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (65122) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (65372) GPS: FIX lat=6.884350 lon=79.858765 alt=24.3m sats=12[0m
+[0;32mI (65502) GPS: FIX lat=6.884350 lon=79.858765 alt=24.0m sats=10[0m
+[0;32mI (66382) GPS: FIX lat=6.884352 lon=79.858757 alt=24.0m sats=10[0m
+[0;32mI (66502) GPS: FIX lat=6.884352 lon=79.858757 alt=23.6m sats=11[0m
+[0;32mI (67372) GPS: FIX lat=6.884355 lon=79.858765 alt=23.6m sats=11[0m
+[0;32mI (67502) GPS: FIX lat=6.884355 lon=79.858765 alt=22.9m sats=10[0m
+[0;32mI (69712) GPS: FIX lat=6.884359 lon=79.858757 alt=22.9m sats=10[0m
+[0;32mI (69712) GPS: FIX lat=6.884359 lon=79.858757 alt=22.3m sats=10[0m
+[0;32mI (69712) GPS: FIX lat=6.884361 lon=79.858757 alt=22.3m sats=10[0m
+[0;32mI (69722) GPS: FIX lat=6.884361 lon=79.858757 alt=22.0m sats=10[0m
+[0;33mW (69742) SOIL: MOIST attempt 1/3 failed[0m
+[0;32mI (72272) GPS: FIX lat=6.884363 lon=79.858757 alt=22.0m sats=10[0m
+[0;32mI (72272) GPS: FIX lat=6.884363 lon=79.858757 alt=21.6m sats=11[0m
+[0;32mI (72272) GPS: FIX lat=6.884368 lon=79.858757 alt=21.6m sats=11[0m
+[0;32mI (72282) GPS: FIX lat=6.884368 lon=79.858757 alt=21.2m sats=11[0m
+[0;33mW (72302) SOIL: MOIST attempt 2/3 failed[0m
+[0;32mI (72382) GPS: FIX lat=6.884372 lon=79.858757 alt=21.2m sats=11[0m
+[0;32mI (72512) GPS: FIX lat=6.884372 lon=79.858757 alt=20.8m sats=11[0m
+[0;32mI (74832) GPS: FIX lat=6.884374 lon=79.858757 alt=20.8m sats=11[0m
+[0;32mI (74832) GPS: FIX lat=6.884374 lon=79.858757 alt=20.4m sats=11[0m
+[0;32mI (74832) GPS: FIX lat=6.884378 lon=79.858757 alt=20.4m sats=11[0m
+[0;32mI (74842) GPS: FIX lat=6.884378 lon=79.858757 alt=20.2m sats=11[0m
+[0;33mW (74862) SOIL: MOIST attempt 3/3 failed[0m
+[0;31mE (74862) SOIL: MOIST: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (75382) GPS: FIX lat=6.884381 lon=79.858757 alt=20.2m sats=11[0m
+[0;32mI (75502) GPS: FIX lat=6.884381 lon=79.858757 alt=20.0m sats=11[0m
+[0;32mI (76382) GPS: FIX lat=6.884383 lon=79.858757 alt=20.0m sats=11[0m
+[0;32mI (76502) GPS: FIX lat=6.884383 lon=79.858757 alt=20.0m sats=11[0m
+[0;32mI (77382) GPS: FIX lat=6.884384 lon=79.858757 alt=20.0m sats=11[0m
+[0;32mI (79452) GPS: FIX lat=6.884384 lon=79.858757 alt=20.0m sats=11[0m
+[0;32mI (79452) GPS: FIX lat=6.884385 lon=79.858757 alt=20.0m sats=11[0m
+[0;32mI (79452) GPS: FIX lat=6.884385 lon=79.858757 alt=20.2m sats=10[0m
+[0;33mW (79482) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (79622) GPS: FIX lat=6.884385 lon=79.858757 alt=20.2m sats=10[0m
+[0;32mI (79622) GPS: FIX lat=6.884385 lon=79.858757 alt=20.5m sats=10[0m
+[0;32mI (82012) GPS: FIX lat=6.884384 lon=79.858757 alt=20.5m sats=10[0m
+[0;32mI (82012) GPS: FIX lat=6.884384 lon=79.858757 alt=20.7m sats=9[0m
+[0;32mI (82012) GPS: FIX lat=6.884382 lon=79.858757 alt=20.7m sats=9[0m
+[0;32mI (82012) GPS: FIX lat=6.884382 lon=79.858757 alt=20.9m sats=10[0m
+[0;33mW (82042) SOIL: EC attempt 2/3 failed[0m
+[0;32mI (82382) GPS: FIX lat=6.884380 lon=79.858757 alt=20.9m sats=10[0m
+[0;32mI (82502) GPS: FIX lat=6.884380 lon=79.858757 alt=21.1m sats=12[0m
+[0;32mI (84572) GPS: FIX lat=6.884378 lon=79.858757 alt=21.1m sats=12[0m
+[0;32mI (84572) GPS: FIX lat=6.884378 lon=79.858757 alt=21.4m sats=12[0m
+[0;32mI (84572) GPS: FIX lat=6.884374 lon=79.858757 alt=21.4m sats=12[0m
+[0;33mW (84602) SOIL: EC attempt 3/3 failed[0m
+[0;31mE (84602) SOIL: EC: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (84842) GPS: FIX lat=6.884374 lon=79.858757 alt=21.8m sats=12[0m
+[0;32mI (85382) GPS: FIX lat=6.884372 lon=79.858765 alt=21.8m sats=12[0m
+[0;32mI (85512) GPS: FIX lat=6.884372 lon=79.858765 alt=22.1m sats=12[0m
+[0;32mI (86382) GPS: FIX lat=6.884368 lon=79.858765 alt=22.1m sats=12[0m
+[0;32mI (86512) GPS: FIX lat=6.884368 lon=79.858765 alt=22.5m sats=12[0m
+[0;32mI (89192) GPS: FIX lat=6.884367 lon=79.858765 alt=22.5m sats=12[0m
+[0;32mI (89192) GPS: FIX lat=6.884367 lon=79.858765 alt=22.5m sats=12[0m
+[0;32mI (89192) GPS: FIX lat=6.884363 lon=79.858765 alt=22.5m sats=12[0m
+[0;32mI (89202) GPS: FIX lat=6.884363 lon=79.858765 alt=22.9m sats=12[0m
+[0;33mW (89222) SOIL: PH attempt 1/3 failed[0m
+[0;32mI (89382) GPS: FIX lat=6.884362 lon=79.858757 alt=22.9m sats=12[0m
+[0;32mI (89512) GPS: FIX lat=6.884362 lon=79.858757 alt=23.3m sats=12[0m
+[0;32mI (91752) GPS: FIX lat=6.884360 lon=79.858757 alt=23.3m sats=12[0m
+[0;32mI (91752) GPS: FIX lat=6.884360 lon=79.858757 alt=23.5m sats=12[0m
+[0;32mI (91752) GPS: FIX lat=6.884357 lon=79.858757 alt=23.5m sats=12[0m
+[0;32mI (91762) GPS: FIX lat=6.884357 lon=79.858757 alt=23.8m sats=12[0m
+[0;33mW (91782) SOIL: PH attempt 2/3 failed[0m
+[0;32mI (94312) GPS: FIX lat=6.884356 lon=79.858757 alt=23.8m sats=12[0m
+[0;32mI (94312) GPS: FIX lat=6.884356 lon=79.858757 alt=24.1m sats=12[0m
+[0;32mI (94312) GPS: FIX lat=6.884355 lon=79.858765 alt=24.1m sats=12[0m
+[0;32mI (94322) GPS: FIX lat=6.884355 lon=79.858765 alt=24.3m sats=12[0m
+[0;33mW (94342) SOIL: PH attempt 3/3 failed[0m
+[0;31mE (94342) SOIL: PH: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (94512) GPS: FIX lat=6.884354 lon=79.858765 alt=24.3m sats=12[0m
+[0;32mI (94512) GPS: FIX lat=6.884354 lon=79.858765 alt=24.4m sats=12[0m
+[0;32mI (95382) GPS: FIX lat=6.884356 lon=79.858765 alt=24.4m sats=12[0m
+[0;32mI (95502) GPS: FIX lat=6.884356 lon=79.858765 alt=24.5m sats=11[0m
+[0;32mI (96382) GPS: FIX lat=6.884356 lon=79.858765 alt=24.5m sats=11[0m
+[0;32mI (96512) GPS: FIX lat=6.884356 lon=79.858765 alt=24.7m sats=12[0m
+[0;32mI (98932) GPS: FIX lat=6.884357 lon=79.858765 alt=24.7m sats=12[0m
+[0;32mI (98932) GPS: FIX lat=6.884357 lon=79.858765 alt=24.8m sats=11[0m
+[0;32mI (98932) GPS: FIX lat=6.884360 lon=79.858765 alt=24.8m sats=11[0m
+[0;32mI (98942) GPS: FIX lat=6.884360 lon=79.858765 alt=24.8m sats=11[0m
+[0;33mW (98962) SOIL: N attempt 1/3 failed[0m
+[0;32mI (99382) GPS: FIX lat=6.884360 lon=79.858765 alt=24.8m sats=11[0m
+[0;32mI (101492) GPS: FIX lat=6.884360 lon=79.858765 alt=24.9m sats=11[0m
+[0;32mI (101492) GPS: FIX lat=6.884360 lon=79.858765 alt=24.9m sats=11[0m
+[0;32mI (101492) GPS: FIX lat=6.884360 lon=79.858765 alt=24.9m sats=12[0m
+[0;33mW (101522) SOIL: N attempt 2/3 failed[0m
+[0;32mI (101632) GPS: FIX lat=6.884358 lon=79.858765 alt=24.9m sats=12[0m
+[0;32mI (101632) GPS: FIX lat=6.884358 lon=79.858765 alt=24.7m sats=12[0m
+[0;32mI (104052) GPS: FIX lat=6.884363 lon=79.858765 alt=24.7m sats=12[0m
+[0;32mI (104052) GPS: FIX lat=6.884363 lon=79.858765 alt=24.8m sats=12[0m
+[0;32mI (104052) GPS: FIX lat=6.884363 lon=79.858765 alt=24.8m sats=12[0m
+[0;32mI (104062) GPS: FIX lat=6.884363 lon=79.858765 alt=24.7m sats=11[0m
+[0;33mW (104082) SOIL: N attempt 3/3 failed[0m
+[0;31mE (104082) SOIL: N: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (104382) GPS: FIX lat=6.884366 lon=79.858765 alt=24.7m sats=11[0m
+[0;32mI (104502) GPS: FIX lat=6.884366 lon=79.858765 alt=24.5m sats=11[0m
+[0;32mI (105382) GPS: FIX lat=6.884367 lon=79.858765 alt=24.5m sats=11[0m
+[0;32mI (105502) GPS: FIX lat=6.884367 lon=79.858765 alt=24.4m sats=11[0m
+[0;32mI (106382) GPS: FIX lat=6.884368 lon=79.858765 alt=24.4m sats=11[0m
+[0;32mI (106502) GPS: FIX lat=6.884368 lon=79.858765 alt=24.4m sats=10[0m
+[0;32mI (108672) GPS: FIX lat=6.884375 lon=79.858765 alt=24.4m sats=10[0m
+[0;32mI (108672) GPS: FIX lat=6.884375 lon=79.858765 alt=24.3m sats=10[0m
+[0;32mI (108672) GPS: FIX lat=6.884380 lon=79.858765 alt=24.3m sats=10[0m
+[0;32mI (108682) GPS: FIX lat=6.884380 lon=79.858765 alt=24.1m sats=9[0m
+[0;33mW (108702) SOIL: P attempt 1/3 failed[0m
+[0;32mI (111232) GPS: FIX lat=6.884383 lon=79.858765 alt=24.1m sats=9[0m
+[0;32mI (111232) GPS: FIX lat=6.884383 lon=79.858765 alt=24.1m sats=9[0m
+[0;32mI (111232) GPS: FIX lat=6.884389 lon=79.858757 alt=24.1m sats=9[0m
+[0;32mI (111242) GPS: FIX lat=6.884389 lon=79.858757 alt=24.0m sats=9[0m
+[0;33mW (111262) SOIL: P attempt 2/3 failed[0m
+[0;32mI (111372) GPS: FIX lat=6.884391 lon=79.858757 alt=24.0m sats=9[0m
+[0;32mI (111502) GPS: FIX lat=6.884391 lon=79.858757 alt=24.0m sats=9[0m
+[0;32mI (113792) GPS: FIX lat=6.884394 lon=79.858757 alt=24.0m sats=9[0m
+[0;32mI (113792) GPS: FIX lat=6.884394 lon=79.858757 alt=24.2m sats=10[0m
+[0;32mI (113792) GPS: FIX lat=6.884393 lon=79.858757 alt=24.2m sats=10[0m
+[0;32mI (113802) GPS: FIX lat=6.884393 lon=79.858757 alt=24.6m sats=10[0m
+[0;33mW (113822) SOIL: P attempt 3/3 failed[0m
+[0;31mE (113822) SOIL: P: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (114382) GPS: FIX lat=6.884393 lon=79.858757 alt=24.6m sats=10[0m
+[0;32mI (114502) GPS: FIX lat=6.884393 lon=79.858757 alt=24.8m sats=10[0m
+[0;32mI (115382) GPS: FIX lat=6.884394 lon=79.858757 alt=24.8m sats=10[0m
+[0;32mI (115502) GPS: FIX lat=6.884394 lon=79.858757 alt=25.0m sats=11[0m
+[0;32mI (116372) GPS: FIX lat=6.884392 lon=79.858757 alt=25.0m sats=11[0m
+[0;32mI (118412) GPS: FIX lat=6.884392 lon=79.858757 alt=24.9m sats=9[0m
+[0;32mI (118412) GPS: FIX lat=6.884391 lon=79.858757 alt=24.9m sats=9[0m
+[0;32mI (118412) GPS: FIX lat=6.884391 lon=79.858757 alt=24.9m sats=10[0m
+[0;33mW (118442) SOIL: K attempt 1/3 failed[0m
+[0;32mI (118522) GPS: FIX lat=6.884387 lon=79.858757 alt=24.9m sats=10[0m
+[0;32mI (118522) GPS: FIX lat=6.884387 lon=79.858757 alt=25.0m sats=11[0m
+[0;33mW (119622) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (119622) BLE: Disconnected reason=0x13[0m
+[0;32mI (119642) BLE: BLE advertising started  name="SoilTestKit"[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x17 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7176
+load:0x40078000,len:15564
+ho 0 tail 12 room 4
+load:0x40080400,len:4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.3.1-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Mar 10 2026 16:13:34[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (85) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=22ab4h (142004) map[0m
+[0;32mI (153) esp_image: segment 1: paddr=00032adc vaddr=3ff80000 size=00004h (     4) load[0m
+[0;32mI (154) esp_image: segment 2: paddr=00032ae8 vaddr=3ffbdb60 size=04bb4h ( 19380) load[0m
+[0;32mI (166) esp_image: segment 3: paddr=000376a4 vaddr=40080000 size=08974h ( 35188) load[0m
+[0;32mI (182) esp_image: segment 4: paddr=00040020 vaddr=400d0020 size=7f8f0h (522480) map[0m
+[0;32mI (361) esp_image: segment 5: paddr=000bf918 vaddr=40088974 size=0fd74h ( 64884) load[0m
+[0;32mI (399) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (399) boot: Disabling RNG early entropy source...[0m
+[0;32mI (411) cpu_start: Multicore app[0m
+[0;32mI (419) cpu_start: Pro cpu start user code[0m
+[0;32mI (419) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (420) app_init: Application information:[0m
+[0;32mI (422) app_init: Project name:     gatt_server_demos[0m
+[0;32mI (428) app_init: App version:      1[0m
+[0;32mI (432) app_init: Compile time:     Mar 10 2026 16:13:18[0m
+[0;32mI (438) app_init: ELF file SHA256:  d2bb07296...[0m
+[0;32mI (444) app_init: ESP-IDF:          v5.3.1-dirty[0m
+[0;32mI (449) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (454) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (459) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (464) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (471) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (477) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (483) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (489) heap_init: At 3FFC7280 len 00018D80 (99 KiB): DRAM[0m
+[0;32mI (495) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (502) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (508) heap_init: At 400986E8 len 00007918 (30 KiB): IRAM[0m
+[0;32mI (516) spi_flash: detected chip: generic[0m
+[0;32mI (519) spi_flash: flash io: dio[0m
+[0;33mW (523) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (537) coexist: coex firmware version: 4482466[0m
+[0;32mI (542) main_task: Started on CPU0[0m
+[0;32mI (552) main_task: Calling app_main()[0m
+[0;32mI (552) MAIN: === Soil Testing Kit (BLE GATT binary) booting ===[0m
+[0;32mI (562) GPS: UART2 RX=GPIO16 TX=GPIO17 @9600[0m
+[0;32mI (562) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (572) SOIL: UART1/RS485 TX=GPIO18 RX=GPIO19 DE/RE=GPIO4[0m
+[0;32mI (572) BTDM_INIT: BT controller compile version [b022216][0m
+[0;32mI (582) BTDM_INIT: Bluetooth MAC: 68:25:dd:32:fd:ba[0m
+[0;32mI (592) phy_init: phy_version 4830,54550f7,Jun 20 2024,14:22:08[0m
+[0;32mI (1002) BLE: GATTS registered if=3[0m
+[0;32mI (1002) MAIN: BLE ready name="SoilTestKit" SVC=0x00FF DATA=0xFF01 CMD=0xFF02 pkt=31B[0m
+[0;32mI (1012) BLE: Service started SVC=40 DATA=42 CCCD=43 CMD=45[0m
+[0;32mI (1012) BLE: START EVT status=0 handle=40[0m
+[0;32mI (1022) LDR: ADC1 CH6 (GPIO34) ready[0m
+[0;32mI (1022) SOIL: Sensor task started – retries=3 recovery=2000ms[0m
+[0;32mI (1022) GPS: GPS task started[0m
+[0;32mI (1032) BLE: BLE advertising started  name="SoilTestKit"[0m
+[0;32mI (1032) MAIN: All tasks running - waiting for Flutter BLE connection...[0m
+[0;32mI (1032) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1042) main_task: Returned from app_main()[0m
+[0;32mI (3052) GPS: FIX lat=6.884381 lon=79.858757 alt=0.0m sats=0[0m
+[0;32mI (1052) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (3052) gpio: GPIO[14]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (3052) GPS: FIX lat=6.884381 lon=79.858757 alt=25.0m sats=10[0m
+[0;32mI (3072) GPS: FIX lat=6.884379 lon=79.858757 alt=25.0m sats=10[0m
+[0;33mW (3082) SOIL: TEMP attempt 1/3 failed[0m
+[0;32mI (3082) GPS: FIX lat=6.884379 lon=79.858757 alt=25.0m sats=10[0m
+[0;32mI (3192) GPS: FIX lat=6.884376 lon=79.858757 alt=25.0m sats=10[0m
+[0;32mI (3192) GPS: FIX lat=6.884376 lon=79.858757 alt=24.9m sats=11[0m
+[0;32mI (4062) BLE: Power-on blink done[0m
+[0;32mI (4062) gpio: GPIO[35]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (5612) GPS: FIX lat=6.884372 lon=79.858757 alt=24.9m sats=11[0m
+[0;32mI (5612) GPS: FIX lat=6.884372 lon=79.858757 alt=24.8m sats=11[0m
+[0;32mI (5612) GPS: FIX lat=6.884369 lon=79.858765 alt=24.8m sats=11[0m
+[0;32mI (5612) GPS: FIX lat=6.884369 lon=79.858765 alt=24.7m sats=10[0m
+[0;33mW (5642) SOIL: TEMP attempt 2/3 failed[0m
+[0;32mI (6052) GPS: FIX lat=6.884367 lon=79.858765 alt=24.7m sats=10[0m
+[0;32mI (6172) GPS: FIX lat=6.884367 lon=79.858765 alt=24.4m sats=10[0m
+[0;32mI (8172) GPS: FIX lat=6.884365 lon=79.858765 alt=24.4m sats=10[0m
+[0;32mI (8172) GPS: FIX lat=6.884365 lon=79.858765 alt=24.3m sats=11[0m
+[0;32mI (8172) GPS: FIX lat=6.884362 lon=79.858765 alt=24.3m sats=11[0m
+[0;32mI (8182) GPS: FIX lat=6.884362 lon=79.858765 alt=24.3m sats=11[0m
+[0;33mW (8202) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (8202) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (9052) GPS: FIX lat=6.884361 lon=79.858765 alt=24.3m sats=11[0m
+[0;32mI (9172) GPS: FIX lat=6.884361 lon=79.858765 alt=24.0m sats=10[0m
+[0;32mI (10052) GPS: FIX lat=6.884359 lon=79.858765 alt=24.0m sats=10[0m
+[0;32mI (10172) GPS: FIX lat=6.884359 lon=79.858765 alt=23.8m sats=10[0m
+[0;32mI (12792) GPS: FIX lat=6.884357 lon=79.858765 alt=23.8m sats=10[0m
+[0;32mI (12792) GPS: FIX lat=6.884357 lon=79.858765 alt=23.6m sats=10[0m
+[0;32mI (12792) GPS: FIX lat=6.884355 lon=79.858765 alt=23.6m sats=10[0m
+[0;32mI (12802) GPS: FIX lat=6.884355 lon=79.858765 alt=23.5m sats=10[0m
+[0;33mW (12822) SOIL: MOIST attempt 1/3 failed[0m
+[0;32mI (13052) GPS: FIX lat=6.884352 lon=79.858765 alt=23.5m sats=10[0m
+[0;32mI (13172) GPS: FIX lat=6.884352 lon=79.858765 alt=23.3m sats=10[0m
+[0;32mI (15352) GPS: FIX lat=6.884350 lon=79.858765 alt=23.3m sats=10[0m
+[0;32mI (15352) GPS: FIX lat=6.884350 lon=79.858765 alt=23.1m sats=10[0m
+[0;32mI (15352) GPS: FIX lat=6.884349 lon=79.858765 alt=23.1m sats=10[0m
+[0;32mI (15362) GPS: FIX lat=6.884349 lon=79.858765 alt=23.0m sats=11[0m
+[0;33mW (15382) SOIL: MOIST attempt 2/3 failed[0m
+[0;32mI (17912) GPS: FIX lat=6.884349 lon=79.858765 alt=23.0m sats=11[0m
+[0;32mI (17912) GPS: FIX lat=6.884349 lon=79.858765 alt=22.8m sats=12[0m
+[0;32mI (17912) GPS: FIX lat=6.884350 lon=79.858765 alt=22.8m sats=12[0m
+[0;32mI (17922) GPS: FIX lat=6.884350 lon=79.858765 alt=22.5m sats=12[0m
+[0;33mW (17942) SOIL: MOIST attempt 3/3 failed[0m
+[0;31mE (17942) SOIL: MOIST: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (18062) GPS: FIX lat=6.884354 lon=79.858765 alt=22.5m sats=12[0m
+[0;32mI (18182) GPS: FIX lat=6.884354 lon=79.858765 alt=22.3m sats=12[0m
+[0;32mI (19052) GPS: FIX lat=6.884356 lon=79.858765 alt=22.3m sats=12[0m
+[0;32mI (19182) GPS: FIX lat=6.884356 lon=79.858765 alt=22.1m sats=12[0m
+[0;32mI (20052) GPS: FIX lat=6.884359 lon=79.858765 alt=22.1m sats=12[0m
+[0;32mI (20172) GPS: FIX lat=6.884359 lon=79.858765 alt=21.9m sats=10[0m
+[0;32mI (22532) GPS: FIX lat=6.884363 lon=79.858765 alt=21.9m sats=10[0m
+[0;32mI (22532) GPS: FIX lat=6.884363 lon=79.858765 alt=21.6m sats=12[0m
+[0;32mI (22532) GPS: FIX lat=6.884369 lon=79.858765 alt=21.6m sats=12[0m
+[0;32mI (22542) GPS: FIX lat=6.884369 lon=79.858765 alt=21.4m sats=12[0m
+[0;33mW (22562) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (23062) GPS: FIX lat=6.884373 lon=79.858765 alt=21.4m sats=12[0m
+[0;32mI (25092) GPS: FIX lat=6.884373 lon=79.858765 alt=21.1m sats=12[0m
+[0;32mI (25092) GPS: FIX lat=6.884373 lon=79.858765 alt=21.1m sats=12[0m
+[0;32mI (25092) GPS: FIX lat=6.884373 lon=79.858765 alt=21.0m sats=12[0m
+[0;33mW (25122) SOIL: EC attempt 2/3 failed[0m
+[0;32mI (25202) GPS: FIX lat=6.884373 lon=79.858765 alt=21.0m sats=12[0m
+[0;32mI (25202) GPS: FIX lat=6.884373 lon=79.858765 alt=21.0m sats=12[0m
+[0;32mI (27652) GPS: FIX lat=6.884377 lon=79.858765 alt=21.0m sats=12[0m
+[0;32mI (27652) GPS: FIX lat=6.884377 lon=79.858765 alt=20.8m sats=12[0m
+[0;32mI (27652) GPS: FIX lat=6.884379 lon=79.858765 alt=20.8m sats=12[0m
+[0;32mI (27662) GPS: FIX lat=6.884379 lon=79.858765 alt=20.6m sats=12[0m
+[0;33mW (27682) SOIL: EC attempt 3/3 failed[0m
+[0;31mE (27682) SOIL: EC: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (28062) GPS: FIX lat=6.884383 lon=79.858765 alt=20.6m sats=12[0m
+[0;32mI (28182) GPS: FIX lat=6.884383 lon=79.858765 alt=20.6m sats=12[0m
+[0;32mI (29062) GPS: FIX lat=6.884385 lon=79.858765 alt=20.6m sats=12[0m
+[0;32mI (29182) GPS: FIX lat=6.884385 lon=79.858765 alt=20.5m sats=12[0m
+[0;32mI (30052) GPS: FIX lat=6.884388 lon=79.858765 alt=20.5m sats=12[0m
+[0;32mI (30182) GPS: FIX lat=6.884388 lon=79.858765 alt=20.6m sats=12[0m
+[0;32mI (31052) GPS: FIX lat=6.884390 lon=79.858765 alt=20.6m sats=12[0m
+[0;32mI (31182) GPS: FIX lat=6.884390 lon=79.858765 alt=20.7m sats=12[0m
+[0;32mI (32082) GPS: FIX lat=6.884391 lon=79.858765 alt=20.7m sats=12[0m
+[0;32mI (32182) GPS: FIX lat=6.884391 lon=79.858765 alt=20.8m sats=12[0m
+[0;32mI (32482) LDR: ADC=1154  Light=28.2%[0m
+[0;33mW (32482) SOIL: Cycle partial: Temp=0.0C Moist=0.0% pH=6.48 EC=0 N=13 P=19 K=38  (stale fields retained)[0m
+[0;32mI (33052) GPS: FIX lat=6.884392 lon=79.858765 alt=20.8m sats=12[0m
+[0;32mI (33182) GPS: FIX lat=6.884392 lon=79.858765 alt=20.9m sats=12[0m
+[0;32mI (34052) GPS: FIX lat=6.884394 lon=79.858765 alt=20.9m sats=12[0m
+[0;32mI (34182) GPS: FIX lat=6.884394 lon=79.858765 alt=20.9m sats=12[0m
+[0;32mI (35052) GPS: FIX lat=6.884395 lon=79.858765 alt=20.9m sats=12[0m
+[0;32mI (35202) GPS: FIX lat=6.884395 lon=79.858765 alt=20.9m sats=12[0m
+[0;32mI (36052) GPS: FIX lat=6.884398 lon=79.858765 alt=20.9m sats=12[0m
+[0;32mI (36182) GPS: FIX lat=6.884398 lon=79.858765 alt=21.1m sats=12[0m
+[0;32mI (37052) GPS: FIX lat=6.884398 lon=79.858765 alt=21.1m sats=12[0m
+[0;32mI (37182) GPS: FIX lat=6.884398 lon=79.858765 alt=21.2m sats=12[0m
+[0;32mI (38062) GPS: FIX lat=6.884398 lon=79.858765 alt=21.2m sats=12[0m
+[0;32mI (38182) GPS: FIX lat=6.884398 lon=79.858765 alt=21.3m sats=12[0m
+[0;32mI (38402) LDR: ADC=1154  Light=28.2%[0m
+[0;32mI (38402) SOIL: Cycle OK: Temp=25.7C Moist=64.3% pH=6.51 EC=191 N=13 P=19 K=38[0m
+[0;32mI (39052) GPS: FIX lat=6.884397 lon=79.858765 alt=21.3m sats=12[0m
+[0;32mI (39182) GPS: FIX lat=6.884397 lon=79.858765 alt=21.7m sats=12[0m
+[0;32mI (40052) GPS: FIX lat=6.884397 lon=79.858765 alt=21.7m sats=12[0m
+[0;32mI (40182) GPS: FIX lat=6.884397 lon=79.858765 alt=21.9m sats=12[0m
+[0;32mI (41052) GPS: FIX lat=6.884397 lon=79.858765 alt=21.9m sats=12[0m
+[0;32mI (41182) GPS: FIX lat=6.884397 lon=79.858765 alt=22.2m sats=12[0m
+[0;32mI (42052) GPS: FIX lat=6.884397 lon=79.858765 alt=22.2m sats=12[0m
+[0;32mI (42182) GPS: FIX lat=6.884397 lon=79.858765 alt=22.3m sats=12[0m
+[0;32mI (43052) GPS: FIX lat=6.884397 lon=79.858765 alt=22.3m sats=12[0m
+[0;32mI (43182) GPS: FIX lat=6.884397 lon=79.858765 alt=22.5m sats=12[0m
+[0;32mI (44062) GPS: FIX lat=6.884396 lon=79.858765 alt=22.5m sats=12[0m
+[0;32mI (44182) GPS: FIX lat=6.884396 lon=79.858765 alt=22.7m sats=12[0m
+[0;32mI (44322) LDR: ADC=1154  Light=28.2%[0m
+[0;32mI (44322) SOIL: Cycle OK: Temp=25.7C Moist=100.0% pH=6.53 EC=193 N=13 P=19 K=38[0m
+[0;32mI (44542) BLE: Connected conn_id=0 MAC=43:1e:43:80:40:df[0m
+[0;32mI (44882) BLE: Conn params: interval=24 latency=0 timeout=400[0m
+[0;32mI (45052) GPS: FIX lat=6.884396 lon=79.858765 alt=22.7m sats=12[0m
+[0;32mI (45072) BLE: MTU=500[0m
+[0;32mI (45182) GPS: FIX lat=6.884396 lon=79.858765 alt=22.8m sats=12[0m
+[0;32mI (45882) BLE: WRITE handle=43 len=2[0m
+[0;32mI (45892) BLE: Notifications ENABLED[0m
+[0;32mI (45912) BLE: Pkt#0 sent: ldr=28.2% temp=25.70C pH=6.53 moist=100.0% EC=193 N=13 P=19 K=38 gps=FIX[0m
+[0;32mI (46012) BLE: READ handle=42[0m
+[0;32mI (46062) GPS: FIX lat=6.884396 lon=79.858765 alt=22.8m sats=12[0m
+[0;32mI (46182) GPS: FIX lat=6.884396 lon=79.858765 alt=23.1m sats=12[0m
+[0;32mI (47062) GPS: FIX lat=6.884395 lon=79.858765 alt=23.1m sats=12[0m
+[0;32mI (47182) GPS: FIX lat=6.884395 lon=79.858765 alt=23.1m sats=12[0m
+[0;32mI (48062) GPS: FIX lat=6.884396 lon=79.858772 alt=23.1m sats=12[0m
+[0;32mI (48182) GPS: FIX lat=6.884396 lon=79.858772 alt=23.2m sats=12[0m
+[0;32mI (50592) GPS: FIX lat=6.884394 lon=79.858772 alt=23.2m sats=12[0m
+[0;32mI (50592) GPS: FIX lat=6.884394 lon=79.858772 alt=23.4m sats=12[0m
+[0;32mI (50592) GPS: FIX lat=6.884394 lon=79.858772 alt=23.4m sats=12[0m
+[0;32mI (50602) GPS: FIX lat=6.884394 lon=79.858772 alt=23.5m sats=12[0m
+[0;33mW (50622) SOIL: N attempt 1/3 failed[0m
+[0;32mI (51062) GPS: FIX lat=6.884395 lon=79.858772 alt=23.5m sats=12[0m
+[0;32mI (51182) SOIL: N OK on attempt 2[0m
+[0;32mI (51182) GPS: FIX lat=6.884395 lon=79.858772 alt=23.5m sats=12[0m
+[0;32mI (52062) GPS: FIX lat=6.884396 lon=79.858772 alt=23.5m sats=12[0m
+[0;32mI (52182) GPS: FIX lat=6.884396 lon=79.858772 alt=23.8m sats=12[0m
+[0;32mI (54272) GPS: FIX lat=6.884396 lon=79.858772 alt=23.8m sats=12[0m
+[0;32mI (54272) GPS: FIX lat=6.884396 lon=79.858772 alt=23.9m sats=12[0m
+[0;32mI (54272) GPS: FIX lat=6.884397 lon=79.858772 alt=23.9m sats=12[0m
+[0;33mW (54302) SOIL: K attempt 1/3 failed[0m
+[0;32mI (54512) GPS: FIX lat=6.884397 lon=79.858772 alt=24.2m sats=12[0m
+[0;32mI (56832) GPS: FIX lat=6.884399 lon=79.858765 alt=24.2m sats=12[0m
+[0;32mI (56832) GPS: FIX lat=6.884399 lon=79.858765 alt=24.5m sats=12[0m
+[0;32mI (56832) GPS: FIX lat=6.884398 lon=79.858765 alt=24.5m sats=12[0m
+[0;32mI (56842) GPS: FIX lat=6.884398 lon=79.858765 alt=24.9m sats=12[0m
+[0;33mW (56862) SOIL: K attempt 2/3 failed[0m
+[0;32mI (57062) GPS: FIX lat=6.884399 lon=79.858772 alt=24.9m sats=12[0m
+[0;32mI (57192) GPS: FIX lat=6.884399 lon=79.858772 alt=25.2m sats=12[0m
+[0;32mI (59402) GPS: FIX lat=6.884402 lon=79.858765 alt=25.2m sats=12[0m
+[0;32mI (59402) GPS: FIX lat=6.884402 lon=79.858765 alt=25.5m sats=12[0m
+[0;32mI (59402) GPS: FIX lat=6.884405 lon=79.858765 alt=25.5m sats=12[0m
+[0;32mI (59412) GPS: FIX lat=6.884405 lon=79.858765 alt=25.9m sats=12[0m
+[0;33mW (59432) SOIL: K attempt 3/3 failed[0m
+[0;31mE (59432) SOIL: K: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (60052) GPS: FIX lat=6.884408 lon=79.858765 alt=25.9m sats=12[0m
+[0;32mI (60182) GPS: FIX lat=6.884408 lon=79.858765 alt=26.1m sats=12[0m
+[0;32mI (61052) GPS: FIX lat=6.884411 lon=79.858765 alt=26.1m sats=12[0m
+[0;32mI (61182) GPS: FIX lat=6.884411 lon=79.858765 alt=26.3m sats=12[0m
+[0;32mI (61992) LDR: ADC=1161  Light=28.4%[0m
+[0;33mW (61992) SOIL: Cycle partial: Temp=25.7C Moist=100.0% pH=6.56 EC=192 N=13 P=19 K=38  (stale fields retained)[0m
+[0;32mI (62012) BLE: Pkt#1 sent: ldr=28.4% temp=25.70C pH=6.56 moist=100.0% EC=192 N=13 P=19 K=38 gps=FIX[0m
+[0;32mI (62062) GPS: FIX lat=6.884413 lon=79.858765 alt=26.3m sats=12[0m
+[0;32mI (62182) GPS: FIX lat=6.884413 lon=79.858765 alt=26.5m sats=12[0m
+[0;32mI (63052) GPS: FIX lat=6.884417 lon=79.858765 alt=26.5m sats=12[0m
+[0;32mI (63182) GPS: FIX lat=6.884417 lon=79.858765 alt=27.0m sats=12[0m
+[0;32mI (66022) GPS: FIX lat=6.884418 lon=79.858765 alt=27.0m sats=12[0m
+[0;32mI (66022) GPS: FIX lat=6.884418 lon=79.858765 alt=27.4m sats=12[0m
+[0;32mI (66022) GPS: FIX lat=6.884422 lon=79.858765 alt=27.4m sats=12[0m
+[0;32mI (66032) GPS: FIX lat=6.884422 lon=79.858765 alt=27.7m sats=12[0m
+[0;33mW (66052) SOIL: TEMP attempt 1/3 failed[0m
+[0;32mI (66182) GPS: FIX lat=6.884424 lon=79.858765 alt=27.7m sats=12[0m
+[0;32mI (66182) GPS: FIX lat=6.884424 lon=79.858765 alt=27.5m sats=12[0m
+[0;32mI (68582) GPS: FIX lat=6.884427 lon=79.858765 alt=27.5m sats=12[0m
+[0;32mI (68582) GPS: FIX lat=6.884427 lon=79.858765 alt=27.6m sats=12[0m
+[0;32mI (68582) GPS: FIX lat=6.884425 lon=79.858765 alt=27.6m sats=12[0m
+[0;32mI (68592) GPS: FIX lat=6.884425 lon=79.858765 alt=27.4m sats=12[0m
+[0;33mW (68612) SOIL: TEMP attempt 2/3 failed[0m
+[0;32mI (69052) GPS: FIX lat=6.884427 lon=79.858765 alt=27.4m sats=12[0m
+[0;32mI (71142) GPS: FIX lat=6.884427 lon=79.858765 alt=27.3m sats=12[0m
+[0;32mI (71142) GPS: FIX lat=6.884426 lon=79.858765 alt=27.3m sats=12[0m
+[0;32mI (71142) GPS: FIX lat=6.884426 lon=79.858765 alt=27.2m sats=12[0m
+[0;33mW (71172) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (71172) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (71302) GPS: FIX lat=6.884426 lon=79.858765 alt=27.2m sats=12[0m
+[0;32mI (71302) GPS: FIX lat=6.884426 lon=79.858765 alt=27.2m sats=12[0m
+[0;32mI (72052) GPS: FIX lat=6.884427 lon=79.858765 alt=27.2m sats=12[0m
+[0;32mI (72182) GPS: FIX lat=6.884427 lon=79.858765 alt=27.2m sats=12[0m
+[0;32mI (73052) GPS: FIX lat=6.884427 lon=79.858765 alt=27.2m sats=12[0m
+[0;32mI (73182) GPS: FIX lat=6.884427 lon=79.858765 alt=27.3m sats=12[0m
+[0;32mI (75762) GPS: FIX lat=6.884426 lon=79.858765 alt=27.3m sats=12[0m
+[0;32mI (75762) GPS: FIX lat=6.884426 lon=79.858765 alt=27.5m sats=12[0m
+[0;32mI (75762) GPS: FIX lat=6.884426 lon=79.858765 alt=27.5m sats=12[0m
+[0;32mI (75772) GPS: FIX lat=6.884426 lon=79.858765 alt=27.7m sats=12[0m
+[0;33mW (75792) SOIL: MOIST attempt 1/3 failed[0m
+[0;32mI (76052) GPS: FIX lat=6.884427 lon=79.858765 alt=27.7m sats=12[0m
+[0;32mI (76182) GPS: FIX lat=6.884427 lon=79.858765 alt=27.9m sats=12[0m
+[0;32mI (78322) GPS: FIX lat=6.884429 lon=79.858765 alt=27.9m sats=12[0m
+[0;32mI (78322) GPS: FIX lat=6.884429 lon=79.858765 alt=27.9m sats=11[0m
+[0;32mI (78322) GPS: FIX lat=6.884432 lon=79.858765 alt=27.9m sats=11[0m
+[0;32mI (78332) GPS: FIX lat=6.884432 lon=79.858765 alt=28.4m sats=11[0m
+[0;33mW (78352) SOIL: MOIST attempt 2/3 failed[0m
+[0;32mI (80882) GPS: FIX lat=6.884434 lon=79.858765 alt=28.4m sats=11[0m
+[0;32mI (80882) GPS: FIX lat=6.884434 lon=79.858765 alt=28.7m sats=12[0m
+[0;32mI (80882) GPS: FIX lat=6.884434 lon=79.858765 alt=28.7m sats=12[0m
+[0;32mI (80892) GPS: FIX lat=6.884434 lon=79.858765 alt=29.1m sats=12[0m
+[0;33mW (80912) SOIL: MOIST attempt 3/3 failed[0m
+[0;31mE (80912) SOIL: MOIST: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (81062) GPS: FIX lat=6.884436 lon=79.858765 alt=29.1m sats=12[0m
+[0;32mI (81182) GPS: FIX lat=6.884436 lon=79.858765 alt=29.6m sats=12[0m
+[0;32mI (82052) GPS: FIX lat=6.884438 lon=79.858765 alt=29.6m sats=12[0m
+[0;32mI (82182) GPS: FIX lat=6.884438 lon=79.858765 alt=30.2m sats=12[0m
+[0;32mI (83052) GPS: FIX lat=6.884440 lon=79.858765 alt=30.2m sats=12[0m
+[0;32mI (83182) GPS: FIX lat=6.884440 lon=79.858765 alt=30.7m sats=11[0m
+[0;32mI (85502) GPS: FIX lat=6.884442 lon=79.858757 alt=30.7m sats=11[0m
+[0;32mI (85502) GPS: FIX lat=6.884442 lon=79.858757 alt=31.0m sats=11[0m
+[0;32mI (85502) GPS: FIX lat=6.884445 lon=79.858757 alt=31.0m sats=11[0m
+[0;32mI (85512) GPS: FIX lat=6.884445 lon=79.858757 alt=31.3m sats=11[0m
+[0;33mW (85532) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (86052) GPS: FIX lat=6.884449 lon=79.858757 alt=31.3m sats=11[0m
+[0;32mI (88062) GPS: FIX lat=6.884449 lon=79.858757 alt=31.8m sats=11[0m
+[0;32mI (88062) GPS: FIX lat=6.884452 lon=79.858757 alt=31.8m sats=11[0m
+[0;32mI (88062) GPS: FIX lat=6.884452 lon=79.858757 alt=32.2m sats=11[0m
+[0;33mW (88092) SOIL: EC attempt 2/3 failed[0m
+[0;32mI (88182) GPS: FIX lat=6.884455 lon=79.858757 alt=32.2m sats=11[0m
+[0;32mI (88182) GPS: FIX lat=6.884455 lon=79.858757 alt=32.3m sats=12[0m
+[0;32mI (90622) GPS: FIX lat=6.884458 lon=79.858749 alt=32.3m sats=12[0m
+[0;32mI (90622) GPS: FIX lat=6.884458 lon=79.858749 alt=32.6m sats=12[0m
+[0;32mI (90622) GPS: FIX lat=6.884461 lon=79.858749 alt=32.6m sats=12[0m
+[0;32mI (90632) GPS: FIX lat=6.884461 lon=79.858749 alt=32.9m sats=11[0m
+[0;33mW (90652) SOIL: EC attempt 3/3 failed[0m
+[0;31mE (90652) SOIL: EC: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (91052) GPS: FIX lat=6.884465 lon=79.858749 alt=32.9m sats=11[0m
+[0;32mI (91182) GPS: FIX lat=6.884465 lon=79.858749 alt=33.2m sats=11[0m
+[0;32mI (92062) GPS: FIX lat=6.884470 lon=79.858749 alt=33.2m sats=11[0m
+[0;32mI (92182) GPS: FIX lat=6.884470 lon=79.858749 alt=33.6m sats=11[0m
+[0;32mI (93052) GPS: FIX lat=6.884470 lon=79.858749 alt=33.6m sats=11[0m
+[0;32mI (93182) GPS: FIX lat=6.884470 lon=79.858749 alt=33.8m sats=12[0m
+[0;32mI (95242) GPS: FIX lat=6.884472 lon=79.858749 alt=33.8m sats=12[0m
+[0;32mI (95242) GPS: FIX lat=6.884472 lon=79.858749 alt=34.1m sats=12[0m
+[0;32mI (95242) GPS: FIX lat=6.884476 lon=79.858749 alt=34.1m sats=12[0m
+[0;33mW (95272) SOIL: PH attempt 1/3 failed[0m
+[0;32mI (95512) GPS: FIX lat=6.884476 lon=79.858749 alt=34.4m sats=12[0m
+[0;32mI (97802) GPS: FIX lat=6.884478 lon=79.858742 alt=34.4m sats=12[0m
+[0;32mI (97802) GPS: FIX lat=6.884478 lon=79.858742 alt=34.8m sats=12[0m
+[0;32mI (97802) GPS: FIX lat=6.884480 lon=79.858742 alt=34.8m sats=12[0m
+[0;32mI (97812) GPS: FIX lat=6.884480 lon=79.858742 alt=35.0m sats=11[0m
+[0;33mW (97832) SOIL: PH attempt 2/3 failed[0m
+[0;32mI (98052) GPS: FIX lat=6.884482 lon=79.858742 alt=35.0m sats=11[0m
+[0;32mI (98182) GPS: FIX lat=6.884482 lon=79.858742 alt=35.3m sats=11[0m
+[0;32mI (100362) GPS: FIX lat=6.884485 lon=79.858742 alt=35.3m sats=11[0m
+[0;32mI (100362) GPS: FIX lat=6.884485 lon=79.858742 alt=35.5m sats=11[0m
+[0;32mI (100362) GPS: FIX lat=6.884487 lon=79.858742 alt=35.5m sats=11[0m
+[0;32mI (100372) GPS: FIX lat=6.884487 lon=79.858742 alt=35.9m sats=12[0m
+[0;33mW (100392) SOIL: PH attempt 3/3 failed[0m
+[0;31mE (100392) SOIL: PH: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (101052) GPS: FIX lat=6.884489 lon=79.858734 alt=35.9m sats=12[0m
+[0;32mI (101182) GPS: FIX lat=6.884489 lon=79.858734 alt=36.4m sats=12[0m
+[0;32mI (102052) GPS: FIX lat=6.884491 lon=79.858734 alt=36.4m sats=12[0m
+[0;32mI (102182) GPS: FIX lat=6.884491 lon=79.858734 alt=36.8m sats=12[0m
+[0;32mI (104982) GPS: FIX lat=6.884494 lon=79.858734 alt=36.8m sats=12[0m
+[0;32mI (104982) GPS: FIX lat=6.884494 lon=79.858734 alt=37.1m sats=12[0m
+[0;32mI (104982) GPS: FIX lat=6.884497 lon=79.858734 alt=37.1m sats=12[0m
+[0;32mI (104992) GPS: FIX lat=6.884497 lon=79.858734 alt=37.5m sats=12[0m
+[0;33mW (105012) SOIL: N attempt 1/3 failed[0m
+[0;32mI (105182) GPS: FIX lat=6.884499 lon=79.858734 alt=37.5m sats=12[0m
+[0;32mI (105182) GPS: FIX lat=6.884499 lon=79.858734 alt=37.9m sats=12[0m
+[0;32mI (107542) GPS: FIX lat=6.884499 lon=79.858727 alt=37.9m sats=12[0m
+[0;32mI (107542) GPS: FIX lat=6.884499 lon=79.858727 alt=37.7m sats=11[0m
+[0;32mI (107542) GPS: FIX lat=6.884498 lon=79.858727 alt=37.7m sats=11[0m
+[0;32mI (107552) GPS: FIX lat=6.884498 lon=79.858727 alt=37.5m sats=11[0m
+[0;33mW (107572) SOIL: N attempt 2/3 failed[0m
+[0;32mI (108052) GPS: FIX lat=6.884498 lon=79.858727 alt=37.5m sats=11[0m
+[0;32mI (110112) GPS: FIX lat=6.884498 lon=79.858727 alt=37.2m sats=11[0m
+[0;32mI (110112) GPS: FIX lat=6.884497 lon=79.858734 alt=37.2m sats=11[0m
+[0;32mI (110112) GPS: FIX lat=6.884497 lon=79.858734 alt=37.1m sats=11[0m
+[0;33mW (110142) SOIL: N attempt 3/3 failed[0m
+[0;31mE (110142) SOIL: N: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (110302) GPS: FIX lat=6.884498 lon=79.858734 alt=37.1m sats=11[0m
+[0;32mI (110302) GPS: FIX lat=6.884498 lon=79.858734 alt=37.1m sats=11[0m
+[0;32mI (111052) GPS: FIX lat=6.884497 lon=79.858734 alt=37.1m sats=11[0m
+[0;32mI (111182) GPS: FIX lat=6.884497 lon=79.858734 alt=37.1m sats=12[0m
+[0;32mI (112052) GPS: FIX lat=6.884498 lon=79.858734 alt=37.1m sats=12[0m
+[0;32mI (112182) GPS: FIX lat=6.884498 lon=79.858734 alt=37.3m sats=12[0m
+[0;33mW (114762) SOIL: P attempt 1/3 failed[0m
+[0;33mW (117322) SOIL: P attempt 2/3 failed[0m
+[0;33mW (119882) SOIL: P attempt 3/3 failed[0m
+[0;31mE (119882) SOIL: P: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;33mW (124502) SOIL: K attempt 1/3 failed[0m
+[0;33mW (127062) SOIL: K attempt 2/3 failed[0m
+[0;33mW (129622) SOIL: K attempt 3/3 failed[0m
+[0;31mE (129622) SOIL: K: all 3 attempts failed – bus recovery 2000 ms[0m
+����������������������������������������������������������������0;32mI (132182) LDR: ADC=1151  Light=28.1%[0m
+[0;33mW (132182) SOIL: Cycle partial: Temp=25.7C Moist=100.0% pH=6.56 EC=192 N=13 P=19 K=38  (stale fields retained)[0m
+[0;32mI (132212) BLE: Pkt#2 sent: ldr=28.1% temp=25.70C pH=6.56 moist=100.0% EC=192 N=13 P=19 K=38 gps=FIX[0m
+[0;33mW (136242) SOIL: TEMP attempt 1/3 failed[0m
+[0;33mW (138802) SOIL: TEMP attempt 2/3 failed[0m
+[0;33mW (141362) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (141362) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;33mW (145982) SOIL: MOIST attempt 1/3 failed[0m
+[0;33mW (148542) SOIL: MOIST attempt 2/3 failed[0m
+[0;33mW (151102) SOIL: MOIST attempt 3/3 failed[0m
+[0;31mE (151102) SOIL: MOIST: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;33mW (155722) SOIL: EC attempt 1/3 failed[0m
+[0;33mW (158282) SOIL: EC attempt 2/3 failed[0m
+[0;33mW (160842) SOIL: EC attempt 3/3 failed[0m
+[0;31mE (160842) SOIL: EC: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;33mW (165462) SOIL: PH attempt 1/3 failed[0m
+[0;33mW (168022) SOIL: PH attempt 2/3 failed[0m
+[0;33mW (170582) SOIL: PH attempt 3/3 failed[0m
+[0;31mE (170582) SOIL: PH: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;33mW (175202) SOIL: N attempt 1/3 failed[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x17 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7176
+load:0x40078000,len:15564
+ho 0 tail 12 room 4
+load:0x40080400,len:4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.3.1-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Mar 10 2026 16:13:34[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (85) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=22ab4h (142004) map[0m
+[0;32mI (153) esp_image: segment 1: paddr=00032adc vaddr=3ff80000 size=00004h (     4) load[0m
+[0;32mI (154) esp_image: segment 2: paddr=00032ae8 vaddr=3ffbdb60 size=04bb4h ( 19380) load[0m
+[0;32mI (166) esp_image: segment 3: paddr=000376a4 vaddr=40080000 size=08974h ( 35188) load[0m
+[0;32mI (182) esp_image: segment 4: paddr=00040020 vaddr=400d0020 size=7f8f0h (522480) map[0m
+[0;32mI (361) esp_image: segment 5: paddr=000bf918 vaddr=40088974 size=0fd74h ( 64884) load[0m
+[0;32mI (399) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (399) boot: Disabling RNG early entropy source...[0m
+[0;32mI (411) cpu_start: Multicore app[0m
+[0;32mI (419) cpu_start: Pro cpu start user code[0m
+[0;32mI (419) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (420) app_init: Application information:[0m
+[0;32mI (422) app_init: Project name:     gatt_server_demos[0m
+[0;32mI (428) app_init: App version:      1[0m
+[0;32mI (432) app_init: Compile time:     Mar 10 2026 16:13:18[0m
+[0;32mI (438) app_init: ELF file SHA256:  d2bb07296...[0m
+[0;32mI (444) app_init: ESP-IDF:          v5.3.1-dirty[0m
+[0;32mI (449) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (454) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (459) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (464) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (471) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (477) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (483) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (489) heap_init: At 3FFC7280 len 00018D80 (99 KiB): DRAM[0m
+[0;32mI (495) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (502) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (508) heap_init: At 400986E8 len 00007918 (30 KiB): IRAM[0m
+[0;32mI (516) spi_flash: detected chip: generic[0m
+[0;32mI (519) spi_flash: flash io: dio[0m
+[0;33mW (523) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (537) coexist: coex firmware version: 4482466[0m
+[0;32mI (542) main_task: Started on CPU0[0m
+[0;32mI (552) main_task: Calling app_main()[0m
+[0;32mI (552) MAIN: === Soil Testing Kit (BLE GATT binary) booting ===[0m
+[0;32mI (562) GPS: UART2 RX=GPIO16 TX=GPIO17 @9600[0m
+[0;32mI (562) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (572) SOIL: UART1/RS485 TX=GPIO18 RX=GPIO19 DE/RE=GPIO4[0m
+[0;32mI (572) BTDM_INIT: BT controller compile version [b022216][0m
+[0;32mI (582) BTDM_INIT: Bluetooth MAC: 68:25:dd:32:fd:ba[0m
+[0;32mI (592) phy_init: phy_version 4830,54550f7,Jun 20 2024,14:22:08[0m
+[0;32mI (992) BLE: GATTS registered if=3[0m
+[0;32mI (1002) MAIN: BLE ready name="SoilTestKit" SVC=0x00FF DATA=0xFF01 CMD=0xFF02 pkt=31B[0m
+[0;32mI (1012) BLE: Service started SVC=40 DATA=42 CCCD=43 CMD=45[0m
+[0;32mI (1012) BLE: START EVT status=0 handle=40[0m
+[0;32mI (1012) LDR: ADC1 CH6 (GPIO34) ready[0m
+[0;32mI (1012) SOIL: Sensor task started – retries=3 recovery=2000ms[0m
+[0;32mI (1022) GPS: GPS task started[0m
+[0;32mI (1032) BLE: BLE advertising started  name="SoilTestKit"[0m
+[0;32mI (1032) MAIN: All tasks running - waiting for Flutter BLE connection...[0m
+[0;32mI (1032) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1042) main_task: Returned from app_main()[0m
+[0;32mI (1052) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1062) gpio: GPIO[14]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (2072) BLE: Power-on blink done[0m
+[0;32mI (2072) gpio: GPIO[35]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;33mW (3082) SOIL: TEMP attempt 1/3 failed[0m
+[0;33mW (5642) SOIL: TEMP attempt 2/3 failed[0m
+[0;33mW (8212) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (8212) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;33mW (12832) SOIL: MOIST attempt 1/3 failed[0m
+[0;33mW (15392) SOIL: MOIST attempt 2/3 failed[0m
+[0;33mW (17952) SOIL: MOIST attempt 3/3 failed[0m
+[0;31mE (17952) SOIL: MOIST: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;33mW (22572) SOIL: EC attempt 1/3 failed[0m
+[0;33mW (25132) SOIL: EC attempt 2/3 failed[0m
+[0;33mW (27692) SOIL: EC attempt 3/3 failed[0m
+[0;31mE (27692) SOIL: EC: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;33mW (32312) SOIL: PH attempt 1/3 failed[0m
+[0;33mW (34872) SOIL: PH attempt 2/3 failed[0m
+[0;33mW (37432) SOIL: PH attempt 3/3 failed[0m
+[0;31mE (37432) SOIL: PH: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;33mW (42052) SOIL: N attempt 1/3 failed[0m
+[0;33mW (44612) SOIL: N attempt 2/3 failed[0m
+[0;32mI (45072) GPS: FIX lat=6.884784 lon=79.858597 alt=0.0m sats=0[0m
+[0;33mW (47172) SOIL: N attempt 3/3 failed[0m
+[0;31mE (47172) SOIL: N: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (47252) GPS: FIX lat=6.884784 lon=79.858597 alt=1.4m sats=3[0m
+[0;32mI (47262) GPS: FIX lat=6.884786 lon=79.858589 alt=1.4m sats=3[0m
+[0;32mI (47262) GPS: FIX lat=6.884786 lon=79.858589 alt=1.1m sats=3[0m
+[0;32mI (47272) GPS: FIX lat=6.884788 lon=79.858589 alt=1.1m sats=3[0m
+[0;32mI (47272) GPS: FIX lat=6.884788 lon=79.858589 alt=1.1m sats=3[0m
+[0;32mI (48072) GPS: FIX lat=6.884797 lon=79.858589 alt=1.1m sats=3[0m
+[0;32mI (48192) GPS: FIX lat=6.884797 lon=79.858589 alt=1.2m sats=3[0m
+[0;32mI (49072) GPS: FIX lat=6.884807 lon=79.858582 alt=1.2m sats=3[0m
+[0;32mI (49192) GPS: FIX lat=6.884807 lon=79.858582 alt=0.5m sats=3[0m
+[0;33mW (49792) SOIL: CRC fail cc=0x293B cr=0x697A[0m
+[0;33mW (49792) SOIL: P attempt 1/3 failed[0m
+[0;32mI (50072) GPS: FIX lat=6.884820 lon=79.858574 alt=0.5m sats=3[0m
+[0;32mI (50192) GPS: FIX lat=6.884820 lon=79.858574 alt=0.7m sats=3[0m
+[0;33mW (50352) SOIL: CRC fail cc=0x9C49 cr=0xFCDE[0m
+[0;33mW (50352) SOIL: P attempt 2/3 failed[0m
+[0;32mI (52182) BLE: Connected conn_id=0 MAC=43:1e:43:80:40:df[0m
+[0;32mI (52512) BLE: Conn params: interval=24 latency=0 timeout=400[0m
+[0;32mI (52632) BLE: MTU=500[0m
+[0;33mW (52912) SOIL: P attempt 3/3 failed[0m
+[0;31mE (52912) SOIL: P: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (53072) GPS: FIX lat=6.884832 lon=79.858566 alt=0.7m sats=3[0m
+[0;32mI (53072) GPS: FIX lat=6.884832 lon=79.858566 alt=0.5m sats=3[0m
+[0;32mI (53072) GPS: FIX lat=6.884861 lon=79.858551 alt=0.5m sats=3[0m
+[0;32mI (53082) GPS: FIX lat=6.884861 lon=79.858551 alt=1.1m sats=3[0m
+[0;32mI (53082) GPS: FIX lat=6.884891 lon=79.858536 alt=1.1m sats=3[0m
+[0;32mI (53192) GPS: FIX lat=6.884891 lon=79.858536 alt=0.8m sats=3[0m
+[0;32mI (53472) BLE: WRITE handle=43 len=2[0m
+[0;32mI (53472) BLE: Notifications ENABLED[0m
+[0;32mI (53522) BLE: Pkt#0 sent: ldr=0.0% temp=0.00C pH=0.00 moist=0.0% EC=0 N=0 P=0 K=0 gps=FIX[0m
+[0;32mI (53592) BLE: READ handle=42[0m
+[0;32mI (54072) GPS: FIX lat=6.884922 lon=79.858521 alt=0.8m sats=3[0m
+[0;32mI (54192) GPS: FIX lat=6.884922 lon=79.858521 alt=0.8m sats=3[0m
+[0;32mI (55072) GPS: FIX lat=6.884954 lon=79.858498 alt=0.8m sats=3[0m
+[0;32mI (55192) GPS: FIX lat=6.884954 lon=79.858498 alt=1.4m sats=3[0m
+[0;33mW (55532) SOIL: CRC fail cc=0xAE59 cr=0xCF39[0m
+[0;33mW (55532) SOIL: K attempt 1/3 failed[0m
+[0;33mW (56092) SOIL: K attempt 2/3 failed[0m
+[0;32mI (56092) GPS: FIX lat=6.884984 lon=79.858482 alt=1.4m sats=3[0m
+[0;32mI (56192) GPS: FIX lat=6.884984 lon=79.858482 alt=1.7m sats=3[0m
+[0;33mW (56652) SOIL: K attempt 3/3 failed[0m
+[0;31mE (56652) SOIL: K: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (57072) GPS: FIX lat=6.885010 lon=79.858467 alt=1.7m sats=3[0m
+[0;32mI (57192) GPS: FIX lat=6.885010 lon=79.858467 alt=1.6m sats=3[0m
+[0;32mI (58072) GPS: FIX lat=6.885042 lon=79.858452 alt=1.6m sats=3[0m
+[0;32mI (58192) GPS: FIX lat=6.885042 lon=79.858452 alt=0.5m sats=3[0m
+[0;32mI (59072) GPS: FIX lat=6.885065 lon=79.858437 alt=0.5m sats=3[0m
+[0;32mI (59192) GPS: FIX lat=6.885065 lon=79.858437 alt=-0.3m sats=3[0m
+[0;32mI (59212) LDR: ADC=1085  Light=26.5%[0m
+[0;33mW (59212) SOIL: Cycle partial: Temp=0.0C Moist=0.0% pH=0.00 EC=0 N=0 P=0 K=0  (stale fields retained)[0m
+[0;32mI (59222) BLE: Pkt#1 sent: ldr=26.5% temp=0.00C pH=0.00 moist=0.0% EC=0 N=0 P=0 K=0 gps=FIX[0m
+[0;32mI (60072) GPS: FIX lat=6.885085 lon=79.858429 alt=-0.3m sats=3[0m
+[0;32mI (60192) GPS: FIX lat=6.885085 lon=79.858429 alt=-0.1m sats=3[0m
+[0;33mW (61272) SOIL: CRC fail cc=0x753E cr=0x57B8[0m
+[0;33mW (61272) SOIL: TEMP attempt 1/3 failed[0m
+[0;33mW (61832) SOIL: CRC fail cc=0x44B8 cr=0x46BC[0m
+[0;33mW (61832) SOIL: TEMP attempt 2/3 failed[0m
+[0;32mI (62072) GPS: FIX lat=6.884719 lon=79.858658 alt=-0.1m sats=3[0m
+[0;32mI (62202) GPS: FIX lat=6.884719 lon=79.858658 alt=45.3m sats=4[0m
+[0;33mW (64392) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (64392) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (64462) GPS: FIX lat=6.884720 lon=79.858665 alt=45.3m sats=4[0m
+[0;32mI (64462) GPS: FIX lat=6.884720 lon=79.858665 alt=45.1m sats=4[0m
+[0;32mI (64462) GPS: FIX lat=6.884718 lon=79.858665 alt=45.1m sats=4[0m
+[0;32mI (64462) GPS: FIX lat=6.884718 lon=79.858665 alt=44.8m sats=4[0m
+[0;32mI (65072) GPS: FIX lat=6.884718 lon=79.858665 alt=44.8m sats=4[0m
+[0;32mI (65202) GPS: FIX lat=6.884718 lon=79.858665 alt=44.5m sats=4[0m
+[0;32mI (66082) GPS: FIX lat=6.884718 lon=79.858665 alt=44.5m sats=4[0m
+[0;32mI (66202) GPS: FIX lat=6.884718 lon=79.858665 alt=44.6m sats=4[0m
+[0;33mW (67012) SOIL: CRC fail cc=0xC378 cr=0xF878[0m
+[0;33mW (67012) SOIL: MOIST attempt 1/3 failed[0m
+[0;32mI (67072) GPS: FIX lat=6.884717 lon=79.858665 alt=44.6m sats=4[0m
+[0;32mI (67202) GPS: FIX lat=6.884717 lon=79.858665 alt=44.0m sats=4[0m
+[0;33mW (67572) SOIL: CRC fail cc=0xCEF8 cr=0xCEF9[0m
+[0;33mW (67572) SOIL: MOIST attempt 2/3 failed[0m
+[0;32mI (68072) GPS: FIX lat=6.884717 lon=79.858673 alt=44.0m sats=4[0m
+[0;32mI (68132) SOIL: MOIST OK on attempt 3[0m
+[0;32mI (68202) GPS: FIX lat=6.884717 lon=79.858673 alt=43.9m sats=4[0m
+[0;33mW (68692) SOIL: CRC fail cc=0x0C78 cr=0xD479[0m
+[0;33mW (68692) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (69072) GPS: FIX lat=6.884719 lon=79.858673 alt=43.9m sats=4[0m
+[0;32mI (69192) GPS: FIX lat=6.884719 lon=79.858673 alt=43.7m sats=4[0m
+[0;32mI (69252) SOIL: EC OK on attempt 2[0m
+[0;32mI (70072) GPS: FIX lat=6.884716 lon=79.858673 alt=43.7m sats=4[0m
+[0;32mI (70202) GPS: FIX lat=6.884716 lon=79.858673 alt=43.0m sats=4[0m
+[0;32mI (71072) GPS: FIX lat=6.884713 lon=79.858673 alt=43.0m sats=4[0m
+[0;32mI (71192) GPS: FIX lat=6.884713 lon=79.858673 alt=42.3m sats=4[0m
+[0;32mI (71992) LDR: ADC=1104  Light=27.0%[0m
+[0;33mW (71992) SOIL: Cycle partial: Temp=0.0C Moist=59.2% pH=6.52 EC=193 N=13 P=19 K=38  (stale fields retained)[0m
+[0;32mI (72022) BLE: Pkt#2 sent: ldr=27.0% temp=0.00C pH=6.52 moist=59.2% EC=193 N=13 P=19 K=38 gps=FIX[0m
+[0;32mI (72072) GPS: FIX lat=6.884712 lon=79.858681 alt=42.3m sats=4[0m
+[0;32mI (72202) GPS: FIX lat=6.884712 lon=79.858681 alt=42.0m sats=4[0m
+[0;32mI (73082) GPS: FIX lat=6.884707 lon=79.858681 alt=42.0m sats=4[0m
+[0;32mI (73212) GPS: FIX lat=6.884707 lon=79.858681 alt=41.5m sats=4[0m
+[0;33mW (74052) SOIL: CRC fail cc=0x1538 cr=0xC538[0m
+[0;33mW (74052) SOIL: TEMP attempt 1/3 failed[0m
+[0;32mI (74072) GPS: FIX lat=6.884705 lon=79.858681 alt=41.5m sats=4[0m
+[0;32mI (74202) GPS: FIX lat=6.884705 lon=79.858681 alt=41.1m sats=4[0m
+[0;32mI (74612) SOIL: TEMP OK on attempt 2[0m
+[0;32mI (75072) GPS: FIX lat=6.884703 lon=79.858681 alt=41.1m sats=4[0m
+[0;32mI (75202) GPS: FIX lat=6.884703 lon=79.858681 alt=40.9m sats=4[0m
+[0;32mI (76072) GPS: FIX lat=6.884702 lon=79.858688 alt=40.9m sats=4[0m
+[0;32mI (76192) GPS: FIX lat=6.884702 lon=79.858688 alt=41.0m sats=4[0m
+[0;33mW (76292) SOIL: CRC fail cc=0x81B8 cr=0xA1B8[0m
+[0;33mW (76292) SOIL: PH attempt 1/3 failed[0m
+[0;33mW (76852) SOIL: CRC fail cc=0x81B8 cr=0x85B8[0m
+[0;33mW (76852) SOIL: PH attempt 2/3 failed[0m
+[0;32mI (77072) GPS: FIX lat=6.884698 lon=79.858688 alt=41.0m sats=4[0m
+[0;32mI (77202) GPS: FIX lat=6.884698 lon=79.858688 alt=41.0m sats=4[0m
+[0;33mW (77412) SOIL: CRC fail cc=0x81B8 cr=0xC1BC[0m
+[0;33mW (77412) SOIL: PH attempt 3/3 failed[0m
+[0;31mE (77412) SOIL: PH: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (78072) GPS: FIX lat=6.884694 lon=79.858688 alt=41.0m sats=4[0m
+[0;32mI (78202) GPS: FIX lat=6.884694 lon=79.858688 alt=41.2m sats=4[0m
+[0;32mI (79072) GPS: FIX lat=6.884690 lon=79.858688 alt=41.2m sats=4[0m
+[0;32mI (79192) GPS: FIX lat=6.884690 lon=79.858688 alt=41.5m sats=4[0m
+[0;32mI (80072) GPS: FIX lat=6.884688 lon=79.858688 alt=41.5m sats=4[0m
+[0;32mI (80202) GPS: FIX lat=6.884688 lon=79.858688 alt=41.9m sats=4[0m
+[0;32mI (81072) GPS: FIX lat=6.884687 lon=79.858688 alt=41.9m sats=4[0m
+[0;32mI (81202) GPS: FIX lat=6.884687 lon=79.858688 alt=42.1m sats=4[0m
+[0;32mI (81652) LDR: ADC=1062  Light=25.9%[0m
+[0;33mW (81652) SOIL: Cycle partial: Temp=25.8C Moist=65.0% pH=6.52 EC=194 N=13 P=19 K=38  (stale fields retained)[0m
+[0;32mI (81672) BLE: Pkt#3 sent: ldr=25.9% temp=25.80C pH=6.52 moist=65.0% EC=194 N=13 P=19 K=38 gps=FIX[0m
+[0;32mI (82072) GPS: FIX lat=6.884686 lon=79.858681 alt=42.1m sats=4[0m
+[0;32mI (82202) GPS: FIX lat=6.884686 lon=79.858681 alt=42.8m sats=4[0m
+[0;32mI (83072) GPS: FIX lat=6.884685 lon=79.858681 alt=42.8m sats=4[0m
+[0;32mI (83202) GPS: FIX lat=6.884685 lon=79.858681 alt=43.7m sats=4[0m
+[0;33mW (83712) SOIL: CRC fail cc=0xD939 cr=0x1538[0m
+[0;33mW (83712) SOIL: TEMP attempt 1/3 failed[0m
+[0;32mI (84072) GPS: FIX lat=6.884684 lon=79.858681 alt=43.7m sats=4[0m
+[0;32mI (84192) GPS: FIX lat=6.884684 lon=79.858681 alt=44.3m sats=4[0m
+[0;33mW (84272) SOIL: CRC fail cc=0x1538 cr=0x15BC[0m
+[0;33mW (84272) SOIL: TEMP attempt 2/3 failed[0m
+[0;33mW (84832) SOIL: CRC fail cc=0xD509 cr=0xC538[0m
+[0;33mW (84832) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (84832) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (85082) GPS: FIX lat=6.884644 lon=79.858688 alt=44.3m sats=4[0m
+[0;32mI (85212) GPS: FIX lat=6.884644 lon=79.858688 alt=45.0m sats=5[0m
+[0;32mI (86072) GPS: FIX lat=6.884623 lon=79.858696 alt=45.0m sats=5[0m
+[0;32mI (86192) GPS: FIX lat=6.884623 lon=79.858696 alt=45.4m sats=5[0m
+[0;32mI (87072) GPS: FIX lat=6.884605 lon=79.858696 alt=45.4m sats=5[0m
+[0;32mI (87192) GPS: FIX lat=6.884605 lon=79.858696 alt=45.7m sats=5[0m
+[0;33mW (90012) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (90082) GPS: FIX lat=6.884594 lon=79.858696 alt=45.7m sats=5[0m
+[0;32mI (90082) GPS: FIX lat=6.884594 lon=79.858696 alt=46.0m sats=5[0m
+[0;32mI (90082) GPS: FIX lat=6.884588 lon=79.858696 alt=46.0m sats=5[0m
+[0;32mI (90082) GPS: FIX lat=6.884588 lon=79.858696 alt=46.7m sats=5[0m
+[0;32mI (90092) GPS: FIX lat=6.884584 lon=79.858696 alt=46.7m sats=5[0m
+[0;32mI (90202) GPS: FIX lat=6.884584 lon=79.858696 alt=47.0m sats=5[0m
+[0;33mW (90572) SOIL: CRC fail cc=0x14B8 cr=0x56BC[0m
+[0;33mW (90572) SOIL: EC attempt 2/3 failed[0m
+[0;32mI (91082) GPS: FIX lat=6.884555 lon=79.858704 alt=47.0m sats=5[0m
+[0;33mW (93132) SOIL: EC attempt 3/3 failed[0m
+[0;31mE (93132) SOIL: EC: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (93202) GPS: FIX lat=6.884555 lon=79.858704 alt=46.5m sats=6[0m
+[0;32mI (93202) GPS: FIX lat=6.884528 lon=79.858711 alt=46.5m sats=6[0m
+[0;32mI (93202) GPS: FIX lat=6.884528 lon=79.858711 alt=46.0m sats=6[0m
+[0;32mI (93202) GPS: FIX lat=6.884520 lon=79.858711 alt=46.0m sats=6[0m
+[0;32mI (93212) GPS: FIX lat=6.884520 lon=79.858711 alt=45.5m sats=6[0m
+[0;32mI (94072) GPS: FIX lat=6.884511 lon=79.858711 alt=45.5m sats=6[0m
+[0;32mI (94202) GPS: FIX lat=6.884511 lon=79.858711 alt=45.3m sats=6[0m
+[0;32mI (95072) GPS: FIX lat=6.884506 lon=79.858711 alt=45.3m sats=6[0m
+[0;32mI (95202) GPS: FIX lat=6.884506 lon=79.858711 alt=44.9m sats=6[0m
+[0;33mW (97752) SOIL: PH attempt 1/3 failed[0m
+[0;32mI (97822) GPS: FIX lat=6.884502 lon=79.858711 alt=44.9m sats=6[0m
+[0;32mI (97822) GPS: FIX lat=6.884502 lon=79.858711 alt=44.6m sats=6[0m
+[0;32mI (97822) GPS: FIX lat=6.884503 lon=79.858719 alt=44.6m sats=6[0m
+[0;32mI (97822) GPS: FIX lat=6.884503 lon=79.858719 alt=43.9m sats=6[0m
+[0;32mI (98072) GPS: FIX lat=6.884501 lon=79.858719 alt=43.9m sats=6[0m
+[0;32mI (98202) GPS: FIX lat=6.884501 lon=79.858719 alt=43.5m sats=6[0m
+[0;33mW (100312) SOIL: PH attempt 2/3 failed[0m
+[0;32mI (100392) GPS: FIX lat=6.884501 lon=79.858719 alt=43.5m sats=6[0m
+[0;32mI (100392) GPS: FIX lat=6.884501 lon=79.858719 alt=42.9m sats=6[0m
+[0;32mI (100392) GPS: FIX lat=6.884501 lon=79.858719 alt=42.9m sats=6[0m
+[0;32mI (100402) GPS: FIX lat=6.884501 lon=79.858719 alt=42.6m sats=6[0m
+[0;33mW (102872) SOIL: PH attempt 3/3 failed[0m
+[0;31mE (102872) SOIL: PH: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (102942) GPS: FIX lat=6.884500 lon=79.858719 alt=42.6m sats=6[0m
+[0;32mI (102942) GPS: FIX lat=6.884500 lon=79.858719 alt=42.2m sats=6[0m
+[0;32mI (102942) GPS: FIX lat=6.884500 lon=79.858719 alt=42.2m sats=6[0m
+[0;32mI (102952) GPS: FIX lat=6.884500 lon=79.858719 alt=41.5m sats=6[0m
+[0;32mI (103082) GPS: FIX lat=6.884501 lon=79.858719 alt=41.5m sats=6[0m
+[0;32mI (103202) GPS: FIX lat=6.884501 lon=79.858719 alt=40.8m sats=6[0m
+[0;32mI (104072) GPS: FIX lat=6.884501 lon=79.858719 alt=40.8m sats=6[0m
+[0;32mI (104202) GPS: FIX lat=6.884501 lon=79.858719 alt=40.0m sats=6[0m
+[0;32mI (105072) GPS: FIX lat=6.884499 lon=79.858719 alt=40.0m sats=6[0m
+[0;32mI (105202) GPS: FIX lat=6.884499 lon=79.858719 alt=39.3m sats=6[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x17 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7176
+load:0x40078000,len:15564
+ho 0 tail 12 room 4
+load:0x40080400,len:4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.3.1-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Mar 10 2026 16:13:34[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (85) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=22ab4h (142004) map[0m
+[0;32mI (153) esp_image: segment 1: paddr=00032adc vaddr=3ff80000 size=00004h (     4) load[0m
+[0;32mI (154) esp_image: segment 2: paddr=00032ae8 vaddr=3ffbdb60 size=04bb4h ( 19380) load[0m
+[0;32mI (166) esp_image: segment 3: paddr=000376a4 vaddr=40080000 size=08974h ( 35188) load[0m
+[0;32mI (182) esp_image: segment 4: paddr=00040020 vaddr=400d0020 size=7f8f0h (522480) map[0m
+[0;32mI (361) esp_image: segment 5: paddr=000bf918 vaddr=40088974 size=0fd74h ( 64884) load[0m
+[0;32mI (399) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (399) boot: Disabling RNG early entropy source...[0m
+[0;32mI (411) cpu_start: Multicore app[0m
+[0;32mI (419) cpu_start: Pro cpu start user code[0m
+[0;32mI (419) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (420) app_init: Application information:[0m
+[0;32mI (422) app_init: Project name:     gatt_server_demos[0m
+[0;32mI (428) app_init: App version:      1[0m
+[0;32mI (432) app_init: Compile time:     Mar 10 2026 16:13:18[0m
+[0;32mI (438) app_init: ELF file SHA256:  d2bb07296...[0m
+[0;32mI (444) app_init: ESP-IDF:          v5.3.1-dirty[0m
+[0;32mI (449) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (454) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (459) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (464) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (471) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (477) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (483) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (489) heap_init: At 3FFC7280 len 00018D80 (99 KiB): DRAM[0m
+[0;32mI (495) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (502) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (508) heap_init: At 400986E8 len 00007918 (30 KiB): IRAM[0m
+[0;32mI (516) spi_flash: detected chip: generic[0m
+[0;32mI (519) spi_flash: flash io: dio[0m
+[0;33mW (523) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (537) coexist: coex firmware version: 4482466[0m
+[0;32mI (542) main_task: Started on CPU0[0m
+[0;32mI (552) main_task: Calling app_main()[0m
+[0;32mI (552) MAIN: === Soil Testing Kit (BLE GATT binary) booting ===[0m
+[0;32mI (562) GPS: UART2 RX=GPIO16 TX=GPIO17 @9600[0m
+[0;32mI (562) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (572) SOIL: UART1/RS485 TX=GPIO18 RX=GPIO19 DE/RE=GPIO4[0m
+[0;32mI (572) BTDM_INIT: BT controller compile version [b022216][0m
+[0;32mI (582) BTDM_INIT: Bluetooth MAC: 68:25:dd:32:fd:ba[0m
+[0;32mI (592) phy_init: phy_version 4830,54550f7,Jun 20 2024,14:22:08[0m
+[0;32mI (992) BLE: GATTS registered if=3[0m
+[0;32mI (992) MAIN: BLE ready name="SoilTestKit" SVC=0x00FF DATA=0xFF01 CMD=0xFF02 pkt=31B[0m
+[0;32mI (1002) BLE: Service started SVC=40 DATA=42 CCCD=43 CMD=45[0m
+[0;32mI (1012) BLE: START EVT status=0 handle=40[0m
+[0;32mI (1012) LDR: ADC1 CH6 (GPIO34) ready[0m
+[0;32mI (1012) SOIL: Sensor task started – retries=3 recovery=2000ms[0m
+[0;32mI (1022) GPS: GPS task started[0m
+[0;32mI (1022) BLE: BLE advertising started  name="SoilTestKit"[0m
+[0;32mI (1032) MAIN: All tasks running - waiting for Flutter BLE connection...[0m
+[0;32mI (1032) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1032) main_task: Returned from app_main()[0m
+[0;32mI (1042) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1062) gpio: GPIO[14]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (2072) BLE: Power-on blink done[0m
+[0;32mI (2072) gpio: GPIO[35]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (3052) GPS: FIX lat=6.884495 lon=79.858727 alt=0.0m sats=0[0m
+[0;32mI (3052) GPS: FIX lat=6.884495 lon=79.858727 alt=38.0m sats=6[0m
+[0;32mI (3052) GPS: FIX lat=6.884493 lon=79.858727 alt=38.0m sats=6[0m
+[0;32mI (3052) GPS: FIX lat=6.884493 lon=79.858727 alt=37.3m sats=6[0m
+[0;32mI (3062) GPS: FIX lat=6.884491 lon=79.858727 alt=37.3m sats=6[0m
+[0;32mI (3072) GPS: FIX lat=6.884491 lon=79.858727 alt=36.5m sats=6[0m
+[0;33mW (3082) SOIL: TEMP attempt 1/3 failed[0m
+[0;33mW (5642) SOIL: TEMP attempt 2/3 failed[0m
+[0;32mI (5712) GPS: FIX lat=6.884489 lon=79.858727 alt=36.5m sats=6[0m
+[0;32mI (5712) GPS: FIX lat=6.884489 lon=79.858727 alt=35.9m sats=6[0m
+[0;32mI (5712) GPS: FIX lat=6.884487 lon=79.858727 alt=35.9m sats=6[0m
+[0;32mI (5712) GPS: FIX lat=6.884487 lon=79.858727 alt=35.3m sats=6[0m
+[0;32mI (5822) GPS: FIX lat=6.884489 lon=79.858734 alt=35.3m sats=6[0m
+[0;32mI (5932) GPS: FIX lat=6.884489 lon=79.858734 alt=33.3m sats=6[0m
+[0;33mW (8202) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (8202) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (8272) GPS: FIX lat=6.884488 lon=79.858734 alt=33.3m sats=6[0m
+[0;32mI (8272) GPS: FIX lat=6.884488 lon=79.858734 alt=32.6m sats=6[0m
+[0;32mI (8272) GPS: FIX lat=6.884485 lon=79.858734 alt=32.6m sats=6[0m
+[0;32mI (8272) GPS: FIX lat=6.884485 lon=79.858734 alt=31.9m sats=6[0m
+[0;32mI (8812) GPS: FIX lat=6.884483 lon=79.858734 alt=31.9m sats=6[0m
+[0;32mI (8932) GPS: FIX lat=6.884483 lon=79.858734 alt=31.3m sats=6[0m
+[0;32mI (9812) GPS: FIX lat=6.884480 lon=79.858734 alt=31.3m sats=6[0m
+[0;32mI (9932) GPS: FIX lat=6.884480 lon=79.858734 alt=30.4m sats=6[0m
+[0;33mW (12822) SOIL: MOIST attempt 1/3 failed[0m
+[0;32mI (12832) GPS: FIX lat=6.884478 lon=79.858734 alt=30.4m sats=6[0m
+[0;32mI (12832) GPS: FIX lat=6.884478 lon=79.858734 alt=29.5m sats=6[0m
+[0;32mI (12832) GPS: FIX lat=6.884476 lon=79.858734 alt=29.5m sats=6[0m
+[0;32mI (12842) GPS: FIX lat=6.884476 lon=79.858734 alt=28.9m sats=6[0m
+[0;32mI (12852) GPS: FIX lat=6.884473 lon=79.858742 alt=28.9m sats=6[0m
+[0;32mI (12852) GPS: FIX lat=6.884473 lon=79.858742 alt=28.1m sats=6[0m
+[0;33mW (15382) SOIL: MOIST attempt 2/3 failed[0m
+[0;32mI (15452) GPS: FIX lat=6.884471 lon=79.858742 alt=28.1m sats=6[0m
+[0;32mI (15452) GPS: FIX lat=6.884471 lon=79.858742 alt=27.3m sats=6[0m
+[0;32mI (15452) GPS: FIX lat=6.884471 lon=79.858742 alt=27.3m sats=6[0m
+[0;32mI (15452) GPS: FIX lat=6.884471 lon=79.858742 alt=26.6m sats=6[0m
+[0;32mI (15802) GPS: FIX lat=6.884470 lon=79.858742 alt=26.6m sats=6[0m
+[0;33mW (17942) SOIL: MOIST attempt 3/3 failed[0m
+[0;31mE (17942) SOIL: MOIST: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (17952) GPS: FIX lat=6.884470 lon=79.858742 alt=26.0m sats=6[0m
+[0;32mI (17962) GPS: FIX lat=6.884469 lon=79.858742 alt=26.0m sats=6[0m
+[0;32mI (17962) GPS: FIX lat=6.884469 lon=79.858742 alt=25.4m sats=6[0m
+[0;32mI (17962) GPS: FIX lat=6.884469 lon=79.858742 alt=25.4m sats=6[0m
+[0;32mI (17972) GPS: FIX lat=6.884469 lon=79.858742 alt=24.7m sats=6[0m
+[0;32mI (18802) GPS: FIX lat=6.884470 lon=79.858742 alt=24.7m sats=6[0m
+[0;32mI (18932) GPS: FIX lat=6.884470 lon=79.858742 alt=24.4m sats=6[0m
+[0;32mI (19802) GPS: FIX lat=6.884470 lon=79.858742 alt=24.4m sats=6[0m
+[0;32mI (19932) GPS: FIX lat=6.884470 lon=79.858742 alt=24.1m sats=6[0m
+[0;33mW (22562) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (22632) GPS: FIX lat=6.884470 lon=79.858742 alt=24.1m sats=6[0m
+[0;32mI (22632) GPS: FIX lat=6.884470 lon=79.858742 alt=23.8m sats=6[0m
+[0;32mI (22632) GPS: FIX lat=6.884470 lon=79.858742 alt=23.8m sats=6[0m
+[0;32mI (22642) GPS: FIX lat=6.884470 lon=79.858742 alt=23.3m sats=6[0m
+[0;32mI (22802) GPS: FIX lat=6.884470 lon=79.858742 alt=23.3m sats=6[0m
+[0;32mI (22932) GPS: FIX lat=6.884470 lon=79.858742 alt=23.3m sats=6[0m
+[0;33mW (25122) SOIL: EC attempt 2/3 failed[0m
+[0;32mI (25192) GPS: FIX lat=6.884470 lon=79.858742 alt=23.3m sats=6[0m
+[0;32mI (25192) GPS: FIX lat=6.884470 lon=79.858742 alt=23.2m sats=6[0m
+[0;32mI (25192) GPS: FIX lat=6.884471 lon=79.858742 alt=23.2m sats=6[0m
+[0;32mI (25192) GPS: FIX lat=6.884471 lon=79.858742 alt=23.3m sats=6[0m
+[0;33mW (27682) SOIL: EC attempt 3/3 failed[0m
+[0;31mE (27682) SOIL: EC: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (27812) GPS: FIX lat=6.884471 lon=79.858742 alt=23.3m sats=6[0m
+[0;32mI (27812) GPS: FIX lat=6.884471 lon=79.858742 alt=23.1m sats=6[0m
+[0;32mI (27812) GPS: FIX lat=6.884472 lon=79.858742 alt=23.1m sats=6[0m
+[0;32mI (27812) GPS: FIX lat=6.884472 lon=79.858742 alt=22.8m sats=6[0m
+[0;32mI (27822) GPS: FIX lat=6.884473 lon=79.858742 alt=22.8m sats=6[0m
+[0;32mI (27932) GPS: FIX lat=6.884473 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (28802) GPS: FIX lat=6.884474 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (28932) GPS: FIX lat=6.884474 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (29802) GPS: FIX lat=6.884474 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (29932) GPS: FIX lat=6.884474 lon=79.858742 alt=22.5m sats=6[0m
+[0;33mW (32302) SOIL: PH attempt 1/3 failed[0m
+[0;32mI (32372) GPS: FIX lat=6.884475 lon=79.858742 alt=22.5m sats=6[0m
+[0;32mI (32372) GPS: FIX lat=6.884475 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (32372) GPS: FIX lat=6.884475 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (32372) GPS: FIX lat=6.884475 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (32812) GPS: FIX lat=6.884476 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (34492) BLE: Connected conn_id=0 MAC=43:1e:43:80:40:df[0m
+[0;32mI (34832) BLE: Conn params: interval=24 latency=0 timeout=400[0m
+[0;33mW (34862) SOIL: PH attempt 2/3 failed[0m
+[0;32mI (34932) GPS: FIX lat=6.884476 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (34932) GPS: FIX lat=6.884476 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (34932) GPS: FIX lat=6.884476 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (34942) GPS: FIX lat=6.884476 lon=79.858742 alt=22.7m sats=6[0m
+[0;32mI (34942) GPS: FIX lat=6.884476 lon=79.858742 alt=22.6m sats=6[0m
+[0;32mI (34982) BLE: MTU=500[0m
+[0;32mI (35642) BLE: WRITE handle=43 len=2[0m
+[0;32mI (35652) BLE: Notifications ENABLED[0m
+[0;32mI (35672) BLE: Pkt#0 sent: ldr=0.0% temp=0.00C pH=0.00 moist=0.0% EC=0 N=0 P=0 K=0 gps=FIX[0m
+[0;32mI (35712) BLE: READ handle=42[0m
+[0;33mW (37432) SOIL: PH attempt 3/3 failed[0m
+[0;31mE (37432) SOIL: PH: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (37502) GPS: FIX lat=6.884476 lon=79.858742 alt=22.6m sats=6[0m
+[0;32mI (37502) GPS: FIX lat=6.884476 lon=79.858742 alt=22.8m sats=6[0m
+[0;32mI (37502) GPS: FIX lat=6.884476 lon=79.858742 alt=22.8m sats=6[0m
+[0;32mI (37502) GPS: FIX lat=6.884476 lon=79.858742 alt=23.0m sats=6[0m
+[0;32mI (37802) GPS: FIX lat=6.884475 lon=79.858742 alt=23.0m sats=6[0m
+[0;32mI (37932) GPS: FIX lat=6.884475 lon=79.858742 alt=23.2m sats=6[0m
+[0;32mI (38812) GPS: FIX lat=6.884475 lon=79.858749 alt=23.2m sats=6[0m
+[0;32mI (38932) GPS: FIX lat=6.884475 lon=79.858749 alt=23.2m sats=6[0m
+[0;32mI (39812) GPS: FIX lat=6.884474 lon=79.858749 alt=23.2m sats=6[0m
+[0;32mI (39932) GPS: FIX lat=6.884474 lon=79.858749 alt=23.2m sats=6[0m
+[0;33mW (42052) SOIL: N attempt 1/3 failed[0m
+[0;32mI (42122) GPS: FIX lat=6.884474 lon=79.858749 alt=23.2m sats=6[0m
+[0;32mI (42122) GPS: FIX lat=6.884474 lon=79.858749 alt=23.2m sats=6[0m
+[0;32mI (42122) GPS: FIX lat=6.884474 lon=79.858749 alt=23.2m sats=6[0m
+[0;32mI (42122) GPS: FIX lat=6.884474 lon=79.858749 alt=23.6m sats=6[0m
+[0;33mW (44612) SOIL: N attempt 2/3 failed[0m
+[0;32mI (44682) GPS: FIX lat=6.884474 lon=79.858749 alt=23.6m sats=6[0m
+[0;32mI (44682) GPS: FIX lat=6.884474 lon=79.858749 alt=23.7m sats=6[0m
+[0;32mI (44682) GPS: FIX lat=6.884474 lon=79.858742 alt=23.7m sats=6[0m
+[0;32mI (44682) GPS: FIX lat=6.884474 lon=79.858742 alt=23.5m sats=6[0m
+[0;32mI (44812) GPS: FIX lat=6.884474 lon=79.858742 alt=23.5m sats=6[0m
+[0;32mI (44932) GPS: FIX lat=6.884474 lon=79.858742 alt=23.6m sats=6[0m
+[0;33mW (47182) SOIL: N attempt 3/3 failed[0m
+[0;31mE (47182) SOIL: N: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (47252) GPS: FIX lat=6.884474 lon=79.858742 alt=23.6m sats=6[0m
+[0;32mI (47252) GPS: FIX lat=6.884474 lon=79.858742 alt=23.8m sats=6[0m
+[0;32mI (47252) GPS: FIX lat=6.884473 lon=79.858742 alt=23.8m sats=6[0m
+[0;32mI (47252) GPS: FIX lat=6.884473 lon=79.858742 alt=23.7m sats=6[0m
+[0;32mI (47802) GPS: FIX lat=6.884474 lon=79.858749 alt=23.7m sats=6[0m
+[0;32mI (47932) GPS: FIX lat=6.884474 lon=79.858749 alt=24.2m sats=6[0m
+[0;32mI (48812) GPS: FIX lat=6.884474 lon=79.858749 alt=24.2m sats=6[0m
+[0;32mI (48932) GPS: FIX lat=6.884474 lon=79.858749 alt=24.6m sats=6[0m
+[0;33mW (51802) SOIL: P attempt 1/3 failed[0m
+[0;32mI (51832) GPS: FIX lat=6.884474 lon=79.858749 alt=24.6m sats=6[0m
+[0;32mI (51832) GPS: FIX lat=6.884474 lon=79.858749 alt=24.7m sats=6[0m
+[0;32mI (51832) GPS: FIX lat=6.884473 lon=79.858749 alt=24.7m sats=6[0m
+[0;32mI (51842) GPS: FIX lat=6.884473 lon=79.858749 alt=25.0m sats=6[0m
+[0;32mI (51852) GPS: FIX lat=6.884473 lon=79.858749 alt=25.0m sats=6[0m
+[0;32mI (51852) GPS: FIX lat=6.884473 lon=79.858749 alt=25.8m sats=6[0m
+[0;33mW (54362) SOIL: P attempt 2/3 failed[0m
+[0;32mI (54432) GPS: FIX lat=6.884473 lon=79.858749 alt=25.8m sats=6[0m
+[0;32mI (54432) GPS: FIX lat=6.884473 lon=79.858749 alt=26.3m sats=6[0m
+[0;32mI (54432) GPS: FIX lat=6.884473 lon=79.858749 alt=26.3m sats=6[0m
+[0;32mI (54432) GPS: FIX lat=6.884473 lon=79.858749 alt=26.3m sats=6[0m
+[0;32mI (54802) GPS: FIX lat=6.884472 lon=79.858749 alt=26.3m sats=6[0m
+[0;33mW (56922) SOIL: P attempt 3/3 failed[0m
+[0;31mE (56922) SOIL: P: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (56962) GPS: FIX lat=6.884472 lon=79.858749 alt=26.3m sats=6[0m
+[0;32mI (56962) GPS: FIX lat=6.884471 lon=79.858749 alt=26.3m sats=6[0m
+[0;32mI (56962) GPS: FIX lat=6.884471 lon=79.858749 alt=26.6m sats=6[0m
+[0;32mI (56972) GPS: FIX lat=6.884472 lon=79.858749 alt=26.6m sats=6[0m
+[0;32mI (56972) GPS: FIX lat=6.884472 lon=79.858749 alt=27.4m sats=6[0m
+[0;32mI (57812) GPS: FIX lat=6.884473 lon=79.858749 alt=27.4m sats=6[0m
+[0;32mI (57932) GPS: FIX lat=6.884473 lon=79.858749 alt=27.7m sats=6[0m
+[0;32mI (58812) GPS: FIX lat=6.884473 lon=79.858749 alt=27.7m sats=6[0m
+[0;32mI (58932) GPS: FIX lat=6.884473 lon=79.858749 alt=27.9m sats=6[0m
+[0;33mW (61542) SOIL: K attempt 1/3 failed[0m
+[0;32mI (61612) GPS: FIX lat=6.884472 lon=79.858749 alt=27.9m sats=6[0m
+[0;32mI (61612) GPS: FIX lat=6.884472 lon=79.858749 alt=28.1m sats=6[0m
+[0;32mI (61612) GPS: FIX lat=6.884474 lon=79.858749 alt=28.1m sats=6[0m
+[0;32mI (61622) GPS: FIX lat=6.884474 lon=79.858749 alt=28.6m sats=6[0m
+[0;32mI (61812) GPS: FIX lat=6.884476 lon=79.858749 alt=28.6m sats=6[0m
+[0;32mI (61932) GPS: FIX lat=6.884476 lon=79.858749 alt=29.2m sats=6[0m
+[0;33mW (64102) SOIL: K attempt 2/3 failed[0m
+[0;32mI (64172) GPS: FIX lat=6.884475 lon=79.858749 alt=29.2m sats=6[0m
+[0;32mI (64172) GPS: FIX lat=6.884475 lon=79.858749 alt=28.7m sats=7[0m
+[0;32mI (64172) GPS: FIX lat=6.884476 lon=79.858749 alt=28.7m sats=7[0m
+[0;32mI (64172) GPS: FIX lat=6.884476 lon=79.858749 alt=29.4m sats=7[0m
+[0;33mW (66662) SOIL: K attempt 3/3 failed[0m
+[0;31mE (66662) SOIL: K: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (66812) GPS: FIX lat=6.884478 lon=79.858749 alt=29.4m sats=7[0m
+[0;32mI (66812) GPS: FIX lat=6.884478 lon=79.858749 alt=30.1m sats=7[0m
+[0;32mI (66812) GPS: FIX lat=6.884480 lon=79.858749 alt=30.1m sats=7[0m
+[0;32mI (66812) GPS: FIX lat=6.884480 lon=79.858749 alt=30.3m sats=7[0m
+[0;32mI (66822) GPS: FIX lat=6.884480 lon=79.858749 alt=30.3m sats=7[0m
+[0;32mI (66932) GPS: FIX lat=6.884480 lon=79.858749 alt=30.3m sats=7[0m
+[0;32mI (67812) GPS: FIX lat=6.884481 lon=79.858749 alt=30.3m sats=7[0m
+[0;32mI (67932) GPS: FIX lat=6.884481 lon=79.858749 alt=30.8m sats=7[0m
+[0;32mI (68812) GPS: FIX lat=6.884482 lon=79.858757 alt=30.8m sats=7[0m
+[0;32mI (68932) GPS: FIX lat=6.884482 lon=79.858757 alt=31.5m sats=7[0m
+[0;32mI (69222) LDR: ADC=1114  Light=27.2%[0m
+[0;33mW (69222) SOIL: Cycle partial: Temp=0.0C Moist=0.0% pH=0.00 EC=0 N=0 P=0 K=0  (stale fields retained)[0m
+[0;32mI (69272) BLE: Pkt#1 sent: ldr=27.2% temp=0.00C pH=0.00 moist=0.0% EC=0 N=0 P=0 K=0 gps=FIX[0m
+[0;32mI (69812) GPS: FIX lat=6.884483 lon=79.858757 alt=31.5m sats=7[0m
+[0;32mI (69932) GPS: FIX lat=6.884483 lon=79.858757 alt=31.7m sats=7[0m
+[0;32mI (70812) GPS: FIX lat=6.884483 lon=79.858757 alt=31.7m sats=7[0m
+[0;32mI (70932) GPS: FIX lat=6.884483 lon=79.858757 alt=31.8m sats=7[0m
+[0;33mW (73282) SOIL: TEMP attempt 1/3 failed[0m
+[0;32mI (73352) GPS: FIX lat=6.884484 lon=79.858757 alt=31.8m sats=7[0m
+[0;32mI (73352) GPS: FIX lat=6.884484 lon=79.858757 alt=31.8m sats=7[0m
+[0;32mI (73352) GPS: FIX lat=6.884485 lon=79.858749 alt=31.8m sats=7[0m
+[0;32mI (73362) GPS: FIX lat=6.884485 lon=79.858749 alt=32.0m sats=7[0m
+[0;32mI (73812) GPS: FIX lat=6.884486 lon=79.858749 alt=32.0m sats=7[0m
+[0;33mW (75842) SOIL: TEMP attempt 2/3 failed[0m
+[0;32mI (75932) GPS: FIX lat=6.884486 lon=79.858749 alt=32.1m sats=7[0m
+[0;32mI (75932) GPS: FIX lat=6.884487 lon=79.858749 alt=32.1m sats=7[0m
+[0;32mI (75932) GPS: FIX lat=6.884487 lon=79.858749 alt=32.2m sats=7[0m
+[0;32mI (75942) GPS: FIX lat=6.884487 lon=79.858757 alt=32.2m sats=7[0m
+[0;32mI (75942) GPS: FIX lat=6.884487 lon=79.858757 alt=32.3m sats=7[0m
+[0;33mW (78402) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (78402) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (78472) GPS: FIX lat=6.884487 lon=79.858749 alt=32.3m sats=7[0m
+[0;32mI (78472) GPS: FIX lat=6.884487 lon=79.858749 alt=31.9m sats=7[0m
+[0;32mI (78472) GPS: FIX lat=6.884488 lon=79.858749 alt=31.9m sats=7[0m
+[0;32mI (78482) GPS: FIX lat=6.884488 lon=79.858749 alt=31.6m sats=7[0m
+[0;32mI (78812) GPS: FIX lat=6.884487 lon=79.858749 alt=31.6m sats=7[0m
+[0;32mI (78932) GPS: FIX lat=6.884487 lon=79.858749 alt=31.1m sats=7[0m
+[0;32mI (79812) GPS: FIX lat=6.884486 lon=79.858749 alt=31.1m sats=7[0m
+[0;32mI (79932) GPS: FIX lat=6.884486 lon=79.858749 alt=30.4m sats=7[0m
+[0;32mI (80812) GPS: FIX lat=6.884485 lon=79.858742 alt=30.4m sats=7[0m
+[0;32mI (80932) GPS: FIX lat=6.884485 lon=79.858742 alt=30.1m sats=7[0m
+[0;33mW (83022) SOIL: MOIST attempt 1/3 failed[0m
+[0;32mI (83032) GPS: FIX lat=6.884485 lon=79.858742 alt=30.1m sats=7[0m
+[0;32mI (83042) GPS: FIX lat=6.884485 lon=79.858742 alt=30.2m sats=7[0m
+[0;32mI (83042) GPS: FIX lat=6.884487 lon=79.858742 alt=30.2m sats=7[0m
+[0;32mI (83052) GPS: FIX lat=6.884487 lon=79.858742 alt=30.5m sats=7[0m
+[0;33mW (85592) SOIL: MOIST attempt 2/3 failed[0m
+[0;32mI (85662) GPS: FIX lat=6.884487 lon=79.858742 alt=30.5m sats=7[0m
+[0;32mI (85662) GPS: FIX lat=6.884487 lon=79.858742 alt=30.7m sats=7[0m
+[0;32mI (85662) GPS: FIX lat=6.884488 lon=79.858742 alt=30.7m sats=7[0m
+[0;32mI (85662) GPS: FIX lat=6.884488 lon=79.858742 alt=31.1m sats=7[0m
+[0;32mI (85812) GPS: FIX lat=6.884490 lon=79.858742 alt=31.1m sats=7[0m
+[0;32mI (85932) GPS: FIX lat=6.884490 lon=79.858742 alt=31.3m sats=7[0m
+[0;32mI (88122) GPS: FIX lat=6.884491 lon=79.858742 alt=31.3m sats=7[0m
+[0;32mI (88122) GPS: FIX lat=6.884491 lon=79.858742 alt=32.2m sats=7[0m
+[0;32mI (88122) GPS: FIX lat=6.884492 lon=79.858742 alt=32.2m sats=7[0m
+[0;32mI (88122) GPS: FIX lat=6.884492 lon=79.858742 alt=32.7m sats=7[0m
+[0;33mW (88152) SOIL: MOIST attempt 3/3 failed[0m
+[0;31mE (88152) SOIL: MOIST: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (88812) GPS: FIX lat=6.884493 lon=79.858742 alt=32.7m sats=7[0m
+[0;32mI (88932) GPS: FIX lat=6.884493 lon=79.858742 alt=33.4m sats=7[0m
+[0;32mI (89812) GPS: FIX lat=6.884496 lon=79.858742 alt=33.4m sats=7[0m
+[0;32mI (89932) GPS: FIX lat=6.884496 lon=79.858742 alt=34.4m sats=7[0m
+[0;33mW (92782) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (92832) GPS: FIX lat=6.884499 lon=79.858734 alt=34.4m sats=7[0m
+[0;32mI (92832) GPS: FIX lat=6.884499 lon=79.858734 alt=35.8m sats=7[0m
+[0;32mI (92842) GPS: FIX lat=6.884501 lon=79.858734 alt=35.8m sats=7[0m
+[0;32mI (92842) GPS: FIX lat=6.884501 lon=79.858734 alt=36.5m sats=7[0m
+[0;32mI (92852) GPS: FIX lat=6.884502 lon=79.858734 alt=36.5m sats=7[0m
+[0;32mI (92962) GPS: FIX lat=6.884502 lon=79.858734 alt=37.1m sats=7[0m
+[0;33mW (95342) SOIL: EC attempt 2/3 failed[0m
+[0;32mI (95412) GPS: FIX lat=6.884503 lon=79.858734 alt=37.1m sats=7[0m
+[0;32mI (95412) GPS: FIX lat=6.884503 lon=79.858734 alt=36.9m sats=7[0m
+[0;32mI (95412) GPS: FIX lat=6.884505 lon=79.858734 alt=36.9m sats=7[0m
+[0;32mI (95412) GPS: FIX lat=6.884505 lon=79.858734 alt=37.3m sats=7[0m
+[0;32mI (95812) GPS: FIX lat=6.884506 lon=79.858727 alt=37.3m sats=7[0m
+[0;33mW (97902) SOIL: EC attempt 3/3 failed[0m
+[0;31mE (97902) SOIL: EC: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (97962) GPS: FIX lat=6.884506 lon=79.858727 alt=37.5m sats=7[0m
+[0;32mI (97962) GPS: FIX lat=6.884507 lon=79.858727 alt=37.5m sats=7[0m
+[0;32mI (97962) GPS: FIX lat=6.884507 lon=79.858727 alt=37.3m sats=7[0m
+[0;32mI (97972) GPS: FIX lat=6.884509 lon=79.858727 alt=37.3m sats=7[0m
+[0;32mI (97972) GPS: FIX lat=6.884509 lon=79.858727 alt=37.4m sats=7[0m
+[0;32mI (98812) GPS: FIX lat=6.884510 lon=79.858719 alt=37.4m sats=7[0m
+[0;32mI (98932) GPS: FIX lat=6.884510 lon=79.858719 alt=37.3m sats=7[0m
+[0;32mI (99812) GPS: FIX lat=6.884511 lon=79.858719 alt=37.3m sats=7[0m
+[0;32mI (99932) GPS: FIX lat=6.884511 lon=79.858719 alt=37.3m sats=7[0m
+[0;33mW (102522) SOIL: PH attempt 1/3 failed[0m
+[0;32mI (102592) GPS: FIX lat=6.884512 lon=79.858719 alt=37.3m sats=7[0m
+[0;32mI (102592) GPS: FIX lat=6.884512 lon=79.858719 alt=37.6m sats=7[0m
+[0;32mI (102592) GPS: FIX lat=6.884513 lon=79.858727 alt=37.6m sats=7[0m
+[0;32mI (102602) GPS: FIX lat=6.884513 lon=79.858727 alt=37.5m sats=7[0m
+[0;32mI (102812) GPS: FIX lat=6.884514 lon=79.858727 alt=37.5m sats=7[0m
+[0;32mI (102932) GPS: FIX lat=6.884514 lon=79.858727 alt=37.8m sats=7[0m
+[0;32mI (105062) GPS: FIX lat=6.884516 lon=79.858727 alt=37.8m sats=7[0m
+[0;32mI (105062) GPS: FIX lat=6.884516 lon=79.858727 alt=37.5m sats=7[0m
+[0;32mI (105062) GPS: FIX lat=6.884516 lon=79.858727 alt=37.5m sats=7[0m
+[0;32mI (105072) GPS: FIX lat=6.884516 lon=79.858727 alt=37.2m sats=7[0m
+[0;33mW (105092) SOIL: PH attempt 2/3 failed[0m
+[0;33mW (107652) SOIL: PH attempt 3/3 failed[0m
+[0;31mE (107652) SOIL: PH: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (107812) GPS: FIX lat=6.884515 lon=79.858727 alt=37.2m sats=7[0m
+[0;32mI (107812) GPS: FIX lat=6.884515 lon=79.858727 alt=36.4m sats=7[0m
+[0;32mI (107812) GPS: FIX lat=6.884515 lon=79.858727 alt=36.4m sats=7[0m
+[0;32mI (107812) GPS: FIX lat=6.884515 lon=79.858727 alt=35.9m sats=7[0m
+[0;32mI (107822) GPS: FIX lat=6.884515 lon=79.858727 alt=35.9m sats=7[0m
+[0;32mI (107932) GPS: FIX lat=6.884515 lon=79.858727 alt=35.8m sats=7[0m
+[0;32mI (108812) GPS: FIX lat=6.884516 lon=79.858727 alt=35.8m sats=7[0m
+[0;32mI (108932) GPS: FIX lat=6.884516 lon=79.858727 alt=35.9m sats=7[0m
+[0;32mI (109812) GPS: FIX lat=6.884516 lon=79.858734 alt=35.9m sats=7[0m
+[0;32mI (109932) GPS: FIX lat=6.884516 lon=79.858734 alt=36.4m sats=7[0m
+[0;33mW (112272) SOIL: N attempt 1/3 failed[0m
+[0;32mI (112342) GPS: FIX lat=6.884517 lon=79.858734 alt=36.4m sats=7[0m
+[0;32mI (112342) GPS: FIX lat=6.884517 lon=79.858734 alt=36.7m sats=7[0m
+[0;32mI (112342) GPS: FIX lat=6.884518 lon=79.858734 alt=36.7m sats=7[0m
+[0;32mI (112352) GPS: FIX lat=6.884518 lon=79.858734 alt=37.2m sats=6[0m
+[0;32mI (112802) GPS: FIX lat=6.884518 lon=79.858742 alt=37.2m sats=6[0m
+[0;33mW (114832) SOIL: N attempt 2/3 failed[0m
+[0;32mI (114932) GPS: FIX lat=6.884518 lon=79.858742 alt=37.3m sats=6[0m
+[0;32mI (114932) GPS: FIX lat=6.884519 lon=79.858742 alt=37.3m sats=6[0m
+[0;32mI (114932) GPS: FIX lat=6.884519 lon=79.858742 alt=37.7m sats=6[0m
+[0;32mI (114942) GPS: FIX lat=6.884519 lon=79.858742 alt=37.7m sats=6[0m
+[0;32mI (114942) GPS: FIX lat=6.884519 lon=79.858742 alt=38.1m sats=6[0m
+[0;33mW (117392) SOIL: N attempt 3/3 failed[0m
+[0;31mE (117392) SOIL: N: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (117462) GPS: FIX lat=6.884519 lon=79.858749 alt=38.1m sats=6[0m
+[0;32mI (117462) GPS: FIX lat=6.884519 lon=79.858749 alt=38.5m sats=6[0m
+[0;32mI (117462) GPS: FIX lat=6.884520 lon=79.858749 alt=38.5m sats=6[0m
+[0;32mI (117462) GPS: FIX lat=6.884520 lon=79.858749 alt=38.6m sats=6[0m
+[0;32mI (117812) GPS: FIX lat=6.884520 lon=79.858749 alt=38.6m sats=6[0m
+[0;32mI (117932) GPS: FIX lat=6.884520 lon=79.858749 alt=39.2m sats=6[0m
+[0;32mI (118802) GPS: FIX lat=6.884521 lon=79.858757 alt=39.2m sats=6[0m
+[0;32mI (118932) GPS: FIX lat=6.884521 lon=79.858757 alt=39.4m sats=6[0m
+[0;32mI (119812) GPS: FIX lat=6.884522 lon=79.858757 alt=39.4m sats=6[0m
+[0;32mI (119932) GPS: FIX lat=6.884522 lon=79.858757 alt=39.9m sats=7[0m
+[0;32mI (120812) GPS: FIX lat=6.884524 lon=79.858757 alt=39.9m sats=7[0m
+[0;32mI (120942) GPS: FIX lat=6.884524 lon=79.858757 alt=40.5m sats=7[0m
+[0;32mI (121072) LDR: ADC=1134  Light=27.7%[0m
+[0;33mW (121072) SOIL: Cycle partial: Temp=0.0C Moist=0.0% pH=0.00 EC=0 N=0 P=19 K=37  (stale fields retained)[0m
+[0;32mI (121122) BLE: Pkt#2 sent: ldr=27.7% temp=0.00C pH=0.00 moist=0.0% EC=0 N=0 P=19 K=37 gps=FIX[0m
+[0;32mI (121812) GPS: FIX lat=6.884525 lon=79.858757 alt=40.5m sats=7[0m
+[0;32mI (121932) GPS: FIX lat=6.884525 lon=79.858757 alt=41.1m sats=7[0m
+[0;32mI (122812) GPS: FIX lat=6.884527 lon=79.858765 alt=41.1m sats=7[0m
+[0;32mI (122932) GPS: FIX lat=6.884527 lon=79.858765 alt=42.3m sats=7[0m
+[0;32mI (123812) GPS: FIX lat=6.884529 lon=79.858765 alt=42.3m sats=7[0m
+[0;32mI (123932) GPS: FIX lat=6.884529 lon=79.858765 alt=43.8m sats=7[0m
+[0;32mI (124812) GPS: FIX lat=6.884531 lon=79.858772 alt=43.8m sats=7[0m
+[0;32mI (124932) GPS: FIX lat=6.884531 lon=79.858772 alt=45.3m sats=7[0m
+[0;32mI (125812) GPS: FIX lat=6.884531 lon=79.858780 alt=45.3m sats=7[0m
+[0;33mW (127932) SOIL: P attempt 1/3 failed[0m
+[0;32mI (127962) GPS: FIX lat=6.884531 lon=79.858780 alt=46.5m sats=7[0m
+[0;32mI (127962) GPS: FIX lat=6.884532 lon=79.858780 alt=46.5m sats=7[0m
+[0;32mI (127962) GPS: FIX lat=6.884532 lon=79.858780 alt=47.7m sats=7[0m
+[0;32mI (127972) GPS: FIX lat=6.884534 lon=79.858788 alt=47.7m sats=7[0m
+[0;32mI (127972) GPS: FIX lat=6.884534 lon=79.858788 alt=48.8m sats=7[0m
+[0;32mI (128492) SOIL: P OK on attempt 2[0m
+[0;32mI (128812) GPS: FIX lat=6.884535 lon=79.858788 alt=48.8m sats=7[0m
+[0;32mI (128932) GPS: FIX lat=6.884535 lon=79.858788 alt=49.8m sats=7[0m
+[0;32mI (129552) LDR: ADC=1129  Light=27.6%[0m
+[0;32mI (129552) SOIL: Cycle OK: Temp=25.8C Moist=100.0% pH=7.00 EC=0 N=0 P=0 K=0[0m
+[0;32mI (129572) BLE: Pkt#3 sent: ldr=27.6% temp=25.80C pH=7.00 moist=100.0% EC=0 N=0 P=0 K=0 gps=FIX[0m
+[0;32mI (129812) GPS: FIX lat=6.884538 lon=79.858795 alt=49.8m sats=7[0m
+[0;32mI (129932) GPS: FIX lat=6.884538 lon=79.858795 alt=51.0m sats=7[0m
+[0;32mI (130812) GPS: FIX lat=6.884540 lon=79.858795 alt=51.0m sats=7[0m
+[0;32mI (130932) GPS: FIX lat=6.884540 lon=79.858795 alt=51.9m sats=7[0m
+[0;32mI (131812) GPS: FIX lat=6.884540 lon=79.858803 alt=51.9m sats=7[0m
+[0;32mI (131932) GPS: FIX lat=6.884540 lon=79.858803 alt=52.5m sats=7[0m
+[0;32mI (132832) GPS: FIX lat=6.884542 lon=79.858803 alt=52.5m sats=7[0m
+[0;32mI (132932) GPS: FIX lat=6.884542 lon=79.858803 alt=53.3m sats=7[0m
+[0;33mW (135292) SOIL: PH attempt 1/3 failed[0m
+[0;32mI (135362) GPS: FIX lat=6.884542 lon=79.858803 alt=53.3m sats=7[0m
+[0;32mI (135362) GPS: FIX lat=6.884542 lon=79.858803 alt=53.1m sats=7[0m
+[0;32mI (135362) GPS: FIX lat=6.884543 lon=79.858803 alt=53.1m sats=7[0m
+[0;32mI (135372) GPS: FIX lat=6.884543 lon=79.858803 alt=53.5m sats=7[0m
+[0;32mI (135812) GPS: FIX lat=6.884543 lon=79.858810 alt=53.5m sats=7[0m
+[0;32mI (135852) SOIL: PH OK on attempt 2[0m
+[0;32mI (135952) GPS: FIX lat=6.884543 lon=79.858810 alt=54.2m sats=7[0m
+[0;32mI (136812) GPS: FIX lat=6.884546 lon=79.858810 alt=54.2m sats=7[0m
+[0;32mI (136932) GPS: FIX lat=6.884546 lon=79.858810 alt=55.0m sats=7[0m
+[0;33mW (138972) SOIL: P attempt 1/3 failed[0m
+[0;32mI (139042) GPS: FIX lat=6.884547 lon=79.858810 alt=55.0m sats=7[0m
+[0;32mI (139042) GPS: FIX lat=6.884547 lon=79.858810 alt=55.8m sats=7[0m
+[0;32mI (139042) GPS: FIX lat=6.884548 lon=79.858810 alt=55.8m sats=7[0m
+[0;32mI (139052) GPS: FIX lat=6.884548 lon=79.858810 alt=56.3m sats=7[0m
+[0;32mI (139532) SOIL: P OK on attempt 2[0m
+[0;32mI (139812) GPS: FIX lat=6.884548 lon=79.858818 alt=56.3m sats=7[0m
+[0;32mI (139932) GPS: FIX lat=6.884548 lon=79.858818 alt=56.8m sats=7[0m
+[0;32mI (140592) LDR: ADC=1065  Light=26.0%[0m
+[0;32mI (140592) SOIL: Cycle OK: Temp=25.8C Moist=100.0% pH=7.00 EC=0 N=0 P=0 K=0[0m
+[0;32mI (140622) BLE: Pkt#4 sent: ldr=26.0% temp=25.80C pH=7.00 moist=100.0% EC=0 N=0 P=0 K=0 gps=FIX[0m
+[0;32mI (140812) GPS: FIX lat=6.884551 lon=79.858810 alt=56.8m sats=7[0m
+[0;32mI (140932) GPS: FIX lat=6.884551 lon=79.858810 alt=56.6m sats=7[0m
+[0;32mI (141812) GPS: FIX lat=6.884552 lon=79.858810 alt=56.6m sats=7[0m
+[0;32mI (141932) GPS: FIX lat=6.884552 lon=79.858810 alt=57.0m sats=7[0m
+[0;32mI (142802) GPS: FIX lat=6.884553 lon=79.858810 alt=57.0m sats=7[0m
+[0;32mI (142932) GPS: FIX lat=6.884553 lon=79.858810 alt=57.1m sats=7[0m
+[0;33mW (145772) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (145832) GPS: FIX lat=6.884554 lon=79.858818 alt=57.1m sats=7[0m
+[0;32mI (145842) GPS: FIX lat=6.884554 lon=79.858818 alt=57.3m sats=7[0m
+[0;32mI (145842) GPS: FIX lat=6.884556 lon=79.858818 alt=57.3m sats=7[0m
+[0;32mI (145842) GPS: FIX lat=6.884556 lon=79.858818 alt=57.4m sats=7[0m
+[0;32mI (145852) GPS: FIX lat=6.884557 lon=79.858810 alt=57.4m sats=7[0m
+[0;32mI (145962) GPS: FIX lat=6.884557 lon=79.858810 alt=57.5m sats=7[0m
+[0;32mI (146332) SOIL: EC OK on attempt 2[0m
+[0;32mI (146812) GPS: FIX lat=6.884559 lon=79.858810 alt=57.5m sats=7[0m
+[0;32mI (148862) GPS: FIX lat=6.884559 lon=79.858810 alt=57.6m sats=7[0m
+[0;32mI (148862) GPS: FIX lat=6.884560 lon=79.858810 alt=57.6m sats=7[0m
+[0;32mI (148862) GPS: FIX lat=6.884560 lon=79.858810 alt=57.8m sats=7[0m
+[0;32mI (148872) GPS: FIX lat=6.884562 lon=79.858810 alt=57.8m sats=7[0m
+[0;32mI (148872) GPS: FIX lat=6.884562 lon=79.858810 alt=58.0m sats=7[0m
+[0;33mW (148892) SOIL: PH attempt 1/3 failed[0m
+[0;33mW (151452) SOIL: PH attempt 2/3 failed[0m
+[0;32mI (151522) GPS: FIX lat=6.884562 lon=79.858810 alt=58.0m sats=7[0m
+[0;32mI (151522) GPS: FIX lat=6.884562 lon=79.858810 alt=58.0m sats=7[0m
+[0;32mI (151522) GPS: FIX lat=6.884562 lon=79.858803 alt=58.0m sats=7[0m
+[0;32mI (151522) GPS: FIX lat=6.884562 lon=79.858803 alt=57.7m sats=7[0m
+[0;32mI (151812) GPS: FIX lat=6.884563 lon=79.858803 alt=57.7m sats=7[0m
+[0;32mI (151932) GPS: FIX lat=6.884563 lon=79.858803 alt=57.7m sats=7[0m
+[0;32mI (153982) GPS: FIX lat=6.884563 lon=79.858803 alt=57.7m sats=7[0m
+[0;32mI (153982) GPS: FIX lat=6.884563 lon=79.858803 alt=57.8m sats=7[0m
+[0;32mI (153982) GPS: FIX lat=6.884564 lon=79.858803 alt=57.8m sats=7[0m
+[0;32mI (153992) GPS: FIX lat=6.884564 lon=79.858803 alt=58.0m sats=7[0m
+[0;33mW (154012) SOIL: PH attempt 3/3 failed[0m
+[0;31mE (154012) SOIL: PH: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (154812) GPS: FIX lat=6.884565 lon=79.858803 alt=58.0m sats=7[0m
+[0;32mI (154932) GPS: FIX lat=6.884565 lon=79.858803 alt=58.1m sats=7[0m
+[0;32mI (155812) GPS: FIX lat=6.884568 lon=79.858803 alt=58.1m sats=7[0m
+[0;32mI (155932) GPS: FIX lat=6.884568 lon=79.858803 alt=58.7m sats=7[0m
+[0;33mW (158642) SOIL: N attempt 1/3 failed[0m
+[0;32mI (158712) GPS: FIX lat=6.884569 lon=79.858810 alt=58.7m sats=7[0m
+[0;32mI (158712) GPS: FIX lat=6.884569 lon=79.858810 alt=58.7m sats=7[0m
+[0;32mI (158712) GPS: FIX lat=6.884569 lon=79.858810 alt=58.7m sats=7[0m
+[0;32mI (158712) GPS: FIX lat=6.884569 lon=79.858810 alt=58.2m sats=7[0m
+[0;32mI (158822) GPS: FIX lat=6.884571 lon=79.858810 alt=58.2m sats=7[0m
+[0;32mI (158942) GPS: FIX lat=6.884571 lon=79.858810 alt=58.6m sats=7[0m
+[0;33mW (161202) SOIL: N attempt 2/3 failed[0m
+[0;32mI (161272) GPS: FIX lat=6.884573 lon=79.858810 alt=58.6m sats=7[0m
+[0;32mI (161272) GPS: FIX lat=6.884573 lon=79.858810 alt=58.9m sats=7[0m
+[0;32mI (161272) GPS: FIX lat=6.884573 lon=79.858810 alt=58.9m sats=7[0m
+[0;32mI (161272) GPS: FIX lat=6.884573 lon=79.858810 alt=59.0m sats=7[0m
+[0;32mI (163742) GPS: FIX lat=6.884574 lon=79.858818 alt=59.0m sats=7[0m
+[0;32mI (163742) GPS: FIX lat=6.884574 lon=79.858818 alt=58.9m sats=7[0m
+[0;32mI (163742) GPS: FIX lat=6.884573 lon=79.858818 alt=58.9m sats=7[0m
+[0;32mI (163752) GPS: FIX lat=6.884573 lon=79.858818 alt=58.0m sats=7[0m
+[0;32mI (163752) GPS: FIX lat=6.884574 lon=79.858818 alt=58.0m sats=7[0m
+[0;33mW (163772) SOIL: N attempt 3/3 failed[0m
+[0;31mE (163772) SOIL: N: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (163942) GPS: FIX lat=6.884574 lon=79.858818 alt=58.4m sats=7[0m
+[0;32mI (164812) GPS: FIX lat=6.884575 lon=79.858818 alt=58.4m sats=7[0m
+[0;32mI (164942) GPS: FIX lat=6.884575 lon=79.858818 alt=57.9m sats=7[0m
+[0;32mI (165812) GPS: FIX lat=6.884575 lon=79.858818 alt=57.9m sats=7[0m
+[0;32mI (165932) GPS: FIX lat=6.884575 lon=79.858818 alt=57.7m sats=7[0m
+[0;33mW (168392) SOIL: P attempt 1/3 failed[0m
+[0;32mI (168462) GPS: FIX lat=6.884574 lon=79.858818 alt=57.7m sats=7[0m
+[0;32mI (168462) GPS: FIX lat=6.884574 lon=79.858818 alt=57.5m sats=7[0m
+[0;32mI (168462) GPS: FIX lat=6.884576 lon=79.858818 alt=57.5m sats=7[0m
+[0;32mI (168462) GPS: FIX lat=6.884576 lon=79.858818 alt=57.3m sats=7[0m
+[0;32mI (168812) GPS: FIX lat=6.884577 lon=79.858818 alt=57.3m sats=7[0m
+[0;32mI (170922) GPS: FIX lat=6.884577 lon=79.858818 alt=57.4m sats=7[0m
+[0;32mI (170922) GPS: FIX lat=6.884577 lon=79.858818 alt=57.4m sats=7[0m
+[0;32mI (170922) GPS: FIX lat=6.884577 lon=79.858818 alt=57.2m sats=7[0m
+[0;32mI (170932) GPS: FIX lat=6.884576 lon=79.858818 alt=57.2m sats=7[0m
+[0;32mI (170932) GPS: FIX lat=6.884576 lon=79.858818 alt=56.9m sats=7[0m
+[0;33mW (170952) SOIL: P attempt 2/3 failed[0m
+[0;33mW (173512) SOIL: P attempt 3/3 failed[0m
+[0;31mE (173512) SOIL: P: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (173582) GPS: FIX lat=6.884575 lon=79.858818 alt=56.9m sats=7[0m
+[0;32mI (173582) GPS: FIX lat=6.884575 lon=79.858818 alt=56.6m sats=7[0m
+[0;32mI (173582) GPS: FIX lat=6.884575 lon=79.858818 alt=56.6m sats=7[0m
+[0;32mI (173592) GPS: FIX lat=6.884575 lon=79.858818 alt=56.5m sats=7[0m
+[0;32mI (173812) GPS: FIX lat=6.884573 lon=79.858818 alt=56.5m sats=7[0m
+[0;32mI (173932) GPS: FIX lat=6.884573 lon=79.858818 alt=56.0m sats=7[0m
+[0;32mI (174812) GPS: FIX lat=6.884572 lon=79.858826 alt=56.0m sats=7[0m
+[0;32mI (174942) GPS: FIX lat=6.884572 lon=79.858826 alt=56.2m sats=7[0m
+[0;32mI (175812) GPS: FIX lat=6.884570 lon=79.858826 alt=56.2m sats=7[0m
+[0;32mI (175932) GPS: FIX lat=6.884570 lon=79.858826 alt=55.8m sats=7[0m
+[0;32mI (178102) GPS: FIX lat=6.884568 lon=79.858826 alt=55.8m sats=7[0m
+[0;32mI (178102) GPS: FIX lat=6.884568 lon=79.858826 alt=55.3m sats=7[0m
+[0;32mI (178102) GPS: FIX lat=6.884566 lon=79.858826 alt=55.3m sats=7[0m
+[0;32mI (178112) GPS: FIX lat=6.884566 lon=79.858826 alt=55.0m sats=7[0m
+[0;33mW (178132) SOIL: K attempt 1/3 failed[0m
+[0;33mW (180692) SOIL: K attempt 2/3 failed[0m
+[0;32mI (180722) GPS: FIX lat=6.884565 lon=79.858826 alt=55.0m sats=7[0m
+[0;32mI (180722) GPS: FIX lat=6.884565 lon=79.858826 alt=54.8m sats=7[0m
+[0;32mI (180722) GPS: FIX lat=6.884564 lon=79.858826 alt=54.8m sats=7[0m
+[0;32mI (180732) GPS: FIX lat=6.884564 lon=79.858826 alt=54.8m sats=7[0m
+[0;32mI (180732) GPS: FIX lat=6.884563 lon=79.858833 alt=54.8m sats=7[0m
+[0;32mI (180942) GPS: FIX lat=6.884563 lon=79.858833 alt=55.0m sats=7[0m
+[0;32mI (181252) SOIL: K OK on attempt 3[0m
+[0;32mI (181752) LDR: ADC=1038  Light=25.3%[0m
+[0;33mW (181752) SOIL: Cycle partial: Temp=25.8C Moist=100.0% pH=7.00 EC=0 N=0 P=0 K=2  (stale fields retained)[0m
+[0;32mI (181772) BLE: Pkt#5 sent: ldr=25.3% temp=25.80C pH=7.00 moist=100.0% EC=0 N=0 P=0 K=2 gps=FIX[0m
+[0;32mI (181822) GPS: FIX lat=6.884561 lon=79.858833 alt=55.0m sats=7[0m
+[0;32mI (181942) GPS: FIX lat=6.884561 lon=79.858833 alt=54.8m sats=7[0m
+[0;32mI (182812) GPS: FIX lat=6.884558 lon=79.858833 alt=54.8m sats=7[0m
+[0;32mI (182942) GPS: FIX lat=6.884558 lon=79.858833 alt=54.8m sats=7[0m
+[0;32mI (185782) GPS: FIX lat=6.884557 lon=79.858833 alt=54.8m sats=7[0m
+[0;32mI (185782) GPS: FIX lat=6.884557 lon=79.858833 alt=55.3m sats=7[0m
+[0;32mI (185782) GPS: FIX lat=6.884556 lon=79.858841 alt=55.3m sats=7[0m
+[0;32mI (185792) GPS: FIX lat=6.884556 lon=79.858841 alt=55.6m sats=7[0m
+[0;32mI (185792) GPS: FIX lat=6.884555 lon=79.858841 alt=55.6m sats=7[0m
+[0;33mW (185812) SOIL: TEMP attempt 1/3 failed[0m
+[0;32mI (185942) GPS: FIX lat=6.884555 lon=79.858841 alt=55.9m sats=7[0m
+[0;33mW (188372) SOIL: TEMP attempt 2/3 failed[0m
+[0;32mI (188442) GPS: FIX lat=6.884554 lon=79.858841 alt=55.9m sats=7[0m
+[0;32mI (188442) GPS: FIX lat=6.884554 lon=79.858841 alt=56.3m sats=7[0m
+[0;32mI (188442) GPS: FIX lat=6.884553 lon=79.858841 alt=56.3m sats=7[0m
+[0;32mI (188442) GPS: FIX lat=6.884553 lon=79.858841 alt=56.7m sats=7[0m
+[0;32mI (188812) GPS: FIX lat=6.884552 lon=79.858841 alt=56.7m sats=7[0m
+[0;32mI (190902) GPS: FIX lat=6.884552 lon=79.858841 alt=56.5m sats=7[0m
+[0;32mI (190902) GPS: FIX lat=6.884551 lon=79.858841 alt=56.5m sats=7[0m
+[0;32mI (190902) GPS: FIX lat=6.884551 lon=79.858841 alt=56.5m sats=7[0m
+[0;32mI (190912) GPS: FIX lat=6.884550 lon=79.858833 alt=56.5m sats=7[0m
+[0;32mI (190912) GPS: FIX lat=6.884550 lon=79.858833 alt=56.3m sats=7[0m
+[0;33mW (190932) SOIL: TEMP attempt 3/3 failed[0m
+[0;31mE (190932) SOIL: TEMP: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (191812) GPS: FIX lat=6.884548 lon=79.858833 alt=56.3m sats=7[0m
+[0;32mI (191932) GPS: FIX lat=6.884548 lon=79.858833 alt=56.0m sats=7[0m
+[0;32mI (192812) GPS: FIX lat=6.884547 lon=79.858833 alt=56.0m sats=7[0m
+[0;32mI (192932) GPS: FIX lat=6.884547 lon=79.858833 alt=55.8m sats=7[0m
+[0;33mW (195552) SOIL: MOIST attempt 1/3 failed[0m
+[0;32mI (195622) GPS: FIX lat=6.884546 lon=79.858833 alt=55.8m sats=7[0m
+[0;32mI (195622) GPS: FIX lat=6.884546 lon=79.858833 alt=55.7m sats=7[0m
+[0;32mI (195622) GPS: FIX lat=6.884546 lon=79.858826 alt=55.7m sats=7[0m
+[0;32mI (195622) GPS: FIX lat=6.884546 lon=79.858826 alt=55.5m sats=7[0m
+[0;32mI (195812) GPS: FIX lat=6.884546 lon=79.858826 alt=55.5m sats=7[0m
+[0;32mI (195932) GPS: FIX lat=6.884546 lon=79.858826 alt=55.5m sats=7[0m
+[0;32mI (198082) GPS: FIX lat=6.884545 lon=79.858818 alt=55.5m sats=7[0m
+[0;32mI (198082) GPS: FIX lat=6.884545 lon=79.858818 alt=55.6m sats=7[0m
+[0;32mI (198082) GPS: FIX lat=6.884544 lon=79.858818 alt=55.6m sats=7[0m
+[0;32mI (198092) GPS: FIX lat=6.884544 lon=79.858818 alt=55.8m sats=7[0m
+[0;33mW (198112) SOIL: MOIST attempt 2/3 failed[0m
+[0;33mW (200672) SOIL: MOIST attempt 3/3 failed[0m
+[0;31mE (200672) SOIL: MOIST: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (200712) GPS: FIX lat=6.884544 lon=79.858818 alt=55.8m sats=7[0m
+[0;32mI (200712) GPS: FIX lat=6.884544 lon=79.858818 alt=56.0m sats=7[0m
+[0;32mI (200712) GPS: FIX lat=6.884544 lon=79.858810 alt=56.0m sats=7[0m
+[0;32mI (200722) GPS: FIX lat=6.884544 lon=79.858810 alt=56.0m sats=7[0m
+[0;32mI (200722) GPS: FIX lat=6.884543 lon=79.858810 alt=56.0m sats=7[0m
+[0;32mI (200932) GPS: FIX lat=6.884543 lon=79.858810 alt=56.1m sats=7[0m
+[0;32mI (201812) GPS: FIX lat=6.884542 lon=79.858810 alt=56.1m sats=7[0m
+[0;32mI (201932) GPS: FIX lat=6.884542 lon=79.858810 alt=56.0m sats=7[0m
+[0;32mI (202812) GPS: FIX lat=6.884542 lon=79.858810 alt=56.0m sats=7[0m
+[0;32mI (202942) GPS: FIX lat=6.884542 lon=79.858810 alt=56.0m sats=7[0m
+[0;33mW (205292) SOIL: EC attempt 1/3 failed[0m
+[0;32mI (205362) GPS: FIX lat=6.884542 lon=79.858803 alt=56.0m sats=7[0m
+[0;32mI (205362) GPS: FIX lat=6.884542 lon=79.858803 alt=55.9m sats=7[0m
+[0;32mI (205362) GPS: FIX lat=6.884541 lon=79.858803 alt=55.9m sats=7[0m
+[0;32mI (205362) GPS: FIX lat=6.884541 lon=79.858803 alt=55.8m sats=7[0m
+[0;32mI (205812) GPS: FIX lat=6.884541 lon=79.858803 alt=55.8m sats=7[0m
+[0;32mI (207832) GPS: FIX lat=6.884541 lon=79.858803 alt=55.8m sats=7[0m
+[0;32mI (207842) GPS: FIX lat=6.884539 lon=79.858803 alt=55.8m sats=7[0m
+[0;32mI (207842) GPS: FIX lat=6.884539 lon=79.858803 alt=55.6m sats=7[0m
+[0;32mI (207842) GPS: FIX lat=6.884539 lon=79.858803 alt=55.6m sats=7[0m
+[0;33mW (207852) SOIL: EC attempt 2/3 failed[0m
+[0;32mI (207862) GPS: FIX lat=6.884539 lon=79.858803 alt=55.4m sats=7[0m
+[0;33mW (210412) SOIL: EC attempt 3/3 failed[0m
+[0;31mE (210412) SOIL: EC: all 3 attempts failed – bus recovery 2000 ms[0m
+[0;32mI (210482) GPS: FIX lat=6.884538 lon=79.858803 alt=55.4m sats=7[0m
+[0;32mI (210482) GPS: FIX lat=6.884538 lon=79.858803 alt=55.3m sats=7[0m
+[0;32mI (210482) GPS: FIX lat=6.884537 lon=79.858803 alt=55.3m sats=7[0m
+[0;32mI (210492) GPS: FIX lat=6.884537 lon=79.858803 alt=55.0m sats=7[0m
+[0;32mI (210812) GPS: FIX lat=6.884534 lon=79.858803 alt=55.0m sats=7[0m
+[0;32mI (210932) GPS: FIX lat=6.884534 lon=79.858803 alt=54.7m sats=7[0m
+[0;32mI (211812) GPS: FIX lat=6.884531 lon=79.858803 alt=54.7m sats=7[0m
+[0;32mI (211942) GPS: FIX lat=6.884531 lon=79.858803 alt=54.4m sats=7[0m

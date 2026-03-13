@@ -1,0 +1,22 @@
+# ── Bluetooth – BLE only ────────────────────────────────────────────────────
+CONFIG_BT_ENABLED=y
+CONFIG_BT_BLUEDROID_ENABLED=y
+CONFIG_BT_BLE_ENABLED=y
+CONFIG_BT_CLASSIC_ENABLED=n          # Classic BT not used → saves ~80 kB RAM
+CONFIG_BT_SPP_ENABLED=n
+CONFIG_BT_GATTS_ENABLE=y             # GATT server
+CONFIG_BT_GATT_MAX_SR_PROFILES=2
+CONFIG_BT_GATT_MAX_SR_ATTRS=10
+
+# ── BLE connection / MTU ────────────────────────────────────────────────────
+CONFIG_BT_BLE_DYNAMIC_ENV_MEMORY=y   # allow larger attribute tables
+CONFIG_BTDM_BLE_ADV_REPORT_FLOW_CTRL_SUPP=y
+
+# ── ADC ─────────────────────────────────────────────────────────────────────
+CONFIG_ADC_ONESHOT_CTRL_FUNC_IN_IRAM=n
+
+# ── FreeRTOS tick rate (1 ms resolution for pdMS_TO_TICKS) ──────────────────
+CONFIG_FREERTOS_HZ=1000
+
+# ── Stack ───────────────────────────────────────────────────────────────────
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=4096
