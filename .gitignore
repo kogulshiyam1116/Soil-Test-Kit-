@@ -1,0 +1,27 @@
+# Build artifacts
+build/
+sdkconfig
+sdkconfig.old
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*
+*.elf
+*.bin
+*.map
+*.o
+*.d
+
+# ESP-IDF
+managed_components/
+dependencies.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
