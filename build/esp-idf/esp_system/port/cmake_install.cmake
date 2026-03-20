@@ -39,6 +39,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/HP/WorkSpace/gatt_server/build/esp-idf/esp_system/port/soc/esp32/cmake_install.cmake")
+  include("C:/Users/HP/WorkSpace/STK_Final/build/esp-idf/esp_system/port/soc/esp32/cmake_install.cmake")
 endif()
 

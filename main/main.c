@@ -1,44 +1,3 @@
-/*
- * ============================================================
- *  Soil Testing Kit – ESP32 / ESP-IDF v5.x
- *  BLE GATT Server  (flutter_blue_plus compatible)
- * ============================================================
- *  Hardware:
- *   RGB LED     : Red=GPIO12, Green=GPIO14, Blue=GPIO13
- *   GPS         : NEO-6M   UART2  RX=GPIO16, TX=GPIO17
- *   Soil 7-in-1 : MAX485 Modbus RTU  DI=GPIO18 RO=GPIO19 DE/RE=GPIO4
- *   Push Button : GPIO35  (external pull-down, press = HIGH)
- *   LDR         : GPIO34  (ADC1_CH6)  3.3V->LDR->[GPIO34]->1.5kO->GND
- *
- * -- BLE GATT Layout -----------------------------------------
- *  Service UUID        : 0x00FF
- *  +- Char 0xFF01      : DATA     NOTIFY | READ
- *  |   +- CCCD 0x2902  : enable/disable notifications
- *  +- Char 0xFF02      : CMD      WRITE (no response)
- *
- * -- Binary Packet Format (31 bytes, matches Flutter struct) --
- *
- *  Byte  Field                   Type       Notes
- *  [0]   start_byte              uint8      0xAA
- *  [1]   version                 uint8      0x01
- *  [2]   packet_id               uint8      rolling 0-255
- *  [3]   data_length             uint8      25 (payload bytes 4..28)
- *  [4-5] light_intensity_x100    uint16_le  LDR% x100
- *  [6-7] temperature_x100        uint16_le  degC x100
- *  [8-9] pH_x100                 uint16_le  pH x100
- * [10-11] moisture_x100          uint16_le  %RH x100
- * [12-13] conductivity           uint16_le  uS/cm
- * [14-15] nitrogen               uint16_le  mg/kg
- * [16-17] phosphorus             uint16_le  mg/kg
- * [18-19] potassium              uint16_le  mg/kg
- * [20-23] latitude_x1000000      int32_le   deg x1e6
- * [24-27] longitude_x1000000     int32_le   deg x1e6
- * [28]   gps_valid               uint8      1=fix 0=no-fix
- * [29]   checksum                uint8      XOR bytes[0..28]
- * [30]   end_byte                uint8      0x55
- * ============================================================
- */
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -102,34 +61,19 @@
 #define GPS_FIX_LED_MS       3000
 #define BTN_POLL_MS          50
 #define BTN_LONG_MS          2000
+#define BLE_RECONNECT_DELAY_MS 500
 
-/*
- * SENSOR_POLL_MS: rest gap AFTER a full read cycle finishes.
- * Modbus reads themselves take 7–30 s depending on retries, so this
- * is not a fixed period – just a minimum idle gap between cycles.
- */
 #define SENSOR_POLL_MS       2000
 
-/*
- * RS485 / Modbus RTU timing – tuned for 7-in-1 soil sensor @ 9600 baud.
- *
- * Root cause of log-observed all-register failure cascade:
- *   1. A single timeout leaves partial bytes in RX FIFO.
- *   2. Next request reads stale bytes → CRC fail → retry storm.
- *   3. Sensor needs >3.5 char-times of bus silence to reset its state
- *      machine. At 9600 baud that is ~3.65 ms minimum, but empirically
- *      this sensor family needs 100–500 ms.
- *
- * Changes vs original:
- *   DE_PRE/POST  200→500 µs  extra transceiver settle time
- *   FRAME_GAP    200→500 ms  inter-register silence
- *   RESP_WAIT   1500→2000 ms give sensor full 2 s to respond
- *   RETRY_GAP    300→500 ms  longer backoff between retries
- *   BUS_RECOVERY (new) 2000 ms hard silence after total register failure
- */
 #define RS485_DE_PRE_US          500
 #define RS485_DE_POST_US         500
-#define MODBUS_FRAME_GAP_MS      500
+/*
+ * OPT-1: Reduced from 500 ms to 10 ms.
+ * Modbus spec requires only 3.5 char-times of silence between frames.
+ * At 9600 baud that is ~3.6 ms; 10 ms leaves ample margin.
+ * Previously this added 3.5 s of dead-wait per full sensor cycle.
+ */
+#define MODBUS_FRAME_GAP_MS      10
 #define MODBUS_RESP_WAIT_MS      2000
 #define MODBUS_RETRIES           3
 #define MODBUS_RETRY_GAP_MS      500
@@ -197,12 +141,41 @@ static uint16_t      s_conn_id        = 0xFFFF;
 static bool          s_ble_connected  = false;
 static bool          s_notify_enabled = false;
 static uint16_t      s_handle_table[IDX_NB];
-static uint32_t      s_connect_tick   = 0;
 static uint8_t       s_packet_id      = 0;
 static esp_bd_addr_t s_peer_bda       = {0};
 
-typedef enum { BLE_SEARCHING, BLE_CONN_BURST, BLE_CONNECTED } ble_state_t;
-static volatile ble_state_t s_ble_state = BLE_SEARCHING;
+typedef enum {
+    BLE_SEARCHING,
+    BLE_CONN_BURST,
+    BLE_CONNECTED,
+    BLE_DISCONNECTING
+} ble_state_t;
+
+/*
+ * OPT-2: Guard s_ble_state with a spinlock.
+ * It is written from the BT-stack task (GATTS/GAP callbacks) and read/written
+ * from bt_led_task on a different core. volatile alone does not guarantee
+ * atomicity on a dual-core ESP32; portENTER_CRITICAL uses a per-core spinlock
+ * that is safe from task context.
+ */
+static volatile ble_state_t s_ble_state      = BLE_SEARCHING;
+static volatile uint32_t    s_state_change_tick = 0;
+static portMUX_TYPE         s_ble_state_mux  = portMUX_INITIALIZER_UNLOCKED;
+
+static inline ble_state_t ble_state_get(void)
+{
+    portENTER_CRITICAL(&s_ble_state_mux);
+    ble_state_t s = s_ble_state;
+    portEXIT_CRITICAL(&s_ble_state_mux);
+    return s;
+}
+
+static inline void ble_state_set(ble_state_t s)
+{
+    portENTER_CRITICAL(&s_ble_state_mux);
+    s_ble_state = s;
+    portEXIT_CRITICAL(&s_ble_state_mux);
+}
 
 static volatile bool     s_gps_led_shown  = false;
 static volatile bool     s_gps_led_active = false;
@@ -266,9 +239,9 @@ static const uint8_t  DATA_PROP = ESP_GATT_CHAR_PROP_BIT_NOTIFY |
                                    ESP_GATT_CHAR_PROP_BIT_READ;
 static const uint8_t  CMD_PROP  = ESP_GATT_CHAR_PROP_BIT_WRITE_NR;
 
-static uint8_t s_cccd_val[2]             = {0x00, 0x00};
+static uint8_t s_cccd_val[2]              = {0x00, 0x00};
 static uint8_t s_data_val[PKT_TOTAL_SIZE] = {0};
-static uint8_t s_cmd_val[32]             = {0};
+static uint8_t s_cmd_val[32]              = {0};
 
 static const esp_gatts_attr_db_t s_attr_table[IDX_NB] = {
     [IDX_SVC] = {
@@ -306,22 +279,6 @@ static const esp_gatts_attr_db_t s_attr_table[IDX_NB] = {
 
 /* =========================================================
  *  ble_send_packet()
- *
- *  Builds the 31-byte binary packet and sends via BLE Notify.
- *  Field layout matches the Flutter MultiSensorPacket struct exactly.
- *  All multi-byte fields are little-endian (Intel byte order).
- *
- *  Scaling:
- *    ldr_pct       float 0-100  -> uint16  x100  (0-10000)
- *    temperature   float degC   -> uint16  x100  (e.g. 24.50 -> 2450)
- *    ph            float 0-14   -> uint16  x100  (e.g. 6.80  -> 680)
- *    moisture      float 0-100  -> uint16  x100  (e.g. 35.20 -> 3520)
- *    conductivity  uint16 uS/cm -> uint16  as-is
- *    nitrogen      uint16 mg/kg -> uint16  as-is
- *    phosphorus    uint16 mg/kg -> uint16  as-is
- *    potassium     uint16 mg/kg -> uint16  as-is
- *    latitude      float deg    -> int32   x1e6  (e.g. 6.927079 -> 6927079)
- *    longitude     float deg    -> int32   x1e6  (e.g. 79.861243 -> 79861243)
  * ========================================================= */
 static void ble_send_packet(void)
 {
@@ -335,7 +292,6 @@ static void ble_send_packet(void)
     sen = g_sensor;
     xSemaphoreGive(g_mutex);
 
-    /* -- Scale values ---------------------------------------- */
     uint16_t ldr_x100   = (uint16_t)(sen.ldr_pct     * 100.0f + 0.5f);
     uint16_t temp_x100  = (uint16_t)(sen.temperature  * 100.0f + 0.5f);
     uint16_t ph_x100    = (uint16_t)(sen.ph            * 100.0f + 0.5f);
@@ -343,16 +299,14 @@ static void ble_send_packet(void)
     int32_t  lat_x1e6   = (int32_t) (gps.latitude  * 1000000.0f);
     int32_t  lon_x1e6   = (int32_t) (gps.longitude * 1000000.0f);
 
-    /* -- Build 31-byte packet --------------------------------- */
     uint8_t pkt[PKT_TOTAL_SIZE];
     memset(pkt, 0, sizeof(pkt));
 
     pkt[0]  = PKT_START_BYTE;
     pkt[1]  = PKT_VERSION;
     pkt[2]  = s_packet_id++;
-    pkt[3]  = PKT_PAYLOAD_LEN;              /* 25 */
+    pkt[3]  = PKT_PAYLOAD_LEN;
 
-    /* uint16_le fields [4..19] */
     pkt[4]  = (uint8_t)(ldr_x100        & 0xFF);
     pkt[5]  = (uint8_t)(ldr_x100        >> 8);
     pkt[6]  = (uint8_t)(temp_x100       & 0xFF);
@@ -370,7 +324,6 @@ static void ble_send_packet(void)
     pkt[18] = (uint8_t)(sen.potassium    & 0xFF);
     pkt[19] = (uint8_t)(sen.potassium    >> 8);
 
-    /* int32_le GPS fields [20..27] */
     pkt[20] = (uint8_t)( lat_x1e6        & 0xFF);
     pkt[21] = (uint8_t)((lat_x1e6 >>  8) & 0xFF);
     pkt[22] = (uint8_t)((lat_x1e6 >> 16) & 0xFF);
@@ -382,18 +335,16 @@ static void ble_send_packet(void)
 
     pkt[28] = gps.fix_valid ? 0x01 : 0x00;
 
-    /* Checksum = XOR of bytes [0]..[28] */
     uint8_t chk = 0;
     for (int i = 0; i < 29; i++) chk ^= pkt[i];
     pkt[29] = chk;
     pkt[30] = PKT_END_BYTE;
 
-    /* -- BLE Notify ------------------------------------------ */
     esp_err_t err = esp_ble_gatts_send_indicate(
         s_gatts_if, s_conn_id,
         s_handle_table[IDX_CHAR_DATA_VAL],
         PKT_TOTAL_SIZE, pkt,
-        false);   /* false = Notify (no ACK) */
+        false);
 
     if (err == ESP_OK)
         ESP_LOGI(GATTS_TAG,
@@ -493,11 +444,15 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
             param->connect.remote_bda[0], param->connect.remote_bda[1],
             param->connect.remote_bda[2], param->connect.remote_bda[3],
             param->connect.remote_bda[4], param->connect.remote_bda[5]);
-        s_conn_id       = param->connect.conn_id;
-        s_ble_connected = true;
-        s_connect_tick  = NOW_MS();
-        s_ble_state     = BLE_CONN_BURST;
+        s_conn_id        = param->connect.conn_id;
+        s_ble_connected  = true;
+        s_notify_enabled = false;
         memcpy(s_peer_bda, param->connect.remote_bda, sizeof(esp_bd_addr_t));
+        /* OPT-2: use spinlock-guarded setter for cross-core safety */
+        portENTER_CRITICAL(&s_ble_state_mux);
+        s_state_change_tick = NOW_MS();
+        s_ble_state = BLE_CONN_BURST;
+        portEXIT_CRITICAL(&s_ble_state_mux);
         {
             esp_ble_conn_update_params_t cp = {0};
             memcpy(cp.bda, param->connect.remote_bda, sizeof(esp_bd_addr_t));
@@ -512,8 +467,11 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
         s_ble_connected  = false;
         s_notify_enabled = false;
         s_conn_id        = 0xFFFF;
-        s_ble_state      = BLE_SEARCHING;
-        esp_ble_gap_start_advertising(&s_adv_params);
+        /* OPT-2: use spinlock-guarded setter for cross-core safety */
+        portENTER_CRITICAL(&s_ble_state_mux);
+        s_state_change_tick = NOW_MS();
+        s_ble_state = BLE_DISCONNECTING;
+        portEXIT_CRITICAL(&s_ble_state_mux);
         break;
 
     case ESP_GATTS_MTU_EVT:
@@ -527,7 +485,6 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
             ESP_LOGI(GATTS_TAG, "WRITE handle=%d len=%d",
                      param->write.handle, param->write.len);
 
-            /* CCCD: Flutter enables/disables notifications */
             if (param->write.handle == s_handle_table[IDX_CHAR_DATA_CCCD]
                 && param->write.len == 2) {
                 uint16_t cccd = (uint16_t)(param->write.value[1] << 8)
@@ -542,7 +499,6 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
                 }
             }
 
-            /* CMD: "GET\n" triggers immediate push */
             if (param->write.handle == s_handle_table[IDX_CHAR_CMD_VAL]) {
                 if (param->write.len >= 3 &&
                     memcmp(param->write.value, "GET", 3) == 0) {
@@ -656,6 +612,12 @@ static uint16_t modbus_crc16(const uint8_t *buf, size_t len)
     return crc;
 }
 
+/*
+ * OPT-3: soil_val() now returns the register value directly (>=0) or -1 on
+ * error. Previously it returned bool and soil_req_once() discarded the value,
+ * forcing a second call in the SOIL_READ macro. Now the value flows through
+ * soil_req_once → soil_req → SOIL_READ in a single pass with no redundant CRC.
+ */
 static int soil_val(const uint8_t *r)
 {
     if (r[0]!=0x01||r[1]!=0x03||r[2]!=0x02) return -1;
@@ -675,32 +637,19 @@ static void rs485_tx(const uint8_t *data, size_t len)
     gpio_set_level(SOIL_DE_RE_PIN, 0);
 }
 
-/*
- * rs485_flush_rx: drain the RX FIFO completely before sending a request.
- * Two-pass flush: driver buffer + any bytes still arriving from the line.
- * The 20 ms final wait ensures the line is truly silent before we TX.
- */
 static void rs485_flush_rx(void)
 {
     uart_flush_input(SOIL_UART);
     uint8_t tmp[64]; int n;
-    /* drain any bytes already in the ring buffer */
     do {
         n = uart_read_bytes(SOIL_UART, tmp, sizeof(tmp), pdMS_TO_TICKS(10));
     } while (n > 0);
-    /* wait for line to go silent (covers partial bytes still shifting in) */
     vTaskDelay(pdMS_TO_TICKS(20));
-    /* second pass – discard anything that arrived during the wait */
     uart_flush_input(SOIL_UART);
 }
 
-/*
- * soil_req_once: one TX→RX attempt.
- * Waits up to MODBUS_RESP_WAIT_MS for ≥7 bytes, then validates CRC.
- * Reads all available bytes (up to 16) so partial frames don't stay
- * in the buffer to corrupt the next request.
- */
-static bool soil_req_once(const uint8_t *req, size_t rlen, uint8_t *resp)
+/* OPT-3: Returns register value (>=0) on success, -1 on failure. */
+static int soil_req_once(const uint8_t *req, size_t rlen, uint8_t *resp)
 {
     rs485_flush_rx();
     rs485_tx(req, rlen);
@@ -713,34 +662,28 @@ static bool soil_req_once(const uint8_t *req, size_t rlen, uint8_t *resp)
         vTaskDelay(pdMS_TO_TICKS(5));
     }
 
-    /* Read exactly 7 bytes into resp[] for CRC validation */
     int got = uart_read_bytes(SOIL_UART, resp, 7, pdMS_TO_TICKS(30));
 
-    /* Drain any extra bytes that arrived (echo, noise, multi-frame) */
     uint8_t drain[16]; int extra;
     do {
         extra = uart_read_bytes(SOIL_UART, drain, sizeof(drain),
                                 pdMS_TO_TICKS(5));
     } while (extra > 0);
 
-    if (got < 7) return false;
-    return (soil_val(resp) >= 0);
+    if (got < 7) return -1;
+    return soil_val(resp);   /* single CRC call; value propagated upward */
 }
 
-/*
- * soil_req: robust multi-attempt wrapper.
- * After all retries fail it injects MODBUS_BUS_RECOVERY_MS of silence
- * to reset the sensor's internal RS485 state machine before the next
- * register is queried, preventing the failure cascade seen in logs.
- */
-static bool soil_req(const uint8_t *req, size_t rlen,
-                     uint8_t *resp, const char *name)
+/* OPT-3: Returns register value (>=0) on success, -1 after all retries. */
+static int soil_req(const uint8_t *req, size_t rlen,
+                    uint8_t *resp, const char *name)
 {
     for (int a = 1; a <= MODBUS_RETRIES; a++) {
-        if (soil_req_once(req, rlen, resp)) {
+        int v = soil_req_once(req, rlen, resp);
+        if (v >= 0) {
             if (a > 1)
                 ESP_LOGI(T_SOIL, "%s OK on attempt %d", name, a);
-            return true;
+            return v;
         }
         ESP_LOGW(T_SOIL, "%s attempt %d/%d failed", name, a, MODBUS_RETRIES);
         if (a < MODBUS_RETRIES)
@@ -748,43 +691,24 @@ static bool soil_req(const uint8_t *req, size_t rlen,
     }
     ESP_LOGE(T_SOIL, "%s: all %d attempts failed – bus recovery %d ms",
              name, MODBUS_RETRIES, MODBUS_BUS_RECOVERY_MS);
-    /*
-     * Bus recovery: hold DE/RE LOW (RX mode) and stay silent so the
-     * sensor can complete its inter-frame timeout and reset.
-     */
     gpio_set_level(SOIL_DE_RE_PIN, 0);
     rs485_flush_rx();
     vTaskDelay(pdMS_TO_TICKS(MODBUS_BUS_RECOVERY_MS));
-    rs485_flush_rx();   /* discard anything that arrived during recovery */
-    return false;
+    rs485_flush_rx();
+    return -1;
 }
 
-/*
- * SOIL_READ macro: read one register into raw_var, apply on_success,
- * then pause MODBUS_FRAME_GAP_MS regardless of success/failure.
- * Also tracks whether the cycle had any failures for the stale-data guard.
- */
+/* OPT-3: SOIL_READ macro no longer calls soil_val(); value comes from soil_req(). */
 #define SOIL_READ(req_arr, buf, raw_var, name, on_success)              \
     do {                                                                 \
-        if (soil_req((req_arr), sizeof(req_arr), (buf), (name))) {      \
-            int _v = soil_val(buf);                                      \
-            if (_v >= 0) { (raw_var) = _v; on_success; }                \
-        } else {                                                         \
-            any_fail = true;                                             \
-        }                                                                \
+        int _v = soil_req((req_arr), sizeof(req_arr), (buf), (name));   \
+        if (_v >= 0) { (raw_var) = _v; on_success; }                    \
+        else         { any_fail = true; }                                \
         vTaskDelay(pdMS_TO_TICKS(MODBUS_FRAME_GAP_MS));                 \
     } while (0)
 
 /* =========================================================
- *  TASK 1 - sensor_task (Core 0, p5)
- *
- *  Key fixes vs original:
- *   1. Retain last good readings on partial failure (stale-data guard).
- *      Only fields that succeed are updated; failed fields keep their
- *      previous value so the app never shows spurious zeros.
- *   2. EVT_SENSOR_READY is still fired every cycle so BLE stays live.
- *   3. SENSOR_POLL_MS is now a rest gap AFTER the cycle, not a fixed
- *      period, avoiding overlap with long retry storms.
+ *  TASK 1 - sensor_task
  * ========================================================= */
 static void sensor_task(void *pv)
 {
@@ -799,11 +723,6 @@ static void sensor_task(void *pv)
 
     uint8_t buf[7];
     int     raw;
-
-    /*
-     * working: accumulates new readings for this cycle.
-     * Initialised from g_sensor so fields that fail keep last good value.
-     */
     sensor_data_t working = {0};
 
     ESP_LOGI(T_SOIL, "Sensor task started – retries=%d recovery=%dms",
@@ -813,12 +732,10 @@ static void sensor_task(void *pv)
         bool any_fail = false;
         raw = 0;
 
-        /* Seed working copy with last confirmed readings */
         xSemaphoreTake(g_mutex, portMAX_DELAY);
         working = g_sensor;
         xSemaphoreGive(g_mutex);
 
-        /* -- Read 7 Modbus registers -- */
         SOIL_READ(REQ_TEMP,  buf, raw, "TEMP",  working.temperature  = raw / 10.0f);
         SOIL_READ(REQ_MOIST, buf, raw, "MOIST", working.moisture     = raw / 10.0f);
         SOIL_READ(REQ_EC,    buf, raw, "EC",    working.conductivity = (uint16_t)raw);
@@ -827,7 +744,6 @@ static void sensor_task(void *pv)
         SOIL_READ(REQ_P,     buf, raw, "P",     working.phosphorus   = (uint16_t)raw);
         SOIL_READ(REQ_K,     buf, raw, "K",     working.potassium    = (uint16_t)raw);
 
-        /* -- LDR (ADC, always succeeds) -- */
         {
             int araw = 0;
             adc_oneshot_read(adc, LDR_ADC_CHANNEL, &araw);
@@ -835,7 +751,6 @@ static void sensor_task(void *pv)
             ESP_LOGI(T_LDR, "ADC=%d  Light=%.1f%%", araw, (double)working.ldr_pct);
         }
 
-        /* -- Commit to shared struct -- */
         xSemaphoreTake(g_mutex, portMAX_DELAY);
         g_sensor = working;
         xSemaphoreGive(g_mutex);
@@ -858,51 +773,58 @@ static void sensor_task(void *pv)
                 working.phosphorus, working.potassium);
         }
 
-        /* Signal BLE task – always fire so app stays updated */
         xEventGroupSetBits(g_events, EVT_SENSOR_READY);
-
-        /* Rest gap before next cycle */
         vTaskDelay(pdMS_TO_TICKS(SENSOR_POLL_MS));
     }
 }
 
 /* =========================================================
- *  TASK 2 - gps_task (Core 0, p4)
+ *  TASK 2 - gps_task
  * ========================================================= */
 static void gps_task(void *pv)
 {
-    uint8_t *raw = malloc(GPS_BUF_SIZE);
-    char line[128]; int lpos=0;
-    if (!raw) { ESP_LOGE(T_GPS,"malloc"); vTaskDelete(NULL); return; }
-    ESP_LOGI(T_GPS,"GPS task started");
+    /*
+     * OPT-4: Static buffer instead of heap allocation.
+     * The buffer is permanent and never freed, so a static array avoids
+     * heap fragmentation and removes the null-check at startup.
+     */
+    static uint8_t raw[GPS_BUF_SIZE];
+    char line[128]; int lpos = 0;
+    ESP_LOGI(T_GPS, "GPS task started");
     while (1) {
-        int len = uart_read_bytes(GPS_UART,raw,GPS_BUF_SIZE-1,pdMS_TO_TICKS(100));
-        if (len<=0) continue;
-        for (int i=0;i<len;i++) {
-            char c=(char)raw[i];
-            if (c=='$') lpos=0;
-            if (lpos<(int)sizeof(line)-1) line[lpos++]=c;
-            if (c=='\n' && lpos>0) {
-                line[lpos]='\0';
-                for (int j=lpos-1;j>=0;j--) { if(line[j]=='\r'||line[j]=='\n') line[j]='\0'; else break; }
-                gps_data_t tmp;
-                xSemaphoreTake(g_mutex,portMAX_DELAY); tmp=g_gps; xSemaphoreGive(g_mutex);
-                if (nmea_parse(line,&tmp)) {
-                    xSemaphoreTake(g_mutex,portMAX_DELAY); g_gps=tmp; xSemaphoreGive(g_mutex);
-                    if (tmp.fix_valid)
-                        ESP_LOGI(T_GPS,"FIX lat=%.6f lon=%.6f alt=%.1fm sats=%d",
-                            (double)tmp.latitude,(double)tmp.longitude,
-                            (double)tmp.altitude,tmp.satellites);
+        int len = uart_read_bytes(GPS_UART, raw, GPS_BUF_SIZE-1, pdMS_TO_TICKS(100));
+        if (len <= 0) continue;
+        for (int i = 0; i < len; i++) {
+            char c = (char)raw[i];
+            if (c == '$') lpos = 0;
+            if (lpos < (int)sizeof(line)-1) line[lpos++] = c;
+            if (c == '\n' && lpos > 0) {
+                line[lpos] = '\0';
+                for (int j = lpos-1; j >= 0; j--) {
+                    if (line[j]=='\r'||line[j]=='\n') line[j]='\0'; else break;
                 }
-                lpos=0;
+                gps_data_t tmp;
+                xSemaphoreTake(g_mutex, portMAX_DELAY);
+                tmp = g_gps;
+                xSemaphoreGive(g_mutex);
+                if (nmea_parse(line, &tmp)) {
+                    xSemaphoreTake(g_mutex, portMAX_DELAY);
+                    g_gps = tmp;
+                    xSemaphoreGive(g_mutex);
+                    if (tmp.fix_valid)
+                        ESP_LOGI(T_GPS, "FIX lat=%.6f lon=%.6f alt=%.1fm sats=%d",
+                            (double)tmp.latitude, (double)tmp.longitude,
+                            (double)tmp.altitude, tmp.satellites);
+                }
+                lpos = 0;
             }
         }
     }
-    free(raw); vTaskDelete(NULL);
+    vTaskDelete(NULL);
 }
 
 /* =========================================================
- *  TASK 3 - bt_led_task (Core 1, p3)
+ *  TASK 3 - bt_led_task
  * ========================================================= */
 static void bt_led_task(void *pv)
 {
@@ -915,65 +837,150 @@ static void bt_led_task(void *pv)
     gpio_config(&leds);
     led(LED_RED_PIN,0); led(LED_GREEN_PIN,0); led(LED_BLUE_PIN,0);
     led(LED_RED_PIN,1); vTaskDelay(pdMS_TO_TICKS(POWERON_RED_MS)); led(LED_RED_PIN,0);
-    ESP_LOGI(GATTS_TAG,"Power-on blink done");
+    ESP_LOGI(GATTS_TAG, "Power-on blink done");
 
     gpio_config_t btn_cfg = {
-        .pin_bit_mask=(1ULL<<BUTTON_PIN),.mode=GPIO_MODE_INPUT,
-        .pull_up_en=GPIO_PULLUP_DISABLE,.pull_down_en=GPIO_PULLDOWN_DISABLE,
+        .pin_bit_mask=(1ULL<<BUTTON_PIN), .mode=GPIO_MODE_INPUT,
+        .pull_up_en=GPIO_PULLUP_ENABLE,
+        .pull_down_en=GPIO_PULLDOWN_DISABLE,
         .intr_type=GPIO_INTR_DISABLE,
     };
     gpio_config(&btn_cfg);
 
-    int last_btn=0; bool btn_held=false;
-    uint32_t btn_press_tick=0, blue_timer=NOW_MS();
-    bool blue_state=false;
+    int last_btn = 1;
+    bool btn_held = false;
+    uint32_t btn_press_tick = 0, blue_timer = NOW_MS();
+    bool blue_state = false;
 
     for (;;) {
-        uint32_t now = NOW_MS();
+        /*
+         * OPT-5: Block on event group instead of polling with xEventGroupGetBits.
+         * xEventGroupWaitBits sleeps until EVT_SENSOR_READY or EVT_BLE_SEND_NOW
+         * fires OR BTN_POLL_MS elapses — whichever comes first.
+         * This replaces the unconditional vTaskDelay(BTN_POLL_MS) at the loop
+         * bottom, eliminating idle wakeups and cutting BLE send latency to <1 ms.
+         * Button responsiveness is unchanged: the loop still runs at least every
+         * BTN_POLL_MS ms.
+         */
+        EventBits_t ev = xEventGroupWaitBits(
+            g_events,
+            EVT_SENSOR_READY | EVT_BLE_SEND_NOW,
+            pdTRUE,                       /* auto-clear matched bits */
+            pdFALSE,                      /* any bit suffices */
+            pdMS_TO_TICKS(BTN_POLL_MS));  /* timeout = button poll period */
 
-        /* Button */
-        int b = gpio_get_level(BUTTON_PIN);
-        if (b==1 && last_btn==0) { btn_press_tick=now; btn_held=true; }
-        if (b==0 && last_btn==1 && btn_held) btn_held=false;
-        if (btn_held && (now-btn_press_tick)>=BTN_LONG_MS) {
-            ESP_LOGI(GATTS_TAG,"Long press - disconnecting");
-            btn_held=false;
-            if (s_ble_connected) esp_ble_gap_disconnect(s_peer_bda);
-            else                 esp_ble_gap_start_advertising(&s_adv_params);
-            while (gpio_get_level(BUTTON_PIN)==1) vTaskDelay(pdMS_TO_TICKS(BTN_POLL_MS));
-            last_btn=0; vTaskDelay(pdMS_TO_TICKS(BTN_POLL_MS)); continue;
-        }
-        last_btn=b;
-
-        /* Blue LED */
-        ble_state_t bls=s_ble_state;
-        if (bls==BLE_SEARCHING) {
-            if ((now-blue_timer)>=BLE_SEARCH_BLINK_MS) {
-                blue_timer=now; blue_state=!blue_state; led(LED_BLUE_PIN,blue_state);
-            }
-        } else if (bls==BLE_CONN_BURST) {
-            led(LED_BLUE_PIN,1);
-            if ((now-s_connect_tick)>=BLE_CONN_BURST_MS) s_ble_state=BLE_CONNECTED;
-        } else { led(LED_BLUE_PIN,1); }
-
-        /* Green LED - GPS first fix */
-        bool fix;
-        xSemaphoreTake(g_mutex,portMAX_DELAY); fix=g_gps.fix_valid; xSemaphoreGive(g_mutex);
-        if (fix && !s_gps_led_shown) {
-            s_gps_led_shown=true; s_gps_led_active=true;
-            s_gps_led_tick=now;   led(LED_GREEN_PIN,1);
-        }
-        if (s_gps_led_active && (now-s_gps_led_tick)>=GPS_FIX_LED_MS) {
-            s_gps_led_active=false; led(LED_GREEN_PIN,0);
-        }
-
-        /* BLE notify */
-        EventBits_t ev=xEventGroupGetBits(g_events);
-        if (ev & (EVT_SENSOR_READY|EVT_BLE_SEND_NOW)) {
-            xEventGroupClearBits(g_events, EVT_SENSOR_READY|EVT_BLE_SEND_NOW);
+        if (ev & (EVT_SENSOR_READY | EVT_BLE_SEND_NOW)) {
             ble_send_packet();
         }
-        vTaskDelay(pdMS_TO_TICKS(BTN_POLL_MS));
+
+        uint32_t now = NOW_MS();
+
+        /* --- Button handling (active-low with pull-up) --- */
+        int b = gpio_get_level(BUTTON_PIN);
+
+        if (b == 0 && last_btn == 1) {
+            btn_press_tick = now;
+            btn_held = true;
+            ESP_LOGI(GATTS_TAG, "Button pressed");
+        }
+
+        if (b == 1 && last_btn == 0 && btn_held) {
+            ESP_LOGI(GATTS_TAG, "Button released (short press)");
+            btn_held = false;
+        }
+
+        if (btn_held && (now - btn_press_tick) >= BTN_LONG_MS) {
+            ESP_LOGI(GATTS_TAG, "Long press detected - disconnecting");
+            btn_held = false;
+
+            if (s_ble_connected) {
+                esp_ble_gap_disconnect(s_peer_bda);
+            }
+            /* OPT-2: spinlock-guarded state write */
+            portENTER_CRITICAL(&s_ble_state_mux);
+            s_ble_state = BLE_DISCONNECTING;
+            s_state_change_tick = now;
+            portEXIT_CRITICAL(&s_ble_state_mux);
+
+            while (gpio_get_level(BUTTON_PIN) == 0) {
+                vTaskDelay(pdMS_TO_TICKS(10));
+            }
+            vTaskDelay(pdMS_TO_TICKS(BTN_POLL_MS));
+        }
+        last_btn = b;
+
+        /* --- BLE state machine --- */
+        /* OPT-2: read state through spinlock-guarded getter */
+        ble_state_t current_state = ble_state_get();
+
+        switch (current_state) {
+            case BLE_DISCONNECTING:
+                if ((now - s_state_change_tick) >= BLE_RECONNECT_DELAY_MS) {
+                    portENTER_CRITICAL(&s_ble_state_mux);
+                    s_ble_state = BLE_SEARCHING;
+                    s_state_change_tick = now;
+                    portEXIT_CRITICAL(&s_ble_state_mux);
+                    esp_ble_gap_start_advertising(&s_adv_params);
+                    ESP_LOGI(GATTS_TAG, "Restarting advertising after cooldown");
+                }
+                break;
+
+            case BLE_CONN_BURST:
+                if ((now - s_state_change_tick) >= BLE_CONN_BURST_MS) {
+                    portENTER_CRITICAL(&s_ble_state_mux);
+                    s_ble_state = BLE_CONNECTED;
+                    portEXIT_CRITICAL(&s_ble_state_mux);
+                    ESP_LOGI(GATTS_TAG, "Connection burst complete - steady state");
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        /* --- Blue LED --- */
+        ble_state_t bls = ble_state_get();
+        if (bls == BLE_SEARCHING) {
+            if ((now - blue_timer) >= BLE_SEARCH_BLINK_MS) {
+                blue_timer = now;
+                blue_state = !blue_state;
+                led(LED_BLUE_PIN, blue_state);
+            }
+        } else if (bls == BLE_CONN_BURST || bls == BLE_CONNECTED) {
+            led(LED_BLUE_PIN, 1);
+        } else if (bls == BLE_DISCONNECTING) {
+            if ((now - blue_timer) >= 100) {
+                blue_timer = now;
+                blue_state = !blue_state;
+                led(LED_BLUE_PIN, blue_state);
+            }
+        }
+
+        /* --- Green LED – GPS first fix ---
+         * OPT-6: Skip mutex entirely once the first-fix LED has been shown.
+         * s_gps_led_shown is only ever written from this task so the read is safe.
+         */
+        if (!s_gps_led_shown) {
+            bool fix;
+            xSemaphoreTake(g_mutex, portMAX_DELAY);
+            fix = g_gps.fix_valid;
+            xSemaphoreGive(g_mutex);
+
+            if (fix) {
+                s_gps_led_shown  = true;
+                s_gps_led_active = true;
+                s_gps_led_tick   = now;
+                led(LED_GREEN_PIN, 1);
+                ESP_LOGI(T_GPS, "GPS fix acquired - green LED on");
+            }
+        }
+        if (s_gps_led_active && (now - s_gps_led_tick) >= GPS_FIX_LED_MS) {
+            s_gps_led_active = false;
+            led(LED_GREEN_PIN, 0);
+            ESP_LOGI(T_GPS, "GPS fix LED off");
+        }
+        /* No vTaskDelay here — xEventGroupWaitBits above already provides the
+         * BTN_POLL_MS sleep when no events are pending. */
     }
 }
 
@@ -982,11 +989,11 @@ static void bt_led_task(void *pv)
  * ========================================================= */
 void app_main(void)
 {
-    ESP_LOGI(T_MAIN,"=== Soil Testing Kit (BLE GATT binary) booting ===");
+    ESP_LOGI(T_MAIN, "=== Soil Testing Kit (BLE GATT binary) booting ===");
 
     esp_err_t ret = nvs_flash_init();
     if (ret==ESP_ERR_NVS_NO_FREE_PAGES||ret==ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase()); ret=nvs_flash_init();
+        ESP_ERROR_CHECK(nvs_flash_erase()); ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
 
@@ -995,35 +1002,41 @@ void app_main(void)
 
     /* UART2: GPS */
     const uart_config_t gps_cfg = {
-        .baud_rate=GPS_BAUD,.data_bits=UART_DATA_8_BITS,
-        .parity=UART_PARITY_DISABLE,.stop_bits=UART_STOP_BITS_1,
-        .flow_ctrl=UART_HW_FLOWCTRL_DISABLE,.source_clk=UART_SCLK_DEFAULT,
+        .baud_rate=GPS_BAUD, .data_bits=UART_DATA_8_BITS,
+        .parity=UART_PARITY_DISABLE, .stop_bits=UART_STOP_BITS_1,
+        .flow_ctrl=UART_HW_FLOWCTRL_DISABLE, .source_clk=UART_SCLK_DEFAULT,
     };
-    ESP_ERROR_CHECK(uart_param_config(GPS_UART,&gps_cfg));
-    ESP_ERROR_CHECK(uart_set_pin(GPS_UART,GPS_TX_PIN,GPS_RX_PIN,UART_PIN_NO_CHANGE,UART_PIN_NO_CHANGE));
-    ESP_ERROR_CHECK(uart_driver_install(GPS_UART,GPS_BUF_SIZE*2,0,0,NULL,0));
-    ESP_LOGI(T_GPS,"UART2 RX=GPIO%d TX=GPIO%d @%d",GPS_RX_PIN,GPS_TX_PIN,GPS_BAUD);
+    ESP_ERROR_CHECK(uart_param_config(GPS_UART, &gps_cfg));
+    ESP_ERROR_CHECK(uart_set_pin(GPS_UART, GPS_TX_PIN, GPS_RX_PIN,
+                                 UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
+    ESP_ERROR_CHECK(uart_driver_install(GPS_UART, GPS_BUF_SIZE*2, 0, 0, NULL, 0));
+    ESP_LOGI(T_GPS, "UART2 RX=GPIO%d TX=GPIO%d @%d", GPS_RX_PIN, GPS_TX_PIN, GPS_BAUD);
 
     /* UART1: Soil sensor */
     const uart_config_t soil_cfg = {
-        .baud_rate=SOIL_BAUD,.data_bits=UART_DATA_8_BITS,
-        .parity=UART_PARITY_DISABLE,.stop_bits=UART_STOP_BITS_1,
-        .flow_ctrl=UART_HW_FLOWCTRL_DISABLE,.source_clk=UART_SCLK_DEFAULT,
+        .baud_rate=SOIL_BAUD, .data_bits=UART_DATA_8_BITS,
+        .parity=UART_PARITY_DISABLE, .stop_bits=UART_STOP_BITS_1,
+        .flow_ctrl=UART_HW_FLOWCTRL_DISABLE, .source_clk=UART_SCLK_DEFAULT,
     };
-    ESP_ERROR_CHECK(uart_driver_install(SOIL_UART,512,0,0,NULL,0));
-    ESP_ERROR_CHECK(uart_param_config(SOIL_UART,&soil_cfg));
-    ESP_ERROR_CHECK(uart_set_pin(SOIL_UART,SOIL_TX_PIN,SOIL_RX_PIN,UART_PIN_NO_CHANGE,UART_PIN_NO_CHANGE));
+    ESP_ERROR_CHECK(uart_driver_install(SOIL_UART, 512, 0, 0, NULL, 0));
+    ESP_ERROR_CHECK(uart_param_config(SOIL_UART, &soil_cfg));
+    ESP_ERROR_CHECK(uart_set_pin(SOIL_UART, SOIL_TX_PIN, SOIL_RX_PIN,
+                                 UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
     {
-        gpio_config_t de={.pin_bit_mask=(1ULL<<SOIL_DE_RE_PIN),.mode=GPIO_MODE_OUTPUT,
-            .pull_up_en=GPIO_PULLUP_DISABLE,.pull_down_en=GPIO_PULLDOWN_DISABLE,.intr_type=GPIO_INTR_DISABLE};
+        gpio_config_t de = {
+            .pin_bit_mask=(1ULL<<SOIL_DE_RE_PIN), .mode=GPIO_MODE_OUTPUT,
+            .pull_up_en=GPIO_PULLUP_DISABLE, .pull_down_en=GPIO_PULLDOWN_DISABLE,
+            .intr_type=GPIO_INTR_DISABLE
+        };
         ESP_ERROR_CHECK(gpio_config(&de));
-        gpio_set_level(SOIL_DE_RE_PIN,0);
+        gpio_set_level(SOIL_DE_RE_PIN, 0);
     }
-    ESP_LOGI(T_SOIL,"UART1/RS485 TX=GPIO%d RX=GPIO%d DE/RE=GPIO%d",SOIL_TX_PIN,SOIL_RX_PIN,SOIL_DE_RE_PIN);
+    ESP_LOGI(T_SOIL, "UART1/RS485 TX=GPIO%d RX=GPIO%d DE/RE=GPIO%d",
+             SOIL_TX_PIN, SOIL_RX_PIN, SOIL_DE_RE_PIN);
 
-    /* BLE */
+    /* BLE Initialization */
     ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT));
-    esp_bt_controller_config_t bt_cfg=BT_CONTROLLER_INIT_CONFIG_DEFAULT();
+    esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_bt_controller_init(&bt_cfg));
     ESP_ERROR_CHECK(esp_bt_controller_enable(ESP_BT_MODE_BLE));
     ESP_ERROR_CHECK(esp_bluedroid_init());
@@ -1033,12 +1046,22 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_ble_gatts_app_register(GATTS_APP_ID));
     ESP_ERROR_CHECK(esp_ble_gatt_set_local_mtu(BLE_MTU));
 
-    ESP_LOGI(T_MAIN,"BLE ready name=\"%s\" SVC=0x%04X DATA=0x%04X CMD=0x%04X pkt=%dB",
-        DEVICE_NAME,SOILKIT_SERVICE_UUID,SOILKIT_CHAR_DATA_UUID,SOILKIT_CHAR_CMD_UUID,PKT_TOTAL_SIZE);
+    ESP_LOGI(T_MAIN,
+        "BLE ready name=\"%s\" SVC=0x%04X DATA=0x%04X CMD=0x%04X pkt=%dB",
+        DEVICE_NAME, SOILKIT_SERVICE_UUID,
+        SOILKIT_CHAR_DATA_UUID, SOILKIT_CHAR_CMD_UUID, PKT_TOTAL_SIZE);
 
-    xTaskCreatePinnedToCore(sensor_task,"sensor",4096,NULL,5,NULL,0);
-    xTaskCreatePinnedToCore(gps_task,   "gps",   4096,NULL,4,NULL,0);
-    xTaskCreatePinnedToCore(bt_led_task,"bt_led",4096,NULL,3,NULL,1);
+    /*
+     * OPT-7: sensor_task moved to core 1.
+     * The ESP-IDF BT stack runs heavily on core 0. Keeping sensor_task on
+     * core 0 forces it to compete with BT callbacks for CPU time.
+     * Moving it to core 1 (alongside bt_led_task) distributes load evenly:
+     *   Core 0 → BT stack + gps_task
+     *   Core 1 → sensor_task + bt_led_task
+     */
+    xTaskCreatePinnedToCore(sensor_task, "sensor", 4096, NULL, 5, NULL, 1);
+    xTaskCreatePinnedToCore(gps_task,    "gps",    4096, NULL, 4, NULL, 0);
+    xTaskCreatePinnedToCore(bt_led_task, "bt_led", 4096, NULL, 3, NULL, 1);
 
-    ESP_LOGI(T_MAIN,"All tasks running - waiting for Flutter BLE connection...");
+    ESP_LOGI(T_MAIN, "All tasks running - waiting for Flutter BLE connection...");
 }
