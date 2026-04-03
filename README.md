@@ -238,4 +238,8 @@ CONFIG_FREERTOS_UNICORE=n          # Dual-core required
 
 ## License
 
+<<<<<<< HEAD
 This project is proprietary to **Advanced Research Computing (ARC)**. All rights reserved.
+=======
+This project is proprietary to **Advanced Research Computing (ARC)**. All rights reserved.
+>>>>>>> 4ea1c49d1e7b6e884f0669cab34436bbd1b1e477
