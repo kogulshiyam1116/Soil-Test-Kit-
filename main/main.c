@@ -63,7 +63,7 @@
 #define BTN_LONG_MS          2000
 #define BLE_RECONNECT_DELAY_MS 500
 
-#define SENSOR_POLL_MS       2000
+#define SENSOR_POLL_MS       1000
 
 #define RS485_DE_PRE_US          500
 #define RS485_DE_POST_US         500

@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "gatt_server_demos",
-    "project_version":    "3711a9e-dirty",
+    "project_version":    "f279998-dirty",
     "project_path":       "C:/Users/HP/WorkSpace/STK_Final",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.3.1",
     "build_dir":          "C:/Users/HP/WorkSpace/STK_Final/build",
